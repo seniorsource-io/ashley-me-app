@@ -16,12 +16,12 @@ const CTAMiniSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="bg-card rounded-2xl bg-secondary shadow-xl p-4 sm:p-8 -translate-y-1/2 relative z-30" >
+            className="bg-card rounded-2xl bg-secondary-cream shadow-xl p-4 sm:p-8 -translate-y-1/2 relative z-30" >
 
             <div className="grid sm:grid-cols-3 gap-8">              
               <a
                 href="mailto:Ashley@SeniorOneSource.net"
-                className="group text-muted-foreground cursor-pointer block max-[640px]:hidden"
+                className="group text-secondary-foreground cursor-pointer block max-[640px]:hidden"
                 aria-label="Email Ashley Krause at Ashley@SeniorOneSource.net"
               >
                 <div className="flex flex-col items-center text-center gap-3">
@@ -32,7 +32,7 @@ const CTAMiniSection = () => {
                     <p className="font-heading font-semibold text-foreground transition-colors group-hover:text-primary">
                       Email Us
                     </p>
-                    <p className="text-muted-foreground text-sm transition-colors group-hover:text-primary">
+                    <p className="text-secondary-foreground text-sm transition-colors group-hover:text-primary">
                       Schedule appointment
                     </p>
                   </div>
@@ -54,7 +54,7 @@ const CTAMiniSection = () => {
                       Call Us
                     </p>
                     {/* 3. Phone number turns darker/primary on hover */}
-                    <p className="text-muted-foreground text-sm transition-colors group-hover:text-primary">
+                    <p className="text-secondary-foreground text-sm transition-colors group-hover:text-primary">
                       Connect live
                     </p>
                   </div>
@@ -62,7 +62,7 @@ const CTAMiniSection = () => {
               </a>
               <a
                 href=""
-                className="group text-muted-foreground cursor-pointer block max-[640px]:hidden"
+                className="group text-secondary-foreground cursor-pointer block max-[640px]:hidden"
                 aria-label="Share your details and we will contact you for an appointment."
               >
                 <div className="flex flex-col items-center text-center gap-3">
@@ -73,7 +73,7 @@ const CTAMiniSection = () => {
                     <p className="font-heading font-semibold text-foreground transition-colors group-hover:text-primary">
                       Tell Us Your Needs
                     </p>
-                    <p className="text-muted-foreground text-sm transition-colors group-hover:text-primary">
+                    <p className="text-secondary-foreground text-sm transition-colors group-hover:text-primary">
                       Connect online
                     </p>
                   </div>

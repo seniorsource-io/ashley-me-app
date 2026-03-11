@@ -20,7 +20,7 @@ const HeroSection = () => {
           priority // Adds a performance boost for the main hero image
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/80 via-foreground/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/75 to-foreground/10" />
       </div>
 
       <div className="container mx-auto px-6 isolate relative">

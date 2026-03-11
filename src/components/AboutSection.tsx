@@ -6,7 +6,7 @@ import { Heart, GraduationCap, MapPin, Users } from "lucide-react";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="pt-34 pb-16 bg-secondary">
+    <section id="about" className="pt-34 pb-16 bg-secondary-cream">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -21,7 +21,7 @@ export default function AboutSection() {
               alt="Ashley Krause"
               width={80}
               height={80}
-              className="w-24 h-24 rounded-lg object-cover shrink-0"
+              className="w-24 h-24 rounded-lg object-cover shrink-0 border-1 border-accent"
             />
             <div>
               <span className="text-sm font-semibold uppercase tracking-widest text-primary mb-3 block">
@@ -38,15 +38,15 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="bg-card rounded-2xl shadow-soft -mt-4 p-8 sm:p-12">
+            className="bg-card rounded-2xl shadow-lg -mt-4 p-8 sm:p-12">
 
             <div className="grid md:grid-cols-2 gap-8 mb-10">
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <p className="text-secondary-foreground text-lg leading-relaxed">
                 My desire to serve seniors and their families began when my mother-in-law suffered from a traumatic health event.
                 I learned how it feels to be in crisis with the need to quickly make decisions on care options and finances.
                 I had wished for someone to walk alongside me as a knowledgeable resource who had my loved one's best interest in mind.
               </p>
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <p className="text-secondary-foreground text-lg leading-relaxed">
                 I started my journey working onsite for assisted living and memory care communities.
                 With the knowledge and experience I have in the Salem-Portland area, I felt it was time to focus on families
                 and helping them find the very best solution for their loved one. I understand the emotional toll moving can inflict on seniors and
@@ -61,7 +61,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <p className="font-heading font-semibold text-foreground text-sm">Based in Lake Oswego</p>
-                  <p className="text-muted-foreground text-sm">Portland metro area</p>
+                  <p className="text-secondary-foreground text-sm">Portland metro area</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -70,7 +70,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <p className="font-heading font-semibold text-foreground text-sm">Community Experience</p>
-                  <p className="text-muted-foreground text-sm">Onsite associate turned senior living advisor</p>
+                  <p className="text-secondary-foreground text-sm">Onsite associate turned senior living advisor</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -79,7 +79,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <p className="font-heading font-semibold text-foreground text-sm">Family Focused</p>
-                  <p className="text-muted-foreground text-sm">Mom of three, two labradoodles</p>
+                  <p className="text-secondary-foreground text-sm">Mom of three, two labradoodles</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -88,7 +88,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <p className="font-heading font-semibold text-foreground text-sm">Former Educator</p>
-                  <p className="text-muted-foreground text-sm">Elementary school teacher</p>
+                  <p className="text-secondary-foreground text-sm">Elementary school teacher</p>
                 </div>
               </div>
             </div>

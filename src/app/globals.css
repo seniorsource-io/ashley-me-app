@@ -29,7 +29,6 @@
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -40,29 +39,26 @@ body {
     --primary: 196 81% 27%;
     --primary-foreground: 0 0% 100%; /* White text */
 
-    /* Modern Coral Accent (#F29F81) - Warm & Caring */
-    --accent: 12 82% 73%;
+    /* Modern Accent - Warm & Caring */
+    --accent: 20 35% 58%; /* Coral */
     --accent-foreground: 196 80% 10%; /* Dark navy text for contrast on coral */
+    --accent-gold: 38 55% 54%; /* Gold */
 
     /* Background & Text */
-    --background: 210 20% 98%; /* Clean off-white */
-    --foreground: 196 81% 10%; /* Deepest blue for main body text */
+    --background: 200 15% 97%; /* #F8FAFC */
+    --foreground: 196 80% 10%; /* Deepest blue for main body text */
 
-    /* Secondary/Muted (The soft blue we liked earlier) */
-    --secondary: 203 31% 62%;
-    --secondary-foreground: 196 80% 10%;
-
-    --background: 209 40% 96%;
-    --foreground: 222 47% 11%;
+    --secondary: 20 20% 97%; /* #FAF9F8 */
+    --secondary-deep: 203 20% 94%; /* #E2E8EC */
+    --secondary-clinic: 200 15% 97%; /* #F8FAFC */
+    --secondary-cream: 50 33% 96%; /* #80A5BC */
+    --secondary-foreground: 215 19% 34%; /* "Soft Blue" (Calm & Professional) */
 
     --card: 210 40% 98%;
     --card-foreground: 222 47% 11%;
 
     --popover: 214 31% 91%;
     --popover-foreground: 222 47% 11%;
-
-    --secondary: 50 33% 96%;
-    --secondary-foreground: 215 19.3182% 34.5098%;
 
     --muted: 215 20% 65%;
     --muted-foreground: 222 47% 11%;
@@ -171,7 +167,6 @@ body {
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-
 }
 
 .logo {
@@ -190,11 +185,6 @@ body {
 @layer base {
   * {
      @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-    font-family: var(--font-body);
   }
 
   h1, h2, h3, h4, h5, h6 {

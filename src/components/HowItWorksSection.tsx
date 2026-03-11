@@ -33,7 +33,7 @@ const steps = [
 
 const HowItWorksSection = () => {
   return (
-    <section id="how-it-works" className="py-12 bg-slate-50">
+    <section id="how-it-works" className="py-12 bg-secondary-clinic">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -48,7 +48,7 @@ const HowItWorksSection = () => {
           <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-4">
             How It Works
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+          <p className="text-secondary-foreground max-w-2xl mx-auto text-lg">
             Finding the right senior living community doesn't have to be overwhelming. 
             Here's our straightforward approach.
           </p>
@@ -76,7 +76,7 @@ const HowItWorksSection = () => {
               <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
                 {step.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-secondary-foreground leading-relaxed">
                 {step.description}
               </p>
             </motion.div>

@@ -70,7 +70,10 @@ export default {
   			},
   			secondary: {
   				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
+  				foreground: 'hsl(var(--secondary-foreground))',
+				deep: 'hsl(var(--secondary-deep))',
+				clinic: 'hsl(var(--secondary-clinic))',
+				cream: 'hsl(var(--secondary-cream))'
   			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',

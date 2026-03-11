@@ -38,8 +38,8 @@ const TestimonialsSection = () => {
           alt=""
           width={1024}    /* Original width */
           height={1024}   /* Original height */
-          className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-foreground/85" />
+          className="w-full h-full object-cover blur-[2px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-foreground/95 via-foreground/85 to-foreground/80" />
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
@@ -69,7 +69,7 @@ const TestimonialsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-card/10 backdrop-blur-md rounded-xl p-8 border border-primary-foreground/10"
+              className="bg-card/5 backdrop-blur-md rounded-xl p-8 border border-primary-foreground/10"
             >
               <Quote className="w-8 h-8 text-accent/60 mb-4" />
               <div className="flex gap-1 mb-4">

@@ -40,7 +40,7 @@ const Navbar = () => {
               <span className="text-foreground/20 font-light px-2">|</span>
               <span className="text-primary">Senior One Source</span>
             </span>
-            <span className="text-sm text-muted-foreground tracking-wider">
+            <span className="text-sm text-secondary-foreground tracking-wider">
               Your Trusted Senior Living Advisor
             </span>
           </div>
@@ -88,7 +88,7 @@ const Navbar = () => {
             <a
               key={link.label}
               href={link.href}
-              className="block py-2 text-muted-foreground hover:text-foreground hover:underline transition-colors"
+              className="block py-2 text-secondary-foreground hover:text-foreground hover:underline transition-colors"
               onClick={() => setIsOpen(false)}
             >
               {link.label}

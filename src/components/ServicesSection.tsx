@@ -7,15 +7,15 @@ import { Search, MapPin, ClipboardCheck, HeartHandshake, Home, Stethoscope, Doll
 const services = [
 {
   icon: Home,
-  title: "Assisted Living & Memory Care",
+  title: "Independent / Assisted Living",
   description:
-  "I help match your loved one with the right assisted living or memory care community based on their unique needs and preferences."
+  "I help match your loved one with the right independent or assisted living community based on their unique needs and preferences."
 },
 {
   icon: Search,
-  title: "Independent Living & Group Homes",
+  title: "Adult Family Homes / Memory Care",
   description:
-  "From independent living to smaller group/foster care homes, I'll help you explore every option available in your area."
+  "For smaller group care homes and memory care needs, I'll help you explore every option available in your area."
 },
 {
   icon: Stethoscope,
@@ -33,7 +33,7 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section id="services" className="py-12 bg-[sidebar-primary-foreground] bg-[#ededed]">
+    <section id="services" className="py-12 bg-secondary-deep">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,15 +63,15 @@ const ServicesSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className="bg-card rounded-xl p-8 shadow-soft hover:shadow-medium transition-shadow group">
+            className="bg-card rounded-xl p-8 shadow-lg">
             
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                 <service.icon className="w-7 h-7 text-primary" />
               </div>
               <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
                 {service.title}
               </h3>
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-secondary-foreground leading-relaxed">
                 {service.description}
               </p>
             </motion.div>
