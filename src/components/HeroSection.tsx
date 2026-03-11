@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   return (
-    <section className="relative flex flex-col items-start pt-14 pb-38 px-2">
+    <section className="relative flex flex-col items-start pt-10 pb-32 px-2">
 
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -87,7 +87,7 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-12 flex items-center gap-8 text-primary-foreground/70 text-sm"
+            className="mt-10 flex items-center gap-8 text-primary-foreground/70 text-sm"
           >
             <div className="flex flex-col">
               <span className="text-2xl font-heading font-bold text-accent">5+</span>
