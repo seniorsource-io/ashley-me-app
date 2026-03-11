@@ -6,7 +6,7 @@ import { Heart, GraduationCap, MapPin, Users } from "lucide-react";
 
 export default function AboutSection() {
   return (
-    <section id="about" className="pt-34 pb-12 bg-secondary">
+    <section id="about" className="pt-34 pb-16 bg-secondary">
       <div className="container mx-auto px-6">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -14,14 +14,23 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12">
-
-            <span className="text-sm font-semibold uppercase tracking-widest text-primary mb-3 block">
-              About Me
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-4">
-              Meet Ashley
-            </h2>
+            className="flex flex-col sm:flex-row items-center justify-center gap-6 text-center sm:text-left mb-12"
+          >
+            <Image
+              src="/ashley-krause.jpg"
+              alt="Ashley Krause"
+              width={80}
+              height={80}
+              className="w-24 h-24 rounded-lg object-cover shrink-0"
+            />
+            <div>
+              <span className="text-sm font-semibold uppercase tracking-widest text-primary mb-3 block">
+                About Me
+              </span>
+              <span className="text-3xl sm:text-4xl font-heading font-bold text-foreground">
+                Meet Ashley
+              </span>
+            </div>
           </motion.div>
 
           <motion.div
@@ -29,7 +38,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="bg-card rounded-2xl shadow-soft p-8 sm:p-12">
+            className="bg-card rounded-2xl shadow-soft -mt-4 p-8 sm:p-12">
 
             <div className="grid md:grid-cols-2 gap-8 mb-10">
               <p className="text-muted-foreground text-lg leading-relaxed">
