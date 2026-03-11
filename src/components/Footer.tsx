@@ -26,7 +26,7 @@ const Footer = () => {
         <div className="border-t border-primary-foreground/20 mt-8 pt-8 pb-1 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-primary-foreground/60">
           <p>© {new Date().getFullYear()} Ashley Krause, Senior Living Advisor. All rights reserved.</p>
           <p className="flex items-center gap-1">
-            Made with <Heart className="w-3 h-3 text-primary" /> for families everywhere
+            Made with <Heart className="w-3 h-3 text-accent" /> for families everywhere
           </p>
         </div>
       </div>

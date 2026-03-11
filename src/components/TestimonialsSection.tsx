@@ -50,7 +50,7 @@ const TestimonialsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-sm font-semibold uppercase tracking-widest text-gold mb-3 block">
+          <span className="text-sm font-semibold uppercase tracking-widest text-accent mb-3 block">
             Testimonials
           </span>
           <h2 className="text-3xl sm:text-4xl font-heading font-bold text-primary-foreground mb-4">
@@ -71,10 +71,10 @@ const TestimonialsSection = () => {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="bg-card/10 backdrop-blur-md rounded-xl p-8 border border-primary-foreground/10"
             >
-              <Quote className="w-8 h-8 text-gold/60 mb-4" />
+              <Quote className="w-8 h-8 text-accent/60 mb-4" />
               <div className="flex gap-1 mb-4">
                 {Array.from({ length: t.rating }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-gold text-gold" />
+                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
                 ))}
               </div>
               <p className="text-primary-foreground/90 leading-relaxed mb-6 italic">

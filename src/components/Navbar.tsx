@@ -25,7 +25,7 @@ const Navbar = () => {
           {/* 1. The Logo (Set fixed size here) */}
           <div className="shrink-0">
             <Image
-              src="/logo.svg"
+              src="/logo.png"
               alt="Ashley Krause Logo"
               width={75}
               height={75}

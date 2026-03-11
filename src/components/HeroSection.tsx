@@ -37,14 +37,14 @@ const HeroSection = () => {
               alt="Ashley Krause"
               width={408}    /* Original width */
               height={524}   /* Original height */
-              className="w-31 h-[147px] sm:w-35 sm:h-[167px] lg:w-43 lg:h-[199px] rounded-xl object-cover border-2 border-gold shadow-lg shrink-0 mt-0"
+              className="w-31 h-[147px] sm:w-35 sm:h-[167px] lg:w-43 lg:h-[199px] rounded-xl object-cover border-2 border-accent shadow-lg shrink-0 mt-0"
             />
             <div>
               <h1 className="text-lg sm:text-xl lg:text-2xl font-heading font-bold text-primary-foreground leading-tight text-balance">
                 Hi, I'm Ashley Krause<br />
               </h1>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
-                <span className="text-gold">Let's Find the Right Care for Your Next Chapter</span>
+                <span className="text-accent">Let's Find the Right Care for Your Next Chapter</span>
               </h1>
             </div>
           </motion.div>
@@ -90,17 +90,17 @@ const HeroSection = () => {
             className="mt-12 flex items-center gap-8 text-primary-foreground/70 text-sm"
           >
             <div className="flex flex-col">
-              <span className="text-2xl font-heading font-bold text-gold">5+</span>
+              <span className="text-2xl font-heading font-bold text-accent">5+</span>
               <span>Years Experience</span>
             </div>
             <div className="w-px h-10 bg-primary-foreground/20" />
             <div className="flex flex-col">
-              <span className="text-2xl font-heading font-bold text-gold">100%</span>
+              <span className="text-2xl font-heading font-bold text-accent">100%</span>
               <span>Free Service</span>
             </div>
             <div className="w-px h-10 bg-primary-foreground/20" />
             <div className="flex flex-col">
-              <span className="text-2xl font-heading font-bold text-gold">Serving Portland OR</span>
+              <span className="text-2xl font-heading font-bold text-accent">Serving Portland OR</span>
               <span>Metro and Beyond</span>
             </div>
           </motion.div>
