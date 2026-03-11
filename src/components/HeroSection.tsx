@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   return (
-    <section className="relative flex flex-col items-start pt-10 pb-32 px-2">
+    <section className="relative flex flex-col items-start pt-12 pb-32 px-2">
 
       {/* Background Image */}
       <div className="absolute inset-0">
