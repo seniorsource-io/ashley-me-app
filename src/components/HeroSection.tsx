@@ -44,7 +44,7 @@ const HeroSection = () => {
                 Hi, I'm Ashley Krause<br />
               </h1>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
-                <span className="text-accent">Let's Find the Right Care for Your Next Chapter</span>
+                <span className="text-accent">Let's Find the Right Place for Your Next Chapter</span>
               </h1>
             </div>
           </motion.div>
