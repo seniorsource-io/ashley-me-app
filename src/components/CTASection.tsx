@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 
 const CTASection = () => {
   return (
-    <section id="contact" className="py-12 bg-secondary-clinic">
+    <section id="contact" className="py-12 bg-secondary-cream">
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <motion.div

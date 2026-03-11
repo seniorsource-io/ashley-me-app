@@ -50,7 +50,7 @@ export default function AboutSection() {
                 I started my journey working onsite for assisted living and memory care communities.
                 With the knowledge and experience I have in the Salem-Portland area, I felt it was time to focus on families
                 and helping them find the very best solution for their loved one. I understand the emotional toll moving can inflict on seniors and
-                their families, and my desire is to make this effortless for my clients.
+                their families, and my desire is to make this experience effortless for my clients.
               </p>
             </div>
 
