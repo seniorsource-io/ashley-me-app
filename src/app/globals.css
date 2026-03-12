@@ -35,9 +35,8 @@ body {
 
 @layer base {
   :root {
-    /* High-Contrast Teal-Blue (#0D607E) */
-    --primary: 196 81% 27%;
-    --primary-foreground: 0 0% 100%; /* White text */
+    --primary: 196 81% 27%;  /* High-Contrast Teal-Blue (#0D607E) */
+    --primary-foreground: 44 48% 95%; /* #F9F6EE Bone White text */
 
     /* Modern Accent - Warm & Caring */
     --accent: 20 35% 58%; /* Coral */
@@ -46,13 +45,13 @@ body {
 
     /* Background & Text */
     --background: 200 15% 97%; /* #F8FAFC */
-    --foreground: 196 80% 10%; /* Deepest blue for main body text */
+    --foreground: 196 80% 10%; /* #05232D Deepest blue for main body text */
 
     --secondary: 20 20% 97%; /* #FAF9F8 */
     --secondary-deep: 203 20% 94%; /* #E2E8EC */
     --secondary-clinic: 200 15% 97%; /* #F8FAFC */
-    --secondary-cream: 50 33% 96%; /* #80A5BC */
-    --secondary-foreground: 215 19% 34%; /* "Soft Blue" (Calm & Professional) */
+    --secondary-cream: 50 33% 96%; /* #F9F8F3 */
+    --secondary-foreground: 215 19% 34%; /* #465468 "Soft Blue" (Calm & Professional) */
 
     --card: 210 40% 98%;
     --card-foreground: 222 47% 11%;

@@ -20,7 +20,7 @@ const HeroSection = () => {
           priority // Adds a performance boost for the main hero image
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/75 to-foreground/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/75 to-foreground/20" />
       </div>
 
       <div className="container mx-auto px-6 isolate relative">
@@ -44,7 +44,7 @@ const HeroSection = () => {
                 Hi, I'm Ashley Krause<br />
               </h1>
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
-                <span className="text-accent">Let's Find the Right Place for Your Next Chapter</span>
+                <span className="text-accent">Let's Find the Right Care for Your Next Chapter</span>
               </h1>
             </div>
           </motion.div>
@@ -90,8 +90,8 @@ const HeroSection = () => {
             className="mt-10 flex items-center gap-8 text-primary-foreground/70 text-sm"
           >
             <div className="flex flex-col">
-              <span className="text-2xl font-heading font-bold text-accent">5+</span>
-              <span>Years Experience</span>
+              <span className="text-2xl font-heading font-bold text-accent">Serving Portland</span>
+              <span>Metro and Beyond</span>
             </div>
             <div className="w-px h-10 bg-primary-foreground/20" />
             <div className="flex flex-col">
@@ -100,8 +100,8 @@ const HeroSection = () => {
             </div>
             <div className="w-px h-10 bg-primary-foreground/20" />
             <div className="flex flex-col">
-              <span className="text-2xl font-heading font-bold text-accent">Serving Portland OR</span>
-              <span>Metro and Beyond</span>
+              <span className="text-2xl font-heading font-bold text-accent">Over 600+</span>
+              <span>Clients Served</span>
             </div>
           </motion.div>
         </div>

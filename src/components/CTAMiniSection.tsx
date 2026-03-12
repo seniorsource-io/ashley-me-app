@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { motion } from "framer-motion";
-import { Phone, Mail, ClipboardList } from "lucide-react";
+import { Phone, Mail, ClipboardList, Link } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const CTAMiniSection = () => {
@@ -18,7 +18,7 @@ const CTAMiniSection = () => {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="bg-card rounded-2xl bg-secondary-cream shadow-xl p-6 sm:p-7 -translate-y-1/2 relative z-30" >
 
-            <div className="grid sm:grid-cols-3 gap-8">              
+            <div className="grid sm:grid-cols-3 gap-8">
               <a
                 href="mailto:Ashley@SeniorOneSource.net"
                 className="group text-secondary-foreground cursor-pointer block max-[640px]:hidden"
@@ -61,7 +61,7 @@ const CTAMiniSection = () => {
                 </div>
               </a>
               <a
-                href=""
+                href="/connect"
                 className="group text-secondary-foreground cursor-pointer block max-[640px]:hidden"
                 aria-label="Share your details and we will contact you for an appointment."
               >
@@ -70,12 +70,12 @@ const CTAMiniSection = () => {
                     <ClipboardList className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <p className="font-heading font-semibold text-foreground transition-colors group-hover:text-primary">
-                      Tell Us Your Needs
-                    </p>
-                    <p className="text-secondary-foreground text-sm transition-colors group-hover:text-primary">
-                      Connect online
-                    </p>
+                      <span className="block font-heading font-semibold text-foreground transition-colors group-hover:text-primary">
+                        Tell Us Your Needs
+                      </span>
+                      <span className="block text-secondary-foreground text-sm transition-colors group-hover:text-primary">
+                        Connect online
+                      </span>
                   </div>
                 </div>
               </a>
