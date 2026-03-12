@@ -62,7 +62,7 @@ const CTAMiniSection = () => {
               </a>
               <a
                 href="/connect"
-                className="group text-secondary-foreground cursor-pointer"
+                className="group text-secondary-foreground cursor-pointer block max-[640px]:hidden"
                 aria-label="Share your details and we will contact you for an appointment."
               >
                 <div className="flex flex-col items-center text-center gap-3">
