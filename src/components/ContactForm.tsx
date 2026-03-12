@@ -27,8 +27,6 @@ const Form = () => {
                         <Widget
                             id="BGG10VPS"
                             style={{ width: '100%', height: '100%' }}
-                            hideHeaders
-                            hideFooter
                             className="h-full w-full" />
                     </div>
 

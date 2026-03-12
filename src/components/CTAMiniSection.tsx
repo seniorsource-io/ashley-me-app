@@ -71,7 +71,7 @@ const CTAMiniSection = () => {
                   </div>
                   <div>
                       <span className="block font-heading font-semibold text-foreground transition-colors group-hover:text-primary">
-                        Tell Us Your Needs
+                        Tell Us About Your Needs
                       </span>
                       <span className="block text-secondary-foreground text-sm transition-colors group-hover:text-primary">
                         Connect online
