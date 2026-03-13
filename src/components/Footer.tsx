@@ -11,7 +11,7 @@ const Footer = () => {
           <a href="#" className="font-heading text-2xl font-bold text-primary-foreground tracking-tight">        
             <span className="text-nowrap">Ashley Krause</span>
             <span className="text-primary-foreground/30 font-thin px-2">|</span>
-            <span className="text-primary hidden sm:flex inline-block whitespace-nowrap">Senior One Source</span>
+            <span className="text-primary hidden">Senior One Source</span>
           </a>
 
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-primary-foreground/60">
