@@ -97,7 +97,6 @@ const CTAMiniSection = () => {
                 width="390px"
                 height="600px"  
                 onSubmit={handleSubmit} // Trigger the close logic here
-                enableSandbox
               >
               </PopupButton>
             </div>

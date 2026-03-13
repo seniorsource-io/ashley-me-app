@@ -115,8 +115,7 @@ const CTASection = () => {
                 style={{ display: 'none' }} // Completely hides the default button
                 width="390px"
                 height="600px"  
-                onSubmit={handleSubmit} // Trigger the close logic here
-                enableSandbox
+                onSubmit={handleSubmit} // Trigger the close logic here                
               >
               </PopupButton>
             </div>
