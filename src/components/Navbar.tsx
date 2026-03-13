@@ -36,7 +36,7 @@ const Navbar = () => {
               <span className="font-heading text-2xl font-bold text-foreground tracking-tight leading-tight">
                 <span className="text-nowrap">Ashley Krause</span>
                 <span className="text-foreground/20 font-light px-2 max-[480px]:hidden">|</span>
-                <span className="text-primary max-[480px]:hidden">Senior One Source</span>
+                <span className="text-primary max-[480px]:hidden inline-block whitespace-nowrap">Senior One Source</span>
               </span>
               <span className="text-sm text-secondary-foreground tracking-wider">
                 Your Trusted Senior Living Advisor
