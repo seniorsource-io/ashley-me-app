@@ -47,7 +47,7 @@ const CTASection = () => {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="bg-card rounded-2xl shadow-lg p-8 sm:p-12" >
 
-            <div className="grid sm:grid-cols-3 gap-8 mb-10">
+            <div className="grid sm:grid-cols-2 gap-8 mb-10"> {/* Change back to cols-3 when adding back typeform */}
               <a
                 href="mailto:Ashley@SeniorOneSource.net"
                 className="group text-secondary-foreground cursor-pointer block"
@@ -89,9 +89,10 @@ const CTASection = () => {
                   </div>
                 </div>
               </a>
+              {/* Remove hidden to bring back on Apr 10th */}
               <a
                 onClick={openPopup}
-                className="group text-secondary-foreground cursor-pointer block hidden" // Remove hidden to bring back on Apr 10th
+                className="group text-secondary-foreground cursor-pointer block hidden"
                 aria-label="Share your details and we will contact you for an appointment."
               >
                 <div className="flex flex-col items-center text-center gap-3">

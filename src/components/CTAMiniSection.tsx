@@ -29,7 +29,7 @@ const CTAMiniSection = () => {
             transition={{ duration: 0.6, delay: 0.15 }}
             className="bg-card rounded-2xl bg-secondary-cream shadow-xl p-6 sm:p-7 -translate-y-1/2 relative z-30" >
 
-            <div className="grid sm:grid-cols-3 gap-8">
+            <div className="grid sm:grid-cols-2 gap-8"> {/*Change back to cols-3 when adding back typeform */}
               <a
                 href="mailto:Ashley@SeniorOneSource.net"
                 className="group text-secondary-foreground cursor-pointer block max-[640px]:hidden"
@@ -71,9 +71,10 @@ const CTAMiniSection = () => {
                   </div>
                 </div>
               </a>
+              {/* Replace hidden with max-[640px]:hidden to bring back on Apr 10th */}
               <a
                 onClick={openPopup}
-                className="group text-secondary-foreground cursor-pointer block hidden" // Replace hidden with max-[640px]:hidden to bring back on Apr 10th
+                className="group text-secondary-foreground cursor-pointer block hidden"
                 aria-label="Share your details and we will contact you for an appointment."
               >
                 <div className="flex flex-col items-center text-center gap-3">
