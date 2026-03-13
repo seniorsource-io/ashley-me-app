@@ -1,11 +1,22 @@
 'use client'
 
-import Image from 'next/image';
 import { motion } from "framer-motion";
 import { Phone, Mail, ClipboardList } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useRef } from 'react';
+import { PopupButton } from '@typeform/embed-react';
 
 const CTASection = () => {
+
+  const ref = useRef<any>(null); // Initialize with null
+  const openPopup = () => ref.current?.open();
+
+  const handleSubmit = () => {
+    // 1. Optional: Wait a moment so they see the "Thank You" screen
+    setTimeout(() => {
+      ref.current?.close();
+    }, 3000); // 3 seconds delay
+  };
+
   return (
     <section id="contact" className="py-12 bg-secondary-cream">
       <div className="container mx-auto px-6">
@@ -79,7 +90,7 @@ const CTASection = () => {
                 </div>
               </a>
               <a
-                href=""
+                onClick={openPopup}
                 className="group text-secondary-foreground cursor-pointer block"
                 aria-label="Share your details and we will contact you for an appointment."
               >
@@ -98,6 +109,16 @@ const CTASection = () => {
                   </div>
                 </div>
               </a>
+              <PopupButton
+                id="BGG10VPS" 
+                embedRef={ref}
+                style={{ display: 'none' }} // Completely hides the default button
+                width="390px"
+                height="600px"  
+                onSubmit={handleSubmit} // Trigger the close logic here
+                enableSandbox
+              >
+              </PopupButton>
             </div>
             <div className="text-center">
               <p className="text-md text-secondary-foreground mt-2">

@@ -1,11 +1,22 @@
 'use client'
 
-import Image from 'next/image';
 import { motion } from "framer-motion";
 import { Phone, Mail, ClipboardList, Link } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useRef } from 'react';
+import { PopupButton } from '@typeform/embed-react';
 
 const CTAMiniSection = () => {
+
+  const ref = useRef<any>(null); // Initialize with null
+  const openPopup = () => ref.current?.open();
+
+  const handleSubmit = () => {
+    // 1. Optional: Wait a moment so they see the "Thank You" screen
+    setTimeout(() => {
+      ref.current?.close();
+    }, 3000); // 3 seconds delay
+  };
+
   return (
     <section id="contactmini" className="relative h-0 z-30 overflow-visible">
       <div className="container mx-auto">
@@ -61,7 +72,7 @@ const CTAMiniSection = () => {
                 </div>
               </a>
               <a
-                href="/connect"
+                onClick={openPopup}
                 className="group text-secondary-foreground cursor-pointer block max-[640px]:hidden"
                 aria-label="Share your details and we will contact you for an appointment."
               >
@@ -79,6 +90,16 @@ const CTAMiniSection = () => {
                   </div>
                 </div>
               </a>
+              <PopupButton
+                id="BGG10VPS" 
+                embedRef={ref}
+                style={{ display: 'none' }} // Completely hides the default button
+                width="390px"
+                height="600px"  
+                onSubmit={handleSubmit} // Trigger the close logic here
+                enableSandbox
+              >
+              </PopupButton>
             </div>
           </motion.div>
 
