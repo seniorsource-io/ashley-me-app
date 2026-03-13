@@ -73,7 +73,7 @@ const CTAMiniSection = () => {
               </a>
               <a
                 onClick={openPopup}
-                className="group text-secondary-foreground cursor-pointer block max-[640px]:hidden"
+                className="group text-secondary-foreground cursor-pointer block hidden" // Replace hidden with max-[640px]:hidden to bring back on Apr 10th
                 aria-label="Share your details and we will contact you for an appointment."
               >
                 <div className="flex flex-col items-center text-center gap-3">

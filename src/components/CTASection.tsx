@@ -91,7 +91,7 @@ const CTASection = () => {
               </a>
               <a
                 onClick={openPopup}
-                className="group text-secondary-foreground cursor-pointer block"
+                className="group text-secondary-foreground cursor-pointer block hidden" // Remove hidden to bring back on Apr 10th
                 aria-label="Share your details and we will contact you for an appointment."
               >
                 <div className="flex flex-col items-center text-center gap-3">
