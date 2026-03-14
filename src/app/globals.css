@@ -35,35 +35,23 @@ body {
 
 @layer base {
   :root {
-    --primary: 196 81% 27%;
-    /* High-Contrast Teal-Blue (#0D607E) */
-    --primary-foreground: 44 48% 95%;
-    /* #F9F6EE Bone White text */
+    --primary: 196 81% 27%;  /* High-Contrast Teal-Blue (#0D607E) */
+    --primary-foreground: 44 48% 95%; /* #F9F6EE Bone White text */
 
     /* Modern Accent - Warm & Caring */
-    --accent: 20 35% 58%;
-    /* Coral */
-    --accent-foreground: 196 80% 10%;
-    /* Dark navy text for contrast on coral */
-    --accent-gold: 38 55% 54%;
-    /* Gold */
+    --accent: 20 35% 58%; /* Coral */
+    --accent-foreground: 196 80% 10%; /* Dark navy text for contrast on coral */
+    --accent-gold: 38 55% 54%; /* Gold */
 
     /* Background & Text */
-    --background: 200 15% 97%;
-    /* #F8FAFC */
-    --foreground: 196 80% 10%;
-    /* #05232D Deepest blue for main body text */
+    --background: 200 15% 97%; /* #F8FAFC */
+    --foreground: 196 80% 10%; /* #05232D Deepest blue for main body text */
 
-    --secondary: 20 20% 97%;
-    /* #FAF9F8 */
-    --secondary-deep: 203 20% 94%;
-    /* #E2E8EC */
-    --secondary-clinic: 200 15% 97%;
-    /* #F8FAFC */
-    --secondary-cream: 50 33% 96%;
-    /* #F9F8F3 */
-    --secondary-foreground: 215 19% 34%;
-    /* #465468 "Soft Blue" (Calm & Professional) */
+    --secondary: 20 20% 97%; /* #FAF9F8 */
+    --secondary-deep: 203 20% 94%; /* #E2E8EC */
+    --secondary-clinic: 200 15% 97%; /* #F8FAFC */
+    --secondary-cream: 50 33% 96%; /* #F9F8F3 */
+    --secondary-foreground: 215 19% 34%; /* #465468 "Soft Blue" (Calm & Professional) */
 
     --card: 210 40% 98%;
     --card-foreground: 222 47% 11%;
@@ -128,8 +116,54 @@ body {
     --tracking-normal: 0em;
     --spacing: 0.25rem;
   }
+  .dark {
+    /* Background & Text - Deep Navy Theme */
+    --background: 196 80% 6%; /* Almost black navy */
+    --foreground: 44 48% 95%;   /* Bone White text */
+
+    /* Primary - Brighten the Teal-Blue for visibility */
+    --primary: 196 70% 45%; 
+    --primary-foreground: 196 80% 6%;
+
+    /* Accent - Soften the Coral and Gold for dark mode */
+    --accent: 20 50% 65%; /* Muted Coral */
+    --accent-foreground: 196 80% 6%;
+    --accent-gold: 38 55% 65%;
+
+    /* Surfaces & Cards */
+    --card: 196 80% 10%; /* Slightly lighter than background */
+    --card-foreground: 44 48% 95%;
+    --popover: 196 80% 12%;
+    --popover-foreground: 44 48% 95%;
+
+    /* Secondary / Neutrals */
+    --secondary: 196 30% 15%; 
+    --secondary-foreground: 215 20% 85%;
+    --muted: 196 20% 25%;
+    --muted-foreground: 215 20% 75%;
+
+    /* Borders & Inputs */
+    --border: 196 30% 18%;
+    --input: 196 30% 18%;
+    --ring: 196 70% 45%;
+
+    /* Custom Sage/Cream overrides for dark mode */
+    --sage: 152 25% 45%;
+    --sage-light: 152 20% 15%; /* Darker background version */
+    --cream: 40 20% 15%;      /* Dark "parchment" feel */
+    --cream-dark: 40 20% 10%;
+    
+    /* Shadows - Use a darker, more opaque shadow for depth */
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.5);
+    --shadow-medium: 0 8px 30px -8px hsl(0 0% 0% / 0.7);
+
+    /* Sidebar - Matches the deep navy theme */
+    --sidebar: 196 80% 8%;
+    --sidebar-foreground: 44 48% 95%;
+    --sidebar-primary: 196 70% 45%;
+    --sidebar-border: 196 30% 18%;
+  }
 }
-@variant dark (false);
 
 @theme inline {
   --color-background: var(--background);
@@ -144,26 +178,19 @@ body {
   will-change: filter;
   transition: filter 300ms;
 }
-
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
-
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
 @layer base {
   * {
-    @apply border-border;
+     @apply border-border;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
   }
 }
@@ -178,7 +205,6 @@ body {
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
