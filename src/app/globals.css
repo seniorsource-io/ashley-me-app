@@ -166,6 +166,10 @@ body {
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-primary: hsl(var(--primary));
+  --color-accent: hsl(var(--accent));
+  --color-card: hsl(var(--card));
+  --text-2-5xl: 1.6875rem;
 }
 
 .logo {

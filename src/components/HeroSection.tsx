@@ -20,7 +20,7 @@ const HeroSection = () => {
           priority // Adds a performance boost for the main hero image
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/75 to-foreground/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/78 to-foreground/27" />
       </div>
 
       <div className="container mx-auto px-6 isolate relative">
@@ -30,7 +30,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex items-start gap-5 mb-6 relative z-20"
+            className="flex items-start gap-4 mb-6 relative z-20"
           >
             <Image
               src="/ashley-krause.jpg"
@@ -40,7 +40,7 @@ const HeroSection = () => {
               className="w-31 h-[147px] sm:w-35 sm:h-[167px] lg:w-44 lg:h-[204px] rounded-xl object-cover border-2 border-accent shadow-lg shrink-0 mt-0"
             />
             <div>
-              <h1 className="mt-0 sm:mt-3 lg:mt-4 text-2xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
+              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
                 <span className="text-accent">Personalized Senior Care Solutions for Your Peace of Mind</span><br />
               </h1>
             </div>
