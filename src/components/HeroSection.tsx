@@ -20,27 +20,27 @@ const HeroSection = () => {
           priority // Adds a performance boost for the main hero image
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/78 to-foreground/27" />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/94 via-foreground/82 to-foreground/35" />
       </div>
 
-      <div className="container mx-auto px-6 isolate relative">
+      <div className="container mx-auto px-4 isolate relative">
         <div className="max-w-2xl isolate relative">
           <motion.div
             layout
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex items-start gap-4 mb-6 relative z-20"
+            className="flex items-start gap-5 mb-6 relative z-20"
           >
             <Image
               src="/ashley-krause.jpg"
               alt="Ashley Krause"
               width={408}    /* Original width */
               height={524}   /* Original height */
-              className="w-31 h-[147px] sm:w-35 sm:h-[167px] lg:w-44 lg:h-[204px] rounded-xl object-cover border-2 border-accent shadow-lg shrink-0 mt-0"
+              className="w-30 h-[141px] sm:w-30 sm:h-[141px] lg:w-38 lg:h-[183px] rounded-xl object-cover border-2 border-accent shadow-lg shrink-0 mt-0"
             />
             <div>
-              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
+              <h1 className="mt-1 text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
                 <span className="text-accent">Personalized Senior Care Solutions for Your Peace of Mind</span><br />
               </h1>
             </div>
@@ -50,7 +50,7 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-lg text-primary-foreground/80 mb-8 max-w-lg leading-relaxed"
+            className="text-lg text-primary-foreground/80 mb-7 max-w-lg leading-relaxed"
           >
             My team and I help families in the Portland area and beyond navigate the journey to
             senior living with personalized guidance, compassion, and expertise — at no cost to you.
