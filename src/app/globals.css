@@ -116,10 +116,10 @@ body {
     --tracking-normal: 0em;
     --spacing: 0.25rem;
   }
-/*
   .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    --background: 200 15% 97%; /* #F8FAFC */
+    --foreground: 196 80% 10%; /* #05232D Deepest blue for main body text */
+    /*
     --card: 217 32% 17%;
     --card-foreground: 210 40% 98%;
     --popover: 215 24% 26%;
@@ -158,9 +158,9 @@ body {
     --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
     --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
     --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+    */
   }
 }
-*/
 
 @theme inline {
   --color-background: var(--background);
