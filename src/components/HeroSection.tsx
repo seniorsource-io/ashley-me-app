@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   return (
-    <section className="relative flex flex-col items-start pt-12 pb-32 px-2">
+    <section className="relative flex flex-col items-start pt-10 pb-32 px-2">
 
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -20,7 +20,7 @@ const HeroSection = () => {
           priority // Adds a performance boost for the main hero image
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/75 to-foreground/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-foreground/90 via-foreground/75 to-foreground/30" />
       </div>
 
       <div className="container mx-auto px-6 isolate relative">
@@ -30,21 +30,18 @@ const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex items-start gap-4 mb-6 relative z-20"
+            className="flex items-start gap-5 mb-6 relative z-20"
           >
             <Image
               src="/ashley-krause.jpg"
               alt="Ashley Krause"
               width={408}    /* Original width */
               height={524}   /* Original height */
-              className="w-31 h-[147px] sm:w-35 sm:h-[167px] lg:w-43 lg:h-[199px] rounded-xl object-cover border-2 border-accent shadow-lg shrink-0 mt-0"
+              className="w-31 h-[147px] sm:w-35 sm:h-[167px] lg:w-44 lg:h-[204px] rounded-xl object-cover border-2 border-accent shadow-lg shrink-0 mt-0"
             />
             <div>
-              <h1 className="text-lg sm:text-xl lg:text-2xl font-heading font-bold text-primary-foreground leading-tight text-balance">
-                Hi, I'm Ashley Krause<br />
-              </h1>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
-                <span className="text-accent">Let's Find the Right Care for Your Next Chapter</span>
+              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
+                <span className="text-accent">Personalized Senior Care Solutions for Your Peace of Mind</span><br />
               </h1>
             </div>
           </motion.div>
