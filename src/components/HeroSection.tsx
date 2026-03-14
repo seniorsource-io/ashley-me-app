@@ -40,7 +40,7 @@ const HeroSection = () => {
               className="w-31 h-[147px] sm:w-35 sm:h-[167px] lg:w-44 lg:h-[204px] rounded-xl object-cover border-2 border-accent shadow-lg shrink-0 mt-0"
             />
             <div>
-              <h1 className="mt-4 text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
+              <h1 className="mt-0 sm:mt-2 lg:mt-4 text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
                 <span className="text-accent">Personalized Senior Care Solutions for Your Peace of Mind</span><br />
               </h1>
             </div>
