@@ -27,7 +27,7 @@ const CTAMiniSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="bg-card rounded-2xl bg-secondary-cream shadow-xl p-6 sm:p-7 -translate-y-1/2 relative z-30" >
+            className="bg-card rounded-2xl bg-secondary-cream shadow-xl p-5 sm:p-6 -translate-y-1/2 relative z-30" >
 
             <div className="grid sm:grid-cols-2 gap-8"> {/*Change back to cols-3 when adding back typeform */}
               <a
