@@ -6,30 +6,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap");
-
 @import "tailwindcss";
 
+/* 1. Remove the old media query and root vars entirely */
+/* 2. Tell Tailwind v4 to use the 'class' strategy */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
+  color-scheme: light; /* Forces browser elements to light mode */
   --background: #ffffff;
   --foreground: #171717;
 }
 
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  color-scheme: dark; /* Forces browser elements to dark mode */
 }
 
 body {
-  color: var(--foreground);
+  /* Use the HSL variables you defined in @layer base */
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
   font-family: Arial, Helvetica, sans-serif;
 }
 
