@@ -40,7 +40,7 @@ const HeroSection = () => {
               className="w-30 h-[141px] sm:w-30 sm:h-[141px] lg:w-38 lg:h-[183px] rounded-xl object-cover border-2 border-accent shadow-lg shrink-0 mt-0"
             />
             <div>
-              <h1 className="mt-1 text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
+              <h1 className="mt-0 sm:mt-1 lg:mt-1 text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
                 <span className="text-accent">Personalized Senior Care Solutions for Your Peace of Mind</span><br />
               </h1>
             </div>
@@ -84,7 +84,7 @@ const HeroSection = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-10 flex items-center gap-8 text-primary-foreground/70 text-sm"
+            className="mt-8 flex items-center gap-8 text-primary-foreground/70 text-sm"
           >
             <div className="flex flex-col">
               <span className="text-2xl font-heading font-bold text-accent">Serving Portland</span>
