@@ -5,9 +5,9 @@ import { Heart } from "lucide-react";
 import { motion } from "framer-motion";
 import { Widget } from '@typeform/embed-react'
 
-const Form = () => {
+const CustomerContact = () => {
     return (
-        <section id="contact-form" className="relative overflow-hidden items-center justify-center p-6">
+        <section id="client-contact-form" className="relative overflow-hidden items-center justify-center p-6">
 
             {/* Background Image */}
             <div className="absolute inset-0">
@@ -36,4 +36,4 @@ const Form = () => {
     );
 };
 
-export default Form;
+export default CustomerContact;
