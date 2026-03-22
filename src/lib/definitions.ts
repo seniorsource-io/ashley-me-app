@@ -1,0 +1,41 @@
+export type City = string;
+export type State = string;
+export type ZipCode = string;
+export type PhoneNumber = string;
+export type EmailAddress = string;
+
+export type Community = {
+    uuid: string;
+    name: string;
+    classification: string;
+    status: 'pending' | 'paid';
+    address: string;
+    city: City;
+    state: State;
+    zip: ZipCode;
+    phone: PhoneNumber;
+    email: EmailAddress;
+    website: URL;
+    description: string;
+    images: string[];
+    videos: string[];
+    documents: string[];
+    links: string[];
+    tags: string[];
+    keywords: string[];
+    meta_title: string;
+    meta_description: string;
+    meta_keywords: string[];
+    created_at: Date;
+    updated_at: Date;
+  };
+  export type Customer = {
+    uuid: string;
+    first_name: string;
+    last_name: string;
+    email: string;
+    mobile_phone: string;
+    status: 'pending' | 'paid';
+    created_at: string;
+    updated_at: string;
+  };
