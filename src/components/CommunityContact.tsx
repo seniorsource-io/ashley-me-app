@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react";
 import { searchAddresses } from "@/app/actions";
 import type { Community } from "@/lib/definitions";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Circle, UserCheck } from 'lucide-react';
+import { Circle, Check, UserCheck, HeartHandshake } from 'lucide-react';
 
 const CommunityContact = () => {
     const [query, setQuery] = useState("");
@@ -42,6 +42,16 @@ const CommunityContact = () => {
         setSelectedItem(item); // Store the selection here
     };
 
+    const [isChecked, setIsChecked] = useState(true);
+
+    const handleApply = () => {
+        // Add your logic here
+        console.log("Application started!");
+        alert("Thank you for your interest in our community!");
+        // window.location.href = "/apply"; // Example redirect
+    };
+
+
     return (
         <section id="community-contact-form" className="pt-0 pb-16 bg-secondary-paper">
             <div className="container mx-auto px-6">
@@ -55,8 +65,8 @@ const CommunityContact = () => {
                         className="text-center mb-5">
 
                         <span className="flex flex-row items-center gap-3 text-lg font-semibold uppercase justify-center tracking-widest text-accent">
-                            <span className="text-accent">Sign Up Here</span>
-                            <UserCheck className="w-6 h-6 text-accent" />
+                            <span className="text-accent-coralDeep/90">Sign Up Here</span>
+                            <UserCheck className="w-6 h-6 text-accent-coralDeep/90" />
                         </span>
 
                     </motion.div>
@@ -77,7 +87,7 @@ const CommunityContact = () => {
                                     <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
                                         <Circle
                                             size={60}
-                                            className="fill-accent stroke-white"
+                                            className="fill-accent-coralDeep/90 stroke-white"
                                             strokeWidth={1.5}
                                         />
                                         <span className="absolute text-white font-bold text-2xl select-none">
@@ -86,7 +96,7 @@ const CommunityContact = () => {
                                     </div>
 
                                     {/* The Step Text aligned to the right of the circle */}
-                                    <div className="text-accent text-xl font-semibold leading-tight">
+                                    <div className="text-accent-coralDeep/90 text-xl font-semibold leading-tight">
                                         Step 1:<br />Find your community address
                                     </div>
                                 </div>
@@ -132,14 +142,14 @@ const CommunityContact = () => {
                                         <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
                                             <Circle
                                                 size={60} // Slightly smaller for a tighter vertical profile
-                                                className="fill-accent stroke-white"
+                                                className="fill-accent-coralDeep/90 stroke-white"
                                                 strokeWidth={1.5}
                                             />
                                             <span className="absolute text-white font-bold text-2xl select-none">
                                                 2
                                             </span>
                                         </div>
-                                        <div className="text-accent text-xl font-semibold leading-tight">
+                                        <div className="text-accent-coralDeep/90 text-xl font-semibold leading-tight">
                                             Step 2:<br />Confirm your contact information
                                         </div>
                                     </div>
@@ -196,24 +206,68 @@ const CommunityContact = () => {
                             <div className="w-full sm:w-[420px] relative mb-8">
 
                                 {/* Step 3 ROW: Circle and Step Text aligned together */}
-                                <div className="flex flex-col gap-1 w-full sm:w-[420px]">
+                                <div className="flex flex-col items-start gap-1 w-full sm:w-[420px]">
                                     {/* Step 3 Header ROW */}
-                                    <div className="flex flex-row items-center justify-start gap-2">
+                                    <div className="flex flex-row items-center justify-start gap-2 mb-0">
                                         {/* Reduced container to h-12 to match the circle size more closely */}
                                         <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
                                             <Circle
                                                 size={60} // Slightly smaller for a tighter vertical profile
-                                                className="fill-accent stroke-white"
+                                                className="fill-accent-coralDeep/90 stroke-white"
                                                 strokeWidth={1.5}
                                             />
                                             <span className="absolute text-white font-bold text-2xl select-none">
                                                 3
                                             </span>
                                         </div>
-                                        <div className="text-accent text-xl font-semibold leading-tight">
-                                            Step 3:<br />Join and stay updated!
+                                        <div className="text-accent-coralDeep/90 text-xl font-semibold leading-tight">
+                                            Step 3:<br />Apply and select your preferences
                                         </div>
                                     </div>
+                                    <label className="group flex items-center gap-3 cursor-pointer select-none w-fit py-2 px-5 mb-1">
+                                        {/* Hidden Native Input */}
+                                        <input
+                                            type="checkbox"
+                                            className="sr-only"
+                                            checked={isChecked}
+                                            onChange={() => setIsChecked(!isChecked)}
+                                        />
+                                        {/* Custom Checkbox Square */}
+                                        <div
+                                            className={
+                                                isChecked
+                                                    ? "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-accent-coralDeep/90 border-accent-coralDeep/90"
+                                                    : "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-white border-gray-300 group-hover:border-accent-coralDeep/75"
+                                            }
+                                        >
+                                            <Check
+                                                size={18}
+                                                className={isChecked ? "text-white opacity-100 transition-opacity" : "opacity-0"}
+                                                strokeWidth={4}
+                                            />
+                                        </div>
+
+                                        {/* Checkbox Label Text */}
+                                        <span className={
+                                            isChecked
+                                                ? "text-lg tracking-wide font-medium text-accent-coralDeep"
+                                                : "text-lg tracking-wide font-medium text-gray-600"
+                                        }>
+                                            Contact me by text message (SMS)
+                                        </span>
+                                    </label>
+
+                                </div>
+                                <div className="w-full flex justify-center py-2">
+                                    <button
+                                        onClick={handleApply}
+                                        className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 bg-accent-coralDeep/90 hover:bg-accent-coralDeep/75 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg uppercase text-sm tracking-widest cursor-pointer">
+                                        <span>Apply Now to Join</span>
+                                        <HeartHandshake
+                                            size={20}
+                                            className="transition-transform duration-300 group-hover:scale-120"
+                                        />
+                                    </button>
                                 </div>
                             </div>
                         </div>

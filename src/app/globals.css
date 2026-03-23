@@ -12,6 +12,11 @@
 /* 2. Tell Tailwind v4 to use the 'class' strategy */
 @custom-variant dark (&:where(.dark, .dark *));
 
+
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   color-scheme: light; /* Forces browser elements to light mode */
   --background: #ffffff;
@@ -35,9 +40,11 @@ body {
     --primary-foreground: 44 48% 95%; /* #F9F6EE Bone White text */
 
     /* Modern Accent - Warm & Caring */
-    --accent: 20 35% 58%; /* Coral */
+    --accent: 20 35% 58%; /* Coral Bronze */
     --accent-foreground: 196 80% 10%; /* Dark navy text for contrast on coral */
     --accent-gold: 38 55% 54%; /* Gold */
+    --accent-coral: 350 90% 65%; /* Coral */
+    --accent-coral-deep: 350 80% 50%; /* Coral */
 
     /* Background & Text */
     --background: 200 15% 97%; /* #F8FAFC */
