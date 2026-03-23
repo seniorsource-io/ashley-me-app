@@ -1,30 +1,46 @@
 'use server';
 
 import clientPromise from "@/lib/mongodb";
-import type { Address } from "@/types/address";
+import type { Community } from "@/lib/definitions";
 
-export async function searchAddresses(query: string): Promise<Address[]> {
-    if (query.length < 2) return [];
+export async function searchAddresses(query: string): Promise<Community[]> {
+    if (query.length < 1) return [];
 
     const client = await clientPromise;
-    const collection = client.db("your_db").collection("addresses");
+    const collection = client.db("senior_living_db").collection("communities");
 
     const results = await collection.aggregate([
         {
             $search: {
                 index: "address",
-                autocomplete: {
-                    query: query,
-                    path: "address",
-                    fuzzy: { maxEdits: 1 } // Allows for 1 typo
+                compound: {
+                  // 'should' adds to the score; it doesn't strictly filter
+                  should: [
+                    {
+                      autocomplete: {
+                        query: query,
+                        path: "address"
+                        //fuzzy: { maxEdits: 1 }
+                      }
+                    },
+                    {
+                      phrase: {
+                        query: query,
+                        path: "address",
+                        // Multiply the score of exact phrase matches by 5
+                        score: { boost: { value: 5 } } 
+                      }
+                    }
+                  ]
                 }
-            }
+              }
         },
         { $limit: 5 },
-        { $project: { _id: 1, address: 1, city: 1, zip: 1 } }
+        { $project: { _id: 1, address: 1, city: 1, state: 1, zip: 1, phone: 1, email: 1, license_number: 1, firstname: 1, lastname: 1, gender_restriction: 1, has_medicaid_contract: 1, medicaid_spend_down: 1, monthly_base_price: 1, monthly_high_price: 1, care_services: 1, community_rating: 1, community_rating_reason: 1, community_narrative: 1, title: 1, website: 1, description: 1, images: 1, videos: 1, documents: 1, links: 1, tags: 1, created_at: 1, updated_at: 1 } }
+
     ]).toArray();
 
-    return results as unknown as Address[];
+    return JSON.parse(JSON.stringify(results)) as Community[];
 }
 
 export async function testMongoConnection() {

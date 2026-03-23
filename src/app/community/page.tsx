@@ -1,15 +1,16 @@
 //import { createHubSpotCompany } from './actions'
+import Navbar from "@/components/Navbar";
+import CommunityContact from "@/components/CommunityContact";
+import CommunityJoinUs from "@/components/CommunityJoinUs";
+import Footer from "@/components/Footer";
 
 export default function CommunityForm() {
-  return (
-    /*<form action={createHubSpotCompany}>
-      <input name="name" placeholder="Company Name" required />
-      <input name="domain" placeholder="example.com" required />
-      <button type="submit">Save to HubSpot</button>
-    </form>
-    */
-    <div>
-      <h1>Community Form</h1>
-    </div>
-  );
+    return (
+        <div className="min-h-screen bg-background">
+            <Navbar />
+            <CommunityJoinUs />
+            <CommunityContact />
+            <Footer />
+        </div>
+    );
 }

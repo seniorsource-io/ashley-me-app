@@ -5,6 +5,7 @@ export type PhoneNumber = string;
 export type EmailAddress = string;
 
 export type Community = {
+    _id: string;
     uuid: string;
     classification: string;
     status: 'open' | 'closed';
@@ -18,8 +19,8 @@ export type Community = {
     is_violation_free: boolean;
     license_number: string;
     joined_at: Date;
-    first_name: string;
-    last_name: string;
+    firstname: string;
+    lastname: string;
     gender_restriction: 'male' | 'female' | 'both';
     has_medicaid_contract: boolean;
     medicaid_spend_down: string;
@@ -50,4 +51,10 @@ export type Community = {
     closed_reason: 'paid' | 'deceased' | 'terminated' | 'duplicate' | 'financial_inability' | 'other';
     created_at: Date;
     updated_at: Date;
+  };
+  export type MailingAddress = {
+    address: string;
+    city: string;
+    state: string;
+    zip: string;
   };

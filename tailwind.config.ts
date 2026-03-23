@@ -73,7 +73,8 @@ export default {
   				foreground: 'hsl(var(--secondary-foreground))',
 				deep: 'hsl(var(--secondary-deep))',
 				clinic: 'hsl(var(--secondary-clinic))',
-				cream: 'hsl(var(--secondary-cream))'
+				cream: 'hsl(var(--secondary-cream))',
+				paper: 'hsl(var(--secondary-paper))'
   			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
@@ -93,7 +94,8 @@ export default {
   			},
   			card: {
   				DEFAULT: 'hsl(var(--card))',
-  				foreground: 'hsl(var(--card-foreground))'
+  				foreground: 'hsl(var(--card-foreground))',
+				secondary: 'hsl(var(--card-secondary))'
   			},
   			sage: {
   				light: 'hsl(var(--sage-light))',

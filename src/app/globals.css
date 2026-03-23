@@ -48,8 +48,10 @@ body {
     --secondary-clinic: 200 15% 97%; /* #F8FAFC */
     --secondary-cream: 50 33% 96%; /* #F9F8F3 */
     --secondary-foreground: 215 19% 34%; /* #465468 "Soft Blue" (Calm & Professional) */
+    --secondary-paper: 33, 25%, 93%;
 
     --card: 210 40% 98%;
+    --card-secondary: 176, 5%, 98%;
     --card-foreground: 222 47% 11%;
 
     --popover: 214 31% 91%;
@@ -128,6 +130,7 @@ body {
 
     /* Surfaces & Cards */
     --card: 196 80% 10%; /* Slightly lighter than background */
+    --card-secondary: 176, 5%, 98%;
     --card-foreground: 44 48% 95%;
     --popover: 196 80% 12%;
     --popover-foreground: 44 48% 95%;
@@ -135,6 +138,7 @@ body {
     /* Secondary / Neutrals */
     --secondary: 196 30% 15%; 
     --secondary-foreground: 215 20% 85%;
+    --secondary-paper: 33, 25%, 93%;
     --muted: 196 20% 25%;
     --muted-foreground: 215 20% 75%;
 
