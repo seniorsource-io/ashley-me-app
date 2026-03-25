@@ -1,5 +1,6 @@
 'use server';
 
+import { ObjectId } from "mongodb";
 import clientPromise from "@/lib/mongodb";
 import type { Community } from "@/lib/definitions";
 
@@ -42,6 +43,31 @@ export async function searchAddresses(query: string): Promise<Community[]> {
 
     return JSON.parse(JSON.stringify(results)) as Community[];
 }
+
+export async function updateCommunity(_id: string, data: { sms_opt_in: boolean, [key: string]: any }) {
+  try {
+    const client = await clientPromise;
+    const db = client.db("senior_living_db");
+    
+    const result = await db.collection("communities").updateOne(
+      { _id: new ObjectId(_id) },
+      { 
+        $set: { 
+          sms_opt_in: data.sms_opt_in, // Adds or updates the boolean field
+          updatedAt: new Date(),
+          joinedAt: new Date()
+        } 
+      },
+      { upsert: true } // Inserts a new doc if the email isn't found
+    );
+
+    return { success: true };
+  } catch (e) {
+    console.error(e);
+    return { success: false, error: "Database update failed." };
+  }
+}
+
 
 export async function testMongoConnection() {
     try {

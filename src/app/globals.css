@@ -43,8 +43,8 @@ body {
     --accent: 20 35% 58%; /* Coral Bronze */
     --accent-foreground: 196 80% 10%; /* Dark navy text for contrast on coral */
     --accent-gold: 38 55% 54%; /* Gold */
-    --accent-coral: 350 90% 65%; /* Coral */
-    --accent-coral-deep: 350 80% 50%; /* Coral */
+    --accent-coral: 6 85% 55%; /* Coral */
+    --accent-coral-deep: 6 90% 42%; /* Coral Vivid Hover */
 
     /* Background & Text */
     --background: 200 15% 97%; /* #F8FAFC */

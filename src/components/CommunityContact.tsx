@@ -1,36 +1,42 @@
 'use client'
 
-import Image from 'next/image';
 import { useRef, useState, useEffect } from "react";
 import { searchAddresses } from "@/app/actions";
+import { updateCommunity } from "@/app/actions";
 import type { Community } from "@/lib/definitions";
 import { motion, AnimatePresence } from 'framer-motion';
-import { Circle, Check, UserCheck, HeartHandshake } from 'lucide-react';
+import { Circle, Check, UserCheck, HeartHandshake, Loader2 } from 'lucide-react';
 
 const CommunityContact = () => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<Community[]>([]);
     const [selectedItem, setSelectedItem] = useState<Community | null>(null);
+    const [isSearching, setIsSearching] = useState(false);
 
     // 1. Create a ref to track if we just selected something
     const isSelectingRef = useRef(false);
 
     useEffect(() => {
-        // 2. Check the ref! If we just selected, skip the search and reset the ref.
         if (isSelectingRef.current) {
             isSelectingRef.current = false;
             return;
         }
 
         if (query.length > 2) {
+            setIsSearching(true); // Start spinner
             const fetchResults = async () => {
-                const data = await searchAddresses(query);
-                setResults(data);
+                try {
+                    const data = await searchAddresses(query);
+                    setResults(data);
+                } finally {
+                    setIsSearching(false); // Stop spinner (regardless of success/fail)
+                }
             };
-            const timeoutId = setTimeout(fetchResults, 150);
+            const timeoutId = setTimeout(fetchResults, 100);
             return () => clearTimeout(timeoutId);
         } else {
             setResults([]);
+            setIsSearching(false);
         }
     }, [query]);
 
@@ -44,13 +50,29 @@ const CommunityContact = () => {
 
     const [isChecked, setIsChecked] = useState(true);
 
-    const handleApply = () => {
-        // Add your logic here
-        console.log("Application started!");
-        alert("Thank you for your interest in our community!");
-        // window.location.href = "/apply"; // Example redirect
-    };
+    const handleApply = async (item: Community) => {
 
+        setIsSearching(true);  // Reuse searching state
+
+        // 1. Prepare the data payload including the checkbox state
+        const payload = {
+            sms_opt_in: isChecked, // Pass the boolean state here
+            joinedAt: new Date(),
+            _id: item._id
+        };
+
+        // 2. Call the server action
+        const response = await updateCommunity(item._id, payload);
+
+        setIsSearching(false);
+
+        if (response.success) {
+            alert("Preferences saved!");
+            // window.location.href = "/apply"; // Example redirect
+        } else {
+            alert("Error: " + response.error);
+        }
+    };
 
     return (
         <section id="community-contact-form" className="pt-0 pb-16 bg-secondary-paper">
@@ -65,8 +87,8 @@ const CommunityContact = () => {
                         className="text-center mb-5">
 
                         <span className="flex flex-row items-center gap-3 text-lg font-semibold uppercase justify-center tracking-widest text-accent">
-                            <span className="text-accent-coralDeep/90">Sign Up Here</span>
-                            <UserCheck className="w-6 h-6 text-accent-coralDeep/90" />
+                            <span className="text-accent-coralDeep">Sign Up Here</span>
+                            <UserCheck className="w-6 h-6 text-accent-coralDeep" />
                         </span>
 
                     </motion.div>
@@ -87,7 +109,7 @@ const CommunityContact = () => {
                                     <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
                                         <Circle
                                             size={60}
-                                            className="fill-accent-coralDeep/90 stroke-white"
+                                            className="fill-accent-coralDeep stroke-white"
                                             strokeWidth={1.5}
                                         />
                                         <span className="absolute text-white font-bold text-2xl select-none">
@@ -96,12 +118,17 @@ const CommunityContact = () => {
                                     </div>
 
                                     {/* The Step Text aligned to the right of the circle */}
-                                    <div className="text-accent-coralDeep/90 text-xl font-semibold leading-tight">
+                                    <div className="text-accent-coralDeep text-xl font-semibold leading-tight">
                                         Step 1:<br />Find your community address
                                     </div>
                                 </div>
 
                                 {/* Search Input below the header row */}
+                                {isSearching && (
+                                    <div className="absolute right-50 top-36 -translate-y-1/2 z-30">
+                                        <Loader2 className="animate-spin text-accent-coralDeep" size={25} />
+                                    </div>
+                                )}
                                 <input
                                     type="text"
                                     placeholder="Search community address..."
@@ -110,7 +137,7 @@ const CommunityContact = () => {
                                         setQuery(e.target.value);
                                         if (selectedItem) setSelectedItem(null);
                                     }}
-                                    className="text-gray-900 w-full p-3 border border-gray-300 rounded-md shadow-md focus:ring-2 focus:ring-primary outline-none bg-white text-center font-medium placeholder:italic"
+                                    className="text-gray-900 w-full p-3 border border-gray-300 rounded-md shadow-md focus:ring-2 focus:ring-accent-coralDeep outline-none bg-white text-center font-medium placeholder:italic"
                                 />
                                 <AnimatePresence>
                                     {results.length > 0 && (
@@ -142,14 +169,14 @@ const CommunityContact = () => {
                                         <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
                                             <Circle
                                                 size={60} // Slightly smaller for a tighter vertical profile
-                                                className="fill-accent-coralDeep/90 stroke-white"
+                                                className="fill-accent-coralDeep stroke-white"
                                                 strokeWidth={1.5}
                                             />
                                             <span className="absolute text-white font-bold text-2xl select-none">
                                                 2
                                             </span>
                                         </div>
-                                        <div className="text-accent-coralDeep/90 text-xl font-semibold leading-tight">
+                                        <div className="text-accent-coralDeep text-xl font-semibold leading-tight">
                                             Step 2:<br />Confirm your contact information
                                         </div>
                                     </div>
@@ -167,21 +194,21 @@ const CommunityContact = () => {
                                                 transition={{ duration: 0.4, ease: "easeOut" }}
                                                 className="grid grid-cols-2 gap-4 text-md text-center">
                                                 <div>
-                                                    <p className="text-primary uppercase text-xs font-bold">First Name</p>
+                                                    <p className="text-accent-coralDeep uppercase text-xs font-bold">First Name</p>
                                                     <p>{selectedItem.firstname}</p>
                                                 </div>
                                                 <div>
-                                                    <p className="text-primary uppercase text-xs font-bold">Last Name</p>
+                                                    <p className="text-accent-coralDeep uppercase text-xs font-bold">Last Name</p>
                                                     <p>{selectedItem.lastname}</p>
                                                 </div>
                                                 {/* ⚡️ LIGHT GRAY SEPARATOR ⚡️ */}
                                                 <div className="col-span-2 my-2 border-t border-gray-200" />
                                                 <div>
-                                                    <p className="text-primary uppercase text-xs font-bold">Phone</p>
+                                                    <p className="text-accent-coralDeep uppercase text-xs font-bold">Phone</p>
                                                     <p>{selectedItem.phone || "N/A"}</p>
                                                 </div>
                                                 <div>
-                                                    <p className="text-primary uppercase text-xs font-bold">Email</p>
+                                                    <p className="text-accent-coralDeep uppercase text-xs font-bold">Email</p>
                                                     <p className="truncate">{selectedItem.email || "N/A"}</p>
                                                 </div>
                                             </motion.div>
@@ -213,19 +240,19 @@ const CommunityContact = () => {
                                         <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
                                             <Circle
                                                 size={60} // Slightly smaller for a tighter vertical profile
-                                                className="fill-accent-coralDeep/90 stroke-white"
+                                                className="fill-accent-coralDeep stroke-white"
                                                 strokeWidth={1.5}
                                             />
                                             <span className="absolute text-white font-bold text-2xl select-none">
                                                 3
                                             </span>
                                         </div>
-                                        <div className="text-accent-coralDeep/90 text-xl font-semibold leading-tight">
-                                            Step 3:<br />Apply and select your preferences
+                                        <div className="text-accent-coralDeep text-xl font-semibold leading-tight">
+                                            Step 3:<br />Opt in and apply to join
                                         </div>
                                     </div>
                                     <label className="group flex items-center gap-3 cursor-pointer select-none w-fit py-2 px-5 mb-1">
-                                        {/* Hidden Native Input */}
+                                        {/* Checkbox Input */}
                                         <input
                                             type="checkbox"
                                             className="sr-only"
@@ -236,8 +263,8 @@ const CommunityContact = () => {
                                         <div
                                             className={
                                                 isChecked
-                                                    ? "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-accent-coralDeep/90 border-accent-coralDeep/90"
-                                                    : "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-white border-gray-300 group-hover:border-accent-coralDeep/75"
+                                                    ? "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-accent-coralDeep border-accent-coralDeep"
+                                                    : "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-white border-gray-300 group-hover:border-accent-coralDeep"
                                             }
                                         >
                                             <Check
@@ -253,21 +280,30 @@ const CommunityContact = () => {
                                                 ? "text-lg tracking-wide font-medium text-accent-coralDeep"
                                                 : "text-lg tracking-wide font-medium text-gray-600"
                                         }>
-                                            Contact me by text message (SMS)
+                                            Contact me by text messaging (sms)
                                         </span>
                                     </label>
 
                                 </div>
                                 <div className="w-full flex justify-center py-2">
-                                    <button
-                                        onClick={handleApply}
-                                        className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 bg-accent-coralDeep/90 hover:bg-accent-coralDeep/75 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-md hover:shadow-lg uppercase text-sm tracking-widest cursor-pointer">
-                                        <span>Apply Now to Join</span>
-                                        <HeartHandshake
-                                            size={20}
-                                            className="transition-transform duration-300 group-hover:scale-120"
-                                        />
-                                    </button>
+                                    {selectedItem ? (
+                                        <button
+                                            type="button"
+                                            onClick={() => selectedItem && handleApply(selectedItem)}
+                                            className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 bg-accent-coralDeep hover:ring-2 hover:ring-accent-coral hover:ring-offset-2 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg uppercase text-sm tracking-widest cursor-pointer">
+                                            <span>Apply Now to Join</span>
+                                            <HeartHandshake
+                                                size={20}
+                                                className="transition-transform duration-300 group-hover:scale-120"
+                                            />
+                                        </button>
+                                    ) : (
+                                        <button
+                                            type="button"
+                                            className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 text-gray-400 py-3 px-6 rounded-full transition-all duration-300 shadow-lg text-md italic outline-1 outline-gray-300">
+                                            <span>Select address to apply</span>
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
