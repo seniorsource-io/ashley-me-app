@@ -157,7 +157,7 @@ const CommunityContact = () => {
                                                 }
                                             }}
                                             exit={{ opacity: 0, scale: 0.95, y: -5, transition: { duration: 0.2 } }}
-                                            className="absolute w-full z-[100] bg-white border border-gray-100 mt-0 rounded-xl shadow-2xl overflow-hidden backdrop-blur-sm"
+                                            className="absolute w-full z-[100] bg-white border border-gray-100 rounded-xl shadow-2xl overflow-hidden backdrop-blur-sm"
                                         >
                                             {results.map((item) => (
                                                 <motion.li
