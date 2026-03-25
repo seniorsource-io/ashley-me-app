@@ -122,42 +122,62 @@ const CommunityContact = () => {
                                         Step 1:<br />Find your community address
                                     </div>
                                 </div>
-
-                                {/* Search Input below the header row */}
-                                {isSearching && (
-                                    <div className="absolute right-50 top-36 -translate-y-1/2 z-30">
-                                        <Loader2 className="animate-spin text-accent-coralDeep" size={25} />
+                                <div className="flex flex-col items-center w-full">
+                                    {/* Search Box */}
+                                    <input
+                                        type="text"
+                                        placeholder="Search community address..."
+                                        value={query}
+                                        onChange={(e) => {
+                                            setQuery(e.target.value);
+                                            if (selectedItem) setSelectedItem(null);
+                                        }}
+                                        className="text-gray-900 w-full p-3 border border-gray-300 rounded-md shadow-md focus:ring-2 focus:ring-accent-coralDeep outline-none bg-white text-center font-medium placeholder:italic"
+                                    />
+                                    {/* Spinner: Positioned naturally below the input and centered */}
+                                    <div className="flex items-center justify-center mt-2">
+                                        {isSearching && (
+                                            <Loader2 className="animate-spin text-accent-coralDeep" size={25} />
+                                        )}
                                     </div>
-                                )}
-                                <input
-                                    type="text"
-                                    placeholder="Search community address..."
-                                    value={query}
-                                    onChange={(e) => {
-                                        setQuery(e.target.value);
-                                        if (selectedItem) setSelectedItem(null);
-                                    }}
-                                    className="text-gray-900 w-full p-3 border border-gray-300 rounded-md shadow-md focus:ring-2 focus:ring-accent-coralDeep outline-none bg-white text-center font-medium placeholder:italic"
-                                />
+                                </div>
                                 <AnimatePresence>
                                     {results.length > 0 && (
                                         <motion.ul
-                                            initial={{ opacity: 0, y: -10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            exit={{ opacity: 0, y: -10 }}
-                                            className="absolute w-full z-[100] bg-white border border-gray-200 mt-1 rounded-md shadow-xl overflow-hidden">
+                                            initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                                            animate={{
+                                                opacity: 1,
+                                                scale: 1,
+                                                y: 0,
+                                                transition: {
+                                                    type: "spring",
+                                                    stiffness: 300,
+                                                    damping: 25,
+                                                    staggerChildren: 0.05 // Drops items in one-by-one
+                                                }
+                                            }}
+                                            exit={{ opacity: 0, scale: 0.95, y: -5, transition: { duration: 0.2 } }}
+                                            className="absolute w-full z-[100] bg-white border border-gray-100 mt-1 rounded-xl shadow-2xl overflow-hidden backdrop-blur-sm"
+                                        >
                                             {results.map((item) => (
-                                                <li
+                                                <motion.li
+                                                    variants={{
+                                                        initial: { opacity: 0, x: -10 },
+                                                        animate: { opacity: 1, x: 0 }
+                                                    }}
                                                     key={item._id.toString()}
-                                                    className="p-3 bg-white opacity-100 hover:bg-blue-50 cursor-pointer text-sm text-gray-800 border-b last:border-b-0 transition-colors"
+                                                    className="p-4 hover:bg-accent-coral/5 cursor-pointer text-sm text-gray-800 border-b border-gray-50 last:border-b-0 transition-colors flex items-center gap-2"
                                                     onClick={() => handleSelect(item)}
                                                 >
+                                                    {/* Optional: Add a small icon to each result for better UI */}
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-accent-coral/40" />
                                                     {item.address}
-                                                </li>
+                                                </motion.li>
                                             ))}
                                         </motion.ul>
                                     )}
                                 </AnimatePresence>
+
                             </div>
 
                             {/* Middle: Step 2 Container */}
