@@ -157,7 +157,7 @@ const CommunityContact = () => {
                                                 }
                                             }}
                                             exit={{ opacity: 0, scale: 0.95, y: -5, transition: { duration: 0.2 } }}
-                                            className="absolute w-full z-[100] bg-white border border-gray-100 mt-1 rounded-xl shadow-2xl overflow-hidden backdrop-blur-sm"
+                                            className="absolute w-full z-[100] bg-white border border-gray-100 mt-0 rounded-xl shadow-2xl overflow-hidden backdrop-blur-sm"
                                         >
                                             {results.map((item) => (
                                                 <motion.li
@@ -166,7 +166,7 @@ const CommunityContact = () => {
                                                         animate: { opacity: 1, x: 0 }
                                                     }}
                                                     key={item._id.toString()}
-                                                    className="p-4 hover:bg-accent-coral/5 cursor-pointer text-sm text-gray-800 border-b border-gray-100 last:border-b-0 transition-colors flex items-center gap-2"
+                                                    className="px-4 py-3 hover:bg-accent-coral/5 cursor-pointer text-sm text-gray-800 border-b border-gray-200 last:border-b-0 transition-colors flex items-center gap-2"
                                                     onClick={() => handleSelect(item)}
                                                 >
                                                     {/* Optional: Add a small icon to each result for better UI */}
