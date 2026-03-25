@@ -166,7 +166,7 @@ const CommunityContact = () => {
                                                         animate: { opacity: 1, x: 0 }
                                                     }}
                                                     key={item._id.toString()}
-                                                    className="p-4 hover:bg-accent-coral/5 cursor-pointer text-sm text-gray-800 border-b border-gray-50 last:border-b-0 transition-colors flex items-center gap-2"
+                                                    className="p-4 hover:bg-accent-coral/5 cursor-pointer text-sm text-gray-800 border-b border-gray-100 last:border-b-0 transition-colors flex items-center gap-2"
                                                     onClick={() => handleSelect(item)}
                                                 >
                                                     {/* Optional: Add a small icon to each result for better UI */}
