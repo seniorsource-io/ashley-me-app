@@ -64,7 +64,7 @@ const Navbar = () => {
               className="cursor-pointer"
               aria-label="Call Ashley Krause at 971-645-5401"
             >
-              (971) 645-9948
+              (971) 645-5401
             </a>
           </Button>
         </div>
@@ -101,7 +101,7 @@ const Navbar = () => {
                 className="cursor-pointer"
                 aria-label="Call Ashley Krause at 971-645-5401"
               >
-                (971) 645-9948
+                (971) 645-5401
               </a>
             </Button>
           </div>
