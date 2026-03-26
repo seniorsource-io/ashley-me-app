@@ -50,10 +50,10 @@ const CTAMiniSection = () => {
                 </div>
               </a>
               <a
-                href="tel:9716455401"
+                href="tel:5033831442"
                 /* 1. Added 'group' to the parent */
                 className="group cursor-pointer block"
-                aria-label="Call Ashley Krause at 971-645-5401"
+                aria-label="Call Ashley Krause at 503-383-1442"
               >
                 <div className="flex flex-col items-center text-center gap-3">
                   {/* 2. Icon circle grows slightly and gets darker on hover */}

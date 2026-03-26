@@ -60,11 +60,11 @@ const Navbar = () => {
           <Button size="sm" className="gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer">
             <Phone className="w-4 h-4" />
             <a
-              href="tel:9716455401"
+              href="tel:5033831442"
               className="cursor-pointer"
-              aria-label="Call Ashley Krause at 971-645-5401"
+              aria-label="Call Ashley Krause at 503-383-1442"
             >
-              (971) 645-5401
+              (503) 383-1442
             </a>
           </Button>
         </div>
@@ -97,11 +97,11 @@ const Navbar = () => {
             <Button size="sm" className="mt-3 gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer">
               <Phone className="w-4 h-4" />
               <a
-                href="tel:9716455401"
+                href="tel:5033831442"
                 className="cursor-pointer"
-                aria-label="Call Ashley Krause at 971-645-5401"
+                aria-label="Call Ashley Krause at 503-383-1442"
               >
-                (971) 645-5401
+                (503) 383-1442
               </a>
             </Button>
           </div>
