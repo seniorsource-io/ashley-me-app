@@ -171,7 +171,7 @@ const CommunityContact = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.15 }}
-                        className="bg-card-secondary rounded-2xl shadow-xl pt-0 pb-7 sm:pt-6 sm:pb-9 h-full overflow-x-clip overflow-y-visible">
+                        className="bg-card-secondary rounded-2xl shadow-xl pt-2 pb-7 sm:pt-6 sm:pb-9 h-full overflow-x-clip overflow-y-visible">
                         <div className="w-full px-6 sm:px-10">
                             <Carousel
                                 setApi={setCarouselApi}
