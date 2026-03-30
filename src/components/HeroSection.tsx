@@ -1,110 +1,122 @@
 'use client'
 
-import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from "framer-motion";
-import { ArrowRight, Heart } from "lucide-react";
-import { Phone, Mail, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { motion } from 'framer-motion';
+import { Home, ClipboardList, Handshake } from 'lucide-react';
+
+const features = [
+    {
+        icon: Home,
+        title: 'Personalized Matching',
+        description: 'Matched to care needs, budget, and location',
+        iconBg: 'bg-[hsl(var(--icon-orange))]',
+    },
+    {
+        icon: ClipboardList,
+        title: 'Guided Tours',
+        description: 'We schedule and accompany every visit',
+        iconBg: 'bg-[hsl(var(--icon-green))]',
+    },
+    {
+        icon: Handshake,
+        title: 'Move-In Support',
+        description: 'Paperwork, coordination, and follow-up',
+        iconBg: 'bg-[hsl(var(--icon-blue))]',
+    },
+];
+
+const trustItems = [
+    { number: '600+', label: 'families\nhelped' },
+    { number: '100%', label: 'free\nservice' },
+    { number: '4.9\u2605', label: 'client\nrating' },
+];
 
 const HeroSection = () => {
-  return (
-    <section className="relative flex flex-col items-start pt-10 pb-32 px-2">
+    return (
+        <section className="bg-[hsl(var(--background))]">
+            <div className="max-w-[1400px] mx-auto px-6 sm:px-12 pt-14 pb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+                    {/* Left column */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="flex flex-col justify-center"
+                    >
+                        <h1 className="font-heading text-4xl sm:text-[46px] font-medium leading-[1.08] tracking-tight text-foreground mb-5">
+                            The right senior living, found for you.
+                        </h1>
+                        <p className="text-[15px] text-[hsl(var(--muted))] leading-[1.7] mb-7 max-w-lg">
+                            Free, expert guidance for families navigating senior care in Portland.
+                            We do the research, scheduling, and comparison — you make the final call.
+                        </p>
+                        <div className="flex items-center gap-3.5">
+                            <Link
+                                href="/customer"
+                                className="inline-flex items-center gap-2 bg-foreground text-[hsl(var(--background))] text-sm font-semibold px-8 py-4 rounded-[10px] hover:bg-foreground/90 transition-colors"
+                            >
+                                Get Started &rarr;
+                            </Link>
+                            <a
+                                href="#how-it-works"
+                                className="text-sm text-[hsl(var(--muted))] py-4 px-4 hover:text-foreground transition-colors"
+                            >
+                                Learn how it works
+                            </a>
+                        </div>
+                    </motion.div>
 
-      {/* Background Image */}
-      <div className="absolute inset-0">
-        <Image
-          src="/hero-senior-living.jpg"
-          alt="Beautiful senior living community"
-          fill
-          priority // Adds a performance boost for the main hero image
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/94 via-foreground/82 to-foreground/35" />
-      </div>
-
-      <div className="container mx-auto px-4 isolate relative">
-        <div className="max-w-2xl isolate relative">
-          <motion.div
-            layout
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15 }}
-            className="flex items-start gap-5 mb-6 relative z-20"
-          >
-            <Image
-              src="/ashley-krause.jpg"
-              alt="Ashley Krause"
-              width={408}    /* Original width */
-              height={524}   /* Original height */
-              className="w-30 h-[141px] sm:w-30 sm:h-[141px] lg:w-38 lg:h-[183px] rounded-xl object-cover border-2 border-accent shadow-lg shrink-0 mt-0"
-            />
-            <div>
-              <h1 className="-mt-1 sm:mt-1 lg:mt-1 text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-primary-foreground leading-tight text-balance">
-                <span className="text-accent">Personalized Senior Care Solutions for Your Peace of Mind</span><br />
-              </h1>
+                    {/* Right column — feature cards */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.15 }}
+                        className="flex flex-col gap-3 justify-center"
+                    >
+                        {features.map((feature) => (
+                            <div
+                                key={feature.title}
+                                className="flex items-center gap-4 bg-white rounded-xl px-6 py-5 border border-[hsl(var(--card-border))] shadow-card"
+                            >
+                                <div className={`w-10 h-10 rounded-[10px] ${feature.iconBg} flex items-center justify-center shrink-0`}>
+                                    <feature.icon className="w-5 h-5 text-foreground/70" />
+                                </div>
+                                <div>
+                                    <p className="text-[13px] font-semibold text-foreground mb-0.5">
+                                        {feature.title}
+                                    </p>
+                                    <p className="text-[11px] text-[hsl(var(--subtle))]">
+                                        {feature.description}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </motion.div>
+                </div>
             </div>
-          </motion.div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-lg text-primary-foreground/80 mb-7 max-w-lg leading-relaxed"
-          >
-            My team and I help families in the Portland area and beyond navigate the journey to
-            senior living with personalized guidance, compassion, and expertise — at no cost to you.
-          </motion.p>
-
-          <motion.div
-            layout
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45 }}
-            className="relative z-50 flex flex-col sm:flex-row gap-4"
-          >
-            <Link href="#services" className="cursor-pointer">
-              <Button className="text-base gap-2 px-8 py-6 shadow-warm hover:bg-primary/80 cursor-pointer">
-                What We Provide
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
-            <Link href="#how-it-works" className="cursor-pointer">
-              <Button
-                className="text-base gap-2 px-8 py-6 shadow-warm hover:bg-primary/80 cursor-pointer"
-              >
-                Learn How It Works
-                <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
-          </motion.div>
-
-          <motion.div
-            layout
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="mt-8 flex items-center gap-8 text-primary-foreground/70 text-sm"
-          >
-            <div className="flex flex-col">
-              <span className="text-2xl font-heading font-bold text-accent">Serving Portland</span>
-              <span>Metro and Beyond</span>
+            {/* Trust strip */}
+            <div className="border-t border-[hsl(var(--border))]">
+                <div className="max-w-[1400px] mx-auto px-6 sm:px-12 py-6 flex items-center justify-center gap-10 sm:gap-12">
+                    {trustItems.map((item, i) => (
+                        <div key={item.number} className="flex items-center gap-10 sm:gap-12">
+                            {i > 0 && (
+                                <div className="w-1 h-1 rounded-full bg-[hsl(var(--dot))]" />
+                            )}
+                            <div className="flex items-center gap-2.5">
+                                <span className="font-heading text-2xl font-semibold text-foreground">
+                                    {item.number}
+                                </span>
+                                <span className="text-[11px] text-[hsl(var(--subtle))] leading-tight whitespace-pre-line">
+                                    {item.label}
+                                </span>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             </div>
-            <div className="w-px h-10 bg-primary-foreground/20" />
-            <div className="flex flex-col">
-              <span className="text-2xl font-heading font-bold text-accent">100%</span>
-              <span>Free Service</span>
-            </div>
-            <div className="w-px h-10 bg-primary-foreground/20" />
-            <div className="flex flex-col">
-              <span className="text-2xl font-heading font-bold text-accent">Over 600+</span>
-              <span>Clients Served</span>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default HeroSection;

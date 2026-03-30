@@ -1,11 +1,7 @@
 /* Add legcy tailwind config due to dependencies from lovable site creator */
 @config "../../tailwind.config.ts";
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 /* 1. Remove the old media query and root vars entirely */
@@ -17,82 +13,77 @@ html {
   scroll-behavior: smooth;
 }
 
-:root {
-  color-scheme: light; /* Forces browser elements to light mode */
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-.dark {
-  color-scheme: dark; /* Forces browser elements to dark mode */
-}
-
 body {
-  /* Use the HSL variables you defined in @layer base */
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  font-family: Arial, Helvetica, sans-serif;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-body);
 }
 
 @layer base {
   :root {
-    --primary: 196 81% 27%;  /* High-Contrast Teal-Blue (#0D607E) */
-    --primary-foreground: 44 48% 95%; /* #F9F6EE Bone White text */
+    color-scheme: light;
 
-    /* Modern Accent - Warm & Caring */
-    --accent: 20 35% 58%; /* Coral Bronze */
-    --accent-foreground: 196 80% 10%; /* Dark navy text for contrast on coral */
-    --accent-gold: 38 55% 54%; /* Gold */
-    --accent-coral: 6 85% 55%; /* Coral */
-    --accent-coral-deep: 6 90% 42%; /* Coral Vivid Hover */
+    --background: 37 33% 97%;       /* #FAF8F5 warm cream */
+    --foreground: 0 0% 18%;         /* #2E2E2E soft black */
 
-    /* Background & Text */
-    --background: 200 15% 97%; /* #F8FAFC */
-    --foreground: 196 80% 10%; /* #05232D Deepest blue for main body text */
+    --primary: 0 0% 18%;            /* #2E2E2E dark — buttons, CTA card */
+    --primary-foreground: 37 33% 97%; /* #FAF8F5 text on dark */
 
-    --secondary: 20 20% 97%; /* #FAF9F8 */
-    --secondary-deep: 203 20% 94%; /* #E2E8EC */
-    --secondary-clinic: 200 15% 97%; /* #F8FAFC */
-    --secondary-cream: 50 33% 96%; /* #F9F8F3 */
-    --secondary-foreground: 215 19% 34%; /* #465468 "Soft Blue" (Calm & Professional) */
+    --muted: 0 0% 36%;              /* #5C5C5C body descriptions */
+    --muted-foreground: 0 0% 36%;
+
+    --subtle: 20 4% 40%;            /* #6B6560 feature descriptions */
+    --faint: 20 4% 43%;             /* #736E69 section labels, footer */
+
+    --card: 0 0% 100%;              /* #FFFFFF */
+    --card-foreground: 0 0% 18%;
+    --card-border: 30 13% 93%;      /* #F0EDE8 */
+
+    --border: 33 15% 92%;           /* #EFECE7 dividers */
+    --input: 33 15% 92%;
+    --ring: 215 80% 55%;            /* Focus ring blue */
+
+    --radius: 0.625rem;             /* 10px default */
+
+    --icon-orange: 20 100% 96%;     /* #FFF0EB */
+    --icon-green: 150 33% 94%;      /* #EBF5F0 */
+    --icon-blue: 215 33% 94%;       /* #EBF0F5 */
+
+    --star: 45 73% 63%;             /* #E8C85A */
+    --step-number: 30 10% 87%;      /* #E0DCD7 */
+    --dot: 30 7% 81%;               /* #D4D0CB */
+
+    --dark-muted: 0 0% 63%;         /* #A0A0A0 muted text on dark */
+
+    --font-heading: 'EB Garamond', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    --shadow-card: 0 2px 12px rgba(0, 0, 0, 0.04);
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+    /* Legacy variables — retained for /community and /customer pages */
+    --secondary: 20 20% 97%;
+    --secondary-foreground: 215 19% 34%;
     --secondary-paper: 33, 25%, 93%;
-
-    --card: 210 40% 98%;
+    --secondary-deep: 203 20% 94%;
+    --secondary-clinic: 200 15% 97%;
+    --secondary-cream: 50 33% 96%;
+    --accent: 20 35% 58%;
+    --accent-foreground: 0 0% 18%;
+    --accent-coral: 6 85% 55%;
+    --accent-coral-deep: 6 90% 42%;
     --card-secondary: 176, 5%, 98%;
-    --card-foreground: 222 47% 11%;
-
     --popover: 214 31% 91%;
     --popover-foreground: 222 47% 11%;
-
-    --muted: 215 20% 65%;
-    --muted-foreground: 222 47% 11%;
-
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 85% 97%;
-
-    --border: 212 26% 83%;
-    --input: 212 26% 83%;
-    --ring: 200 98% 39%;
-
-    --radius: 0.5rem;
-
-    --sage-light: 152 20% 95%;
     --sage: 152 32% 40%;
-    --sage-dark: 152 35% 28%;
-    --cream: 40 33% 97%;
-    --cream-dark: 40 30% 92%;
+    --sage-light: 152 20% 95%;
     --warm-gold: 38 60% 55%;
     --warm-gold-light: 38 50% 85%;
     --charcoal: 200 15% 20%;
     --charcoal-light: 200 10% 50%;
-
-    --font-heading: 'Onest', 'Playfair Display', Georgia, serif;
-    --font-body: 'Onest', 'DM Sans', system-ui, sans-serif;
-
-    --shadow-soft: 0 4px 20px -4px hsl(200 15% 20% / 0.08);
-    --shadow-medium: 0 8px 30px -8px hsl(200 15% 20% / 0.12);
-    --shadow-warm: 0 8px 30px -8px hsl(38 60% 55% / 0.15);
-
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 222 47% 11%;
     --sidebar-primary: 200 98% 39%;
@@ -101,15 +92,7 @@ body {
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 212 26% 83%;
     --sidebar-ring: 200 98% 39%;
-    --chart-1: 198 93% 59%;
-    --chart-2: 213 93% 67%;
-    --chart-3: 215 20% 65%;
-    --chart-4: 215 16% 46%;
-    --chart-5: 215 19% 34%;
-    --sidebar: 210 40% 98%;
-    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
-    --font-serif: 'Lora', ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
-    --font-mono: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+    --shadow-warm: 0 8px 30px -8px hsl(38 60% 55% / 0.15);
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
@@ -121,79 +104,12 @@ body {
     --tracking-normal: 0em;
     --spacing: 0.25rem;
   }
-  .dark {
-    /* Background & Text - Deep Navy Theme */
-    --background: 196 80% 6%; /* Almost black navy */
-    --foreground: 44 48% 95%;   /* Bone White text */
-
-    /* Primary - Brighten the Teal-Blue for visibility */
-    --primary: 196 70% 45%; 
-    --primary-foreground: 196 80% 6%;
-
-    /* Accent - Soften the Coral and Gold for dark mode */
-    --accent: 20 50% 65%; /* Muted Coral */
-    --accent-foreground: 196 80% 6%;
-    --accent-gold: 38 55% 65%;
-
-    /* Surfaces & Cards */
-    --card: 196 80% 10%; /* Slightly lighter than background */
-    --card-secondary: 176, 5%, 98%;
-    --card-foreground: 44 48% 95%;
-    --popover: 196 80% 12%;
-    --popover-foreground: 44 48% 95%;
-
-    /* Secondary / Neutrals */
-    --secondary: 196 30% 15%; 
-    --secondary-foreground: 215 20% 85%;
-    --secondary-paper: 33, 25%, 93%;
-    --muted: 196 20% 25%;
-    --muted-foreground: 215 20% 75%;
-
-    /* Borders & Inputs */
-    --border: 196 30% 18%;
-    --input: 196 30% 18%;
-    --ring: 196 70% 45%;
-
-    /* Custom Sage/Cream overrides for dark mode */
-    --sage: 152 25% 45%;
-    --sage-light: 152 20% 15%; /* Darker background version */
-    --cream: 40 20% 15%;      /* Dark "parchment" feel */
-    --cream-dark: 40 20% 10%;
-    
-    /* Shadows - Use a darker, more opaque shadow for depth */
-    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.5);
-    --shadow-medium: 0 8px 30px -8px hsl(0 0% 0% / 0.7);
-
-    /* Sidebar - Matches the deep navy theme */
-    --sidebar: 196 80% 8%;
-    --sidebar-foreground: 44 48% 95%;
-    --sidebar-primary: 196 70% 45%;
-    --sidebar-border: 196 30% 18%;
-  }
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-primary: hsl(var(--primary));
-  --color-accent: hsl(var(--accent));
-  --color-card: hsl(var(--card));
-  --text-2-5xl: 1.6875rem;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+    --color-background: hsl(var(--background));
+    --color-foreground: hsl(var(--foreground));
+    --font-sans: var(--font-sans);
 }
 
 @layer base {
@@ -212,25 +128,18 @@ body {
   }
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

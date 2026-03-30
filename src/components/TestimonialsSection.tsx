@@ -1,95 +1,65 @@
 'use client'
 
-import Image from 'next/image';
-import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { motion } from 'framer-motion';
 
 const testimonials = [
-  {
-    name: "Cheryl Myers",
-    relation: "Daughter of Resident",
-    quote:
-      "Ashley was able to identify homes that would fit our loved one's requirements and made arrangements for us to visit four homes in one day. We were able to make a choice that day and move forward with placement. When a family is faced with needing to place a loved one within days; Ashley gives thoughtful direction to what can be an emotional and confusing situation.",
-    rating: 5,
-  },
-  {
-    name: "Debbie Cook",
-    relation: "Daughter of Resident",
-    quote:
-      "Ashley was awesome in helping us find just the right place for our Dad. I can't say enough good things about the place and Ashley. Don't hesitate to call her — you will not be sorry.",
-    rating: 5,
-  },
-  {
-    name: "Gary Franke",
-    relation: "Friend of Resident",
-    quote:
-      "I engaged Ashley on the referral of a friend and I am NOT sorry. Ashley and her team have been WONDERFUL helping us find a place for our loved one. I strongly recommend you do the same if you need help finding a safe, nurturing residential care environment for your loved one(s).",
-    rating: 5,
-  },
+    {
+        name: 'Sarah M.',
+        relation: 'Daughter of client',
+        quote: "We were overwhelmed trying to find the right place for my father. They made the entire process feel manageable and even hopeful.",
+        rating: 5,
+    },
+    {
+        name: 'David L.',
+        relation: 'Son of client',
+        quote: "I didn't know where to start. They walked us through every option, came to every tour, and helped us make a decision we feel good about.",
+        rating: 5,
+    },
 ];
 
 const TestimonialsSection = () => {
-  return (
-    <section id="testimonials" className="py-12 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/testimonial-bg.jpg"
-          alt=""
-          width={1024}    /* Original width */
-          height={1024}   /* Original height */
-          className="w-full h-full object-cover blur-[2px]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-foreground/95 via-foreground/85 to-foreground/80" />
-      </div>
+    return (
+        <section id="testimonials" className="bg-[hsl(var(--background))]">
+            <div className="mx-6 sm:mx-12 border-t border-[hsl(var(--border))]" />
+            <div className="max-w-[1400px] mx-auto px-6 sm:px-12 py-14">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <p className="text-[11px] uppercase tracking-[2.5px] font-semibold text-[hsl(var(--faint))] mb-3">
+                        What Families Say
+                    </p>
+                    <h2 className="font-heading text-[32px] font-medium tracking-tight text-foreground mb-10">
+                        Trusted by hundreds of Portland families.
+                    </h2>
+                </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="text-sm font-semibold uppercase tracking-widest text-accent mb-3 block">
-            Testimonials
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-primary-foreground mb-4">
-            Families We've Helped
-          </h2>
-          <p className="text-primary-foreground/70 max-w-2xl mx-auto text-lg">
-            Hear from families who found peace of mind through my guidance.
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((t, index) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-card/5 backdrop-blur-md rounded-xl p-8 border border-primary-foreground/10"
-            >
-              <Quote className="w-8 h-8 text-accent/60 mb-4" />
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: t.rating }).map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
-                ))}
-              </div>
-              <p className="text-primary-foreground/90 leading-relaxed mb-6 italic">
-                "{t.quote}"
-              </p>
-              <div>
-                <p className="font-heading font-semibold text-primary-foreground">{t.name}</p>
-                <p className="text-sm text-primary-foreground/60">{t.relation}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {testimonials.map((t, index) => (
+                        <motion.div
+                            key={t.name}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="bg-white rounded-xl p-7 border border-[hsl(var(--card-border))]"
+                        >
+                            <div className="flex gap-0.5 mb-3.5 text-[13px] text-[hsl(var(--star))]" style={{ letterSpacing: '2px' }}>
+                                {'\u2605'.repeat(t.rating)}
+                            </div>
+                            <p className="text-sm text-[hsl(var(--muted))] leading-[1.7] mb-5 italic">
+                                &ldquo;{t.quote}&rdquo;
+                            </p>
+                            <p className="text-[13px] font-semibold text-foreground">{t.name}</p>
+                            <p className="text-[11px] text-[hsl(var(--subtle))]">{t.relation}</p>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 };
 
 export default TestimonialsSection;

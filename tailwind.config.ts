@@ -14,49 +14,9 @@ export default {
   	},
   	extend: {
   		fontFamily: {
-  			heading: [
-  				'Onest',
-  				'Playfair Display',
-  				'Georgia',
-  				'serif'
-  			],
-  			body: [
-  				'Onest',
-  				'DM Sans',
-  				'system-ui',
-  				'sans-serif'
-  			],
-  			sans: [
-  				'Onest',
-  				'Inter',
-  				'ui-sans-serif',
-  				'system-ui',
-  				'sans-serif',
-  				'Apple Color Emoji',
-  				'Segoe UI Emoji',
-  				'Segoe UI Symbol',
-  				'Noto Color Emoji'
-  			],
-  			serif: [
-  				'Lora',
-  				'ui-serif',
-  				'Georgia',
-  				'Cambria',
-  				'Times New Roman',
-  				'Times',
-  				'serif'
-  			],
-  			mono: [
-  				'Space Mono',
-  				'ui-monospace',
-  				'SFMono-Regular',
-  				'Menlo',
-  				'Monaco',
-  				'Consolas',
-  				'Liberation Mono',
-  				'Courier New',
-  				'monospace'
-  			]
+  			heading: ['EB Garamond', 'Georgia', 'serif'],
+  			body: ['Inter', 'system-ui', 'sans-serif'],
+  			sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
   		},
   		colors: {
   			border: 'hsl(var(--border))',
@@ -97,6 +57,7 @@ export default {
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))',
+				border: 'hsl(var(--card-border))',
 				secondary: 'hsl(var(--card-secondary))'
   			},
   			sage: {
@@ -133,6 +94,7 @@ export default {
   			sm: 'calc(var(--radius) - 4px)'
   		},
   		boxShadow: {
+  			card: 'var(--shadow-card)',
   			soft: 'var(--shadow-soft)',
   			medium: 'var(--shadow-medium)',
   			warm: 'var(--shadow-warm)',
@@ -161,21 +123,10 @@ export default {
   					height: '0'
   				}
   			},
-  			'fade-up': {
-  				from: {
-  					opacity: '0',
-  					transform: 'translateY(20px)'
-  				},
-  				to: {
-  					opacity: '1',
-  					transform: 'translateY(0)'
-  				}
-  			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out',
-  			'fade-up': 'fade-up 0.6s ease-out forwards'
+  			'accordion-up': 'accordion-up 0.2s ease-out'
   		}
   	}
   },

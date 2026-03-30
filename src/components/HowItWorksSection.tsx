@@ -1,90 +1,79 @@
 'use client'
 
-import Image from 'next/image';
-import { motion } from "framer-motion";
-import { PhoneCall, Users, Home, Smile } from "lucide-react";
+import { motion } from 'framer-motion';
 
 const steps = [
-{
-  icon: PhoneCall,
-  step: "01",
-  title: "Schedule a Call",
-  description: "Reach out for a free, no-obligation consultation. I'll listen to your needs and answer your questions."
-},
-{
-  icon: Users,
-  step: "02",
-  title: "Personalized Matching",
-  description: "Based on your unique situation, I identify the best senior living options that fit your criteria."
-},
-{
-  icon: Home,
-  step: "03",
-  title: "Tour & Compare",
-  description: "I arrange tours, accompany you to visits, and help you compare communities side by side."
-},
-{
-  icon: Smile,
-  step: "04",
-  title: "Move-In & Beyond",
-  description: "I assist with the transition and continue to check in to ensure complete satisfaction."
-}];
-
+    {
+        number: '01',
+        title: 'Tell Us Your Needs',
+        description: 'Fill out a short form about care requirements, budget, and preferred location.',
+    },
+    {
+        number: '02',
+        title: 'We Call You',
+        description: 'A quick conversation to understand your family\'s situation and answer questions.',
+    },
+    {
+        number: '03',
+        title: 'Tour & Compare',
+        description: 'We schedule tours at matched communities and help you compare options side by side.',
+    },
+    {
+        number: '04',
+        title: 'Move In',
+        description: 'We handle coordination with the community and support you through move-in day.',
+    },
+];
 
 const HowItWorksSection = () => {
-  return (
-    <section id="how-it-works" className="py-12 bg-secondary-clinic">
-      <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16">
-          
-          <span className="text-sm font-semibold uppercase tracking-widest text-primary mb-3 block">
-            Simple Process
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-4">
-            How It Works
-          </h2>
-          <p className="text-secondary-foreground max-w-2xl mx-auto text-lg">
-            Finding the right senior living community doesn't have to be overwhelming. 
-            Here's our straightforward approach.
-          </p>
-        </motion.div>
+    return (
+        <section id="how-it-works" className="bg-[hsl(var(--background))]">
+            <div className="mx-6 sm:mx-12 border-t border-[hsl(var(--border))]" />
+            <div className="max-w-[1400px] mx-auto px-6 sm:px-12 py-14">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <p className="text-[11px] uppercase tracking-[2.5px] font-semibold text-[hsl(var(--faint))] mb-3">
+                        How It Works
+                    </p>
+                    <h2 className="font-heading text-[32px] font-medium tracking-tight text-foreground mb-10">
+                        Four steps to the right fit.
+                    </h2>
+                </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-          {/* Connector line (desktop) */}
-          <div className="hidden lg:block absolute top-16 left-[12.5%] right-[12.5%] h-0.5 bg-border" />
-
-          {steps.map((step, index) =>
-          <motion.div
-            key={step.step}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.12 }}
-            className="text-center relative">
-            
-              <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center mx-auto mb-6 relative z-10 shadow-warm">
-                <step.icon className="w-7 h-7 text-primary-foreground" />
-              </div>
-              <span className="text-sm font-bold uppercase tracking-wider mb-2 block text-primary">
-                Step {step.step}
-              </span>
-              <h3 className="text-xl font-heading font-semibold text-foreground mb-3">
-                {step.title}
-              </h3>
-              <p className="text-secondary-foreground leading-relaxed">
-                {step.description}
-              </p>
-            </motion.div>
-          )}
-        </div>
-      </div>
-    </section>);
-
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {steps.map((step, index) => (
+                        <motion.div
+                            key={step.number}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            className="relative"
+                        >
+                            <p className="font-heading text-4xl font-medium text-[hsl(var(--step-number))] mb-3 leading-none">
+                                {step.number}
+                            </p>
+                            <h3 className="text-sm font-semibold text-foreground mb-1.5">
+                                {step.title}
+                            </h3>
+                            <p className="text-xs text-[hsl(var(--subtle))] leading-relaxed">
+                                {step.description}
+                            </p>
+                            {index < steps.length - 1 && (
+                                <span className="hidden lg:block absolute top-4 -right-3 text-[hsl(var(--dot))] text-sm">
+                                    &rarr;
+                                </span>
+                            )}
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 };
 
 export default HowItWorksSection;
