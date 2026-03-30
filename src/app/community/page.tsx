@@ -10,15 +10,15 @@ export const metadata: Metadata = {
     address: false,
     email: false,
   },
-}
+};
 
 export default function CommunityForm() {
-    return (
-        <div className="min-h-screen bg-background">
-            <Navbar />
-            <CommunityJoinUs />
-            <CommunityContact />
-            <Footer />
-        </div>
-    );
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <CommunityJoinUs />
+      <CommunityContact />
+      <Footer />
+    </div>
+  );
 }
