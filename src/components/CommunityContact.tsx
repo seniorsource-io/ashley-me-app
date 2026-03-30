@@ -146,7 +146,7 @@ const CommunityContact = () => {
     };
 
     return (
-        <section id="community-contact-form" className="pt-10 pb-4 pt-7 bg-secondary-paper">
+        <section id="community-contact-form" className="pt-7 pb-2 bg-secondary-paper">
             <div className="container mx-auto px-6">
                 <div className="max-w-xl mx-auto">
                     <motion.div
@@ -154,7 +154,7 @@ const CommunityContact = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="text-center mb-4">
+                        className="text-center mb-3">
 
                         <span className="flex flex-row items-center gap-3 text-lg font-semibold uppercase justify-center tracking-widest text-accent">
                             <span className="text-primary">Sign Up Here</span>
@@ -170,7 +170,7 @@ const CommunityContact = () => {
                         className="text-center mb-6">
 
                         <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground py-0">
-                            Join Our Provider Community
+                            Join Our Network
                         </h2>
 
                     </motion.div>
