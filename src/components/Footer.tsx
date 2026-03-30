@@ -8,10 +8,10 @@ const Footer = () => {
     <footer className="bg-foreground">
       <div className="container mx-auto px-6">
         <div className="py-4 flex flex-col md:flex-row items-center justify-between gap-6">
-          <a href="#" className="font-heading text-2xl font-bold text-primary-foreground tracking-tight">        
+          <a href="#" className="font-heading text-2xl font-semibold text-primary-foreground tracking-tight">        
             <span className="text-nowrap">Ashley Krause</span>
             <span className="text-primary-foreground/30 font-thin px-2 max-[480px]:hidden">|</span>
-            <span className="text-primary max-[480px]:hidden inline-block whitespace-nowrap">Senior One Source</span>
+            <span className="max-[480px]:hidden inline-block whitespace-nowrap">Senior One Source</span>
           </a>
 
           <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 text-sm text-primary-foreground/60">

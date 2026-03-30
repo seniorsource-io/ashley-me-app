@@ -39,7 +39,7 @@ const Navbar = () => {
                 <span className="text-foreground/20 font-light px-2 max-[480px]:hidden">|</span>
                 <span className="text-primary max-[480px]:hidden inline-block whitespace-nowrap">Senior One Source</span>
               </span>
-              <span className="text-sm text-secondary-foreground tracking-wider mt-1">
+              <span className="text-md text-secondary-foreground tracking-wider mt-1">
                 Your Trusted Senior Living Advisor
               </span>
             </div>
@@ -47,20 +47,20 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="flex-1 hidden min-[1160px]:flex items-center justify-end gap-8 text-secondary-foreground">
+        <div className="flex-1 hidden min-[1300px]:flex items-center justify-end gap-8 text-secondary-foreground">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-sm hover:text-secondary-foreground hover:underline transition-colors"
+              className="text-md hover:text-secondary-foreground hover:underline transition-colors"
             >
               {link.label}
             </a>
           ))}
           <Button
             asChild
-            size="sm"
-            className="gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer p-4" 
+            size="lg"
+            className="gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer p-3" 
           >
             <a
               href="tel:5033831442"
@@ -99,8 +99,8 @@ const Navbar = () => {
             ))}
             <Button
               asChild
-              size="sm"
-              className="mt-3 gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer p-4"
+              size="lg"
+              className="mt-3 gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer p-2"
             >
               <a
                 href="tel:5033831442"

@@ -190,7 +190,7 @@ const CommunityContact = () => {
                                 <CarouselContent className="-ml-3">
                                     <CarouselItem className="pl-3 basis-full">
                                         <div className="w-full pb-2">
-                                            <div className="flex flex-row items-center justify-left gap-2 mb-2">
+                                            <div className="flex flex-row items-center justify-left gap-1 mb-2">
                                                 <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
                                                     <Circle
                                                         size={60}
@@ -320,7 +320,7 @@ const CommunityContact = () => {
                                     </CarouselItem>
                                     <CarouselItem className="pl-3 basis-full">
                                         <div className="w-full pb-5">
-                                            <div className="flex flex-row items-center justify-start gap-2 mb-2">
+                                            <div className="flex flex-row items-center justify-start gap-1 mb-2">
                                                 <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
                                                     <Circle
                                                         size={60}
@@ -406,7 +406,7 @@ const CommunityContact = () => {
                                     <CarouselItem className="pl-3 basis-full">
                                         <div className="w-full pb-2">
                                             <div className="flex flex-col items-start gap-1 w-full">
-                                                <div className="flex flex-row items-center justify-start gap-2 mb-0">
+                                                <div className="flex flex-row items-center justify-start gap-1 mb-0">
                                                     <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
                                                         <Circle
                                                             size={60}
@@ -421,7 +421,7 @@ const CommunityContact = () => {
                                                         Opt into messaging and apply
                                                     </div>
                                                 </div>
-                                                <label className="group flex items-center gap-3 cursor-pointer select-none w-full sm:w-fit py-2 px-1 sm:px-5 mb-1">
+                                                <label className="group flex items-center justify-center gap-3 cursor-pointer select-none w-full sm:w-fit py-1 px-1 sm:px-5 mb-1">
                                                     <input
                                                         type="checkbox"
                                                         className="sr-only"
@@ -444,8 +444,8 @@ const CommunityContact = () => {
                                                     <span
                                                         className={
                                                             isChecked
-                                                                ? "text-base sm:text-lg tracking-wide font-medium text-primary"
-                                                                : "text-base sm:text-lg tracking-wide font-medium text-gray-600"
+                                                                ? "text-base sm:text-lg tracking-wide font-medium text-primary leading-none"
+                                                                : "text-base sm:text-lg tracking-wide font-medium text-gray-600 leading-none"
                                                         }
                                                     >
                                                         Contact me by text messaging (sms)

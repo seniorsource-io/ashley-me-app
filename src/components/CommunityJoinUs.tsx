@@ -41,7 +41,7 @@ const JoinUsSection = () => {
           className="text-center mb-8">
 
           <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground">
-            Why Providers Join
+            Why Join
           </h2>
 
         </motion.div>
