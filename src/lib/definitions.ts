@@ -1,70 +1,8 @@
-export type City = string;
-export type State = string;
-export type ZipCode = string;
-export type PhoneNumber = string;
-export type EmailAddress = string;
+import { communities, customers } from "@/db/schema";
 
-export type Community = {
-  _id: string;
-  uuid: string;
-  classification: string;
-  status: "open" | "closed";
-  address: string;
-  city: City;
-  state: State;
-  zip: ZipCode;
-  phone: PhoneNumber;
-  email: EmailAddress;
-  is_abuse_free: boolean;
-  is_violation_free: boolean;
-  license_number: string;
-  joined_at: Date;
-  firstname: string;
-  lastname: string;
-  gender_restriction: "male" | "female" | "both";
-  has_medicaid_contract: boolean;
-  medicaid_spend_down: string;
-  monthly_base_price: number;
-  monthly_high_price: number;
-  care_services: string[];
-  community_rating: number;
-  community_rating_reason: string;
-  community_narrative: string;
-  title: string;
-  website: URL;
-  description: string;
-  images: string[];
-  videos: string[];
-  documents: string[];
-  links: string[];
-  tags: string[];
-  created_at: Date;
-  updated_at: Date;
-};
-export type Customer = {
-  uuid: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  mobile_phone: string;
-  status:
-    | "new"
-    | "qualified"
-    | "searching"
-    | "placed"
-    | "moved"
-    | "invoiced"
-    | "closed";
-  closed_reason:
-    | "paid"
-    | "deceased"
-    | "terminated"
-    | "duplicate"
-    | "financial_inability"
-    | "other";
-  created_at: Date;
-  updated_at: Date;
-};
+export type Community = typeof communities.$inferSelect;
+export type Customer = typeof customers.$inferSelect;
+
 export type MailingAddress = {
   address: string;
   city: string;

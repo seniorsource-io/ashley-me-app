@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-const CTASection = () => {
+const CTA = () => {
   return (
     <section id="contact" className="bg-[hsl(var(--background))]">
       <div className="mx-6 sm:mx-12 border-t border-[hsl(var(--border))]" />
@@ -51,4 +51,4 @@ const CTASection = () => {
   );
 };
 
-export default CTASection;
+export default CTA;

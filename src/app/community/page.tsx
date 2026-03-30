@@ -1,8 +1,7 @@
-//import { createHubSpotCompany } from './actions'
-import Navbar from "@/components/Navbar";
-import CommunityContact from "@/components/CommunityContact";
-import CommunityJoinUs from "@/components/CommunityJoinUs";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/navbar";
+import CommunityContact from "@/components/community-contact";
+import CommunityJoinUs from "@/components/community-join-us";
+import Footer from "@/components/footer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

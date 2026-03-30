@@ -31,7 +31,7 @@ const trustItems = [
   { number: "4.9\u2605", label: "client\nrating" },
 ];
 
-const HeroSection = () => {
+const Hero = () => {
   return (
     <section className="bg-[hsl(var(--background))]">
       <div className="max-w-[1400px] mx-auto px-6 sm:px-12 pt-14 pb-12">
@@ -125,4 +125,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;
+export default Hero;

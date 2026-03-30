@@ -1,18 +1,18 @@
-import Navbar from "@/components/Navbar";
-import HeroSection from "@/components/HeroSection";
-import HowItWorksSection from "@/components/HowItWorksSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
-import CTASection from "@/components/CTASection";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/navbar";
+import Hero from "@/components/hero";
+import HowItWorks from "@/components/how-it-works";
+import Testimonials from "@/components/testimonials";
+import CTA from "@/components/cta";
+import Footer from "@/components/footer";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-[hsl(var(--background))]">
       <Navbar />
-      <HeroSection />
-      <HowItWorksSection />
-      <TestimonialsSection />
-      <CTASection />
+      <Hero />
+      <HowItWorks />
+      <Testimonials />
+      <CTA />
       <Footer />
     </main>
   );

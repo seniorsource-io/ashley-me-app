@@ -1,6 +1,6 @@
-import Navbar from "@/components/Navbar";
-import CustomerContact from "@/components/CustomerContact";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/navbar";
+import CustomerContact from "@/components/customer-contact";
+import Footer from "@/components/footer";
 
 export default function CustomerForm() {
   return (

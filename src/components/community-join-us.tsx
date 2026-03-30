@@ -30,7 +30,7 @@ const services = [
   },
 ];
 
-const JoinUsSection = () => {
+const CommunityJoinUs = () => {
   return (
     <section id="join-us" className="py-7 bg-secondary-paper">
       <div className="container mx-auto px-6">
@@ -76,4 +76,4 @@ const JoinUsSection = () => {
   );
 };
 
-export default JoinUsSection;
+export default CommunityJoinUs;

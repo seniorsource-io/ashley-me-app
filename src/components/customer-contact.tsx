@@ -1,8 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Heart } from "lucide-react";
-import { motion } from "framer-motion";
 import { Widget } from "@typeform/embed-react";
 
 const CustomerContact = () => {

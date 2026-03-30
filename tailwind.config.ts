@@ -14,9 +14,9 @@ export default {
   	},
   	extend: {
   		fontFamily: {
-  			heading: ['EB Garamond', 'Georgia', 'serif'],
-  			body: ['Inter', 'system-ui', 'sans-serif'],
-  			sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+  			heading: ['var(--font-heading)', 'Georgia', 'serif'],
+  			body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+  			sans: ['var(--font-body)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
   		},
   		colors: {
   			border: 'hsl(var(--border))',
@@ -96,7 +96,6 @@ export default {
   		boxShadow: {
   			card: 'var(--shadow-card)',
   			soft: 'var(--shadow-soft)',
-  			medium: 'var(--shadow-medium)',
   			warm: 'var(--shadow-warm)',
   			'2xs': 'var(--shadow-2xs)',
   			xs: 'var(--shadow-xs)',
@@ -106,29 +105,7 @@ export default {
   			xl: 'var(--shadow-xl)',
   			'2xl': 'var(--shadow-2xl)'
   		},
-  		keyframes: {
-  			'accordion-down': {
-  				from: {
-  					height: '0'
-  				},
-  				to: {
-  					height: 'var(--radix-accordion-content-height)'
-  				}
-  			},
-  			'accordion-up': {
-  				from: {
-  					height: 'var(--radix-accordion-content-height)'
-  				},
-  				to: {
-  					height: '0'
-  				}
-  			},
-  		},
-  		animation: {
-  			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [],
 } satisfies Config;

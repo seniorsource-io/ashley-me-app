@@ -29,7 +29,7 @@ const steps = [
   },
 ];
 
-const HowItWorksSection = () => {
+const HowItWorks = () => {
   return (
     <section id="how-it-works" className="bg-[hsl(var(--background))]">
       <div className="mx-6 sm:mx-12 border-t border-[hsl(var(--border))]" />
@@ -80,4 +80,4 @@ const HowItWorksSection = () => {
   );
 };
 
-export default HowItWorksSection;
+export default HowItWorks;

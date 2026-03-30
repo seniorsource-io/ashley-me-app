@@ -19,7 +19,7 @@ const testimonials = [
   },
 ];
 
-const TestimonialsSection = () => {
+const Testimonials = () => {
   return (
     <section id="testimonials" className="bg-[hsl(var(--background))]">
       <div className="mx-6 sm:mx-12 border-t border-[hsl(var(--border))]" />
@@ -71,4 +71,4 @@ const TestimonialsSection = () => {
   );
 };
 
-export default TestimonialsSection;
+export default Testimonials;

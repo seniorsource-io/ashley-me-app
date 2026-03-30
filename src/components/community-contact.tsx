@@ -18,6 +18,8 @@ const CommunityContact = () => {
   const [results, setResults] = useState<Community[]>([]);
   const [selectedItem, setSelectedItem] = useState<Community | null>(null);
   const [isSearching, setIsSearching] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
 
   // 1. Create a ref to track if we just selected something
   const isSelectingRef = useRef(false);
@@ -57,25 +59,24 @@ const CommunityContact = () => {
   const [isChecked, setIsChecked] = useState(true);
 
   const handleApply = async (item: Community) => {
-    setIsSearching(true); // Reuse searching state
+    setIsSearching(true);
+    setSubmitStatus("idle");
 
-    // 1. Prepare the data payload including the checkbox state
     const payload = {
-      sms_opt_in: isChecked, // Pass the boolean state here
+      sms_opt_in: isChecked,
       joinedAt: new Date(),
-      _id: item._id,
+      id: item.id,
     };
 
-    // 2. Call the server action
-    const response = await updateCommunity(item._id, payload);
+    const response = await updateCommunity(item.id, payload);
 
     setIsSearching(false);
 
     if (response.success) {
-      alert("Preferences saved!");
-      // window.location.href = "/apply"; // Example redirect
+      setSubmitStatus("success");
     } else {
-      alert("Error: " + response.error);
+      setSubmitStatus("error");
+      setSubmitError(response.error ?? "Something went wrong.");
     }
   };
 
@@ -180,7 +181,7 @@ const CommunityContact = () => {
                             initial: { opacity: 0, x: -10 },
                             animate: { opacity: 1, x: 0 },
                           }}
-                          key={item._id.toString()}
+                          key={item.id}
                           className="px-4 py-3 hover:bg-accent-coral/5 cursor-pointer text-sm text-gray-800 border-b border-gray-200 last:border-b-0 transition-colors flex items-center gap-2"
                           onClick={() => handleSelect(item)}
                         >
@@ -337,12 +338,13 @@ const CommunityContact = () => {
                     </span>
                   </label>
                 </div>
-                <div className="w-full flex justify-center py-2">
+                <div className="w-full flex flex-col items-center py-2 gap-3">
                   {selectedItem ? (
                     <button
                       type="button"
                       onClick={() => selectedItem && handleApply(selectedItem)}
-                      className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 bg-accent-coralDeep hover:ring-2 hover:ring-accent-coral hover:ring-offset-2 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg uppercase text-sm tracking-widest cursor-pointer"
+                      disabled={isSearching || submitStatus === "success"}
+                      className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 bg-accent-coralDeep hover:ring-2 hover:ring-accent-coral hover:ring-offset-2 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg uppercase text-sm tracking-widest cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       <span>Apply Now to Join</span>
                       <HeartHandshake
@@ -357,6 +359,16 @@ const CommunityContact = () => {
                     >
                       <span>Select address to apply</span>
                     </button>
+                  )}
+                  {submitStatus === "success" && (
+                    <p className="text-green-600 font-semibold text-sm">
+                      Preferences saved! We&apos;ll be in touch soon.
+                    </p>
+                  )}
+                  {submitStatus === "error" && (
+                    <p className="text-red-600 font-semibold text-sm">
+                      {submitError}
+                    </p>
                   )}
                 </div>
               </div>
