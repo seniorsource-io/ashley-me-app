@@ -22,7 +22,6 @@ const CommunityContact = () => {
     const [isSearching, setIsSearching] = useState(false);
 
     const isSelectingRef = useRef(false);
-    const lastAdvancedForSelectionRef = useRef<string | null>(null);
     const searchAnchorRef = useRef<HTMLDivElement>(null);
     const [resultsMenuPos, setResultsMenuPos] = useState<{
         top: number;
@@ -84,18 +83,6 @@ const CommunityContact = () => {
             carouselApi.off("select", onSelect);
         };
     }, [carouselApi]);
-
-    useEffect(() => {
-        if (!carouselApi) return;
-        if (!selectedItem) {
-            lastAdvancedForSelectionRef.current = null;
-            return;
-        }
-        const id = selectedItem._id.toString();
-        if (lastAdvancedForSelectionRef.current === id) return;
-        lastAdvancedForSelectionRef.current = id;
-        carouselApi.scrollTo(1);
-    }, [selectedItem, carouselApi]);
 
     useLayoutEffect(() => {
         if (results.length === 0) {
@@ -205,15 +192,15 @@ const CommunityContact = () => {
                                                         1
                                                     </span>
                                                 </div>
-                                                <div className="text-primary text-xl font-semibold leading-tight">
-                                                    Find your community by address
+                                                <div className="text-primary text-2xl font-semibold leading-tight">
+                                                    Find your community
                                                 </div>
                                             </div>
                                             <div className="flex flex-col items-center w-full px-2">
                                                 <div ref={searchAnchorRef} className="relative w-full">
                                                     <input
                                                         type="text"
-                                                        placeholder="Search community address..."
+                                                        placeholder="Enter your community's address..."
                                                         value={query}
                                                         onChange={(e) => {
                                                             setQuery(e.target.value);
@@ -275,15 +262,49 @@ const CommunityContact = () => {
                                                             document.body,
                                                         )}
                                                 </div>
-                                                <div className="flex items-center justify-center mt-2 min-h-10">
-                                                    {isSearching && (
-                                                        <Loader2
-                                                            className="h-9 w-9 animate-spin text-primary [animation-duration:0.6s]"
-                                                            strokeWidth={2}
+                                                {query.length > 2 &&
+                                                    !isSearching &&
+                                                    results.length === 0 &&
+                                                    !selectedItem && (
+                                                        <p
+                                                            className="mt-2 text-center text-sm text-gray-500"
                                                             role="status"
-                                                            aria-label="Searching"
-                                                        />
+                                                        >
+                                                            No results found
+                                                        </p>
                                                     )}
+                                                <div className="mt-2 min-h-10 w-full">
+                                                    {isSearching ? (
+                                                        <div className="flex items-center justify-center">
+                                                            <Loader2
+                                                                className="h-9 w-9 animate-spin text-primary [animation-duration:0.6s]"
+                                                                strokeWidth={2}
+                                                                role="status"
+                                                                aria-label="Searching"
+                                                            />
+                                                        </div>
+                                                    ) : selectedItem ? (
+                                                        <div className="flex justify-between items-center gap-3 pt-2 pb-1 px-1 w-full">
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => {
+                                                                    setQuery("");
+                                                                    setSelectedItem(null);
+                                                                    setResults([]);
+                                                                }}
+                                                                className="rounded-full px-5 py-2.5 text-sm font-semibold text-primary border-2 border-primary/40 hover:bg-primary/5 transition-colors cursor-pointer"
+                                                            >
+                                                                Back
+                                                            </button>
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => carouselApi?.scrollTo(1)}
+                                                                className="rounded-full px-6 py-2.5 text-sm font-semibold uppercase tracking-widest transition-all bg-primary text-white shadow-md hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-card-secondary cursor-pointer"
+                                                            >
+                                                                Continue
+                                                            </button>
+                                                        </div>
+                                                    ) : null}
                                                 </div>
                                             </div>
                                         </div>
@@ -301,8 +322,8 @@ const CommunityContact = () => {
                                                         2
                                                     </span>
                                                 </div>
-                                                <div className="text-primary text-xl font-semibold leading-tight">
-                                                    Confirm your contact information
+                                                <div className="text-primary text-2xl font-semibold leading-tight">
+                                                    Confirm your information
                                                 </div>
                                             </div>
                                             <div className="w-full min-h-[80px] mt-1 p-6 bg-white border border-gray-300 rounded-lg shadow-md">
@@ -353,7 +374,7 @@ const CommunityContact = () => {
                                                 <button
                                                     type="button"
                                                     onClick={() => carouselApi?.scrollTo(0)}
-                                                    className="rounded-full px-5 py-2.5 text-sm font-semibold text-primary border-2 border-primary/40 hover:bg-primary/5 transition-colors"
+                                                    className="rounded-full px-5 py-2.5 text-sm font-semibold text-primary border-2 border-primary/40 hover:bg-primary/5 transition-colors cursor-pointer"
                                                 >
                                                     Back
                                                 </button>
@@ -387,8 +408,8 @@ const CommunityContact = () => {
                                                             3
                                                         </span>
                                                     </div>
-                                                    <div className="text-primary text-xl font-semibold leading-tight">
-                                                        Opt in and apply to join
+                                                    <div className="text-primary text-2xl font-semibold leading-tight">
+                                                        Opt into messaging and apply
                                                     </div>
                                                 </div>
                                                 <label className="group flex items-center gap-3 cursor-pointer select-none w-full sm:w-fit py-2 px-1 sm:px-5 mb-1">
@@ -426,7 +447,7 @@ const CommunityContact = () => {
                                                 <button
                                                     type="button"
                                                     onClick={() => carouselApi?.scrollTo(1)}
-                                                    className="rounded-full px-5 py-2.5 text-sm font-semibold text-primary border-2 border-primary/40 hover:bg-primary/5 transition-colors"
+                                                    className="rounded-full px-5 py-2.5 text-sm font-semibold text-primary border-2 border-primary/40 hover:bg-primary/5 transition-colors cursor-pointer"
                                                 >
                                                     Back
                                                 </button>
