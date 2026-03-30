@@ -57,13 +57,16 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
-          <Button size="sm" className="gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer">
-            <Phone className="w-4 h-4" />
+          <Button
+            asChild
+            size="sm"
+            className="gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer p-4" 
+          >
             <a
               href="tel:5033831442"
-              className="cursor-pointer"
               aria-label="Call Ashley Krause at 503-383-1442"
             >
+              <Phone className="w-4 h-4" />
               (503) 383-1442
             </a>
           </Button>
@@ -94,13 +97,16 @@ const Navbar = () => {
                 {link.label}
               </a>
             ))}
-            <Button size="sm" className="mt-3 gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer">
-              <Phone className="w-4 h-4" />
+            <Button
+              asChild
+              size="sm"
+              className="mt-3 gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer p-4"
+            >
               <a
                 href="tel:5033831442"
-                className="cursor-pointer"
                 aria-label="Call Ashley Krause at 503-383-1442"
               >
+                <Phone className="w-4 h-4" />
                 (503) 383-1442
               </a>
             </Button>

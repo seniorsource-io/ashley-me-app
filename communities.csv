@@ -1,4 +1,4 @@
-uuid,classification,address,city,state,zip,phone,email,is_abuse_free,is_violation_free,license_number,joined_at,first_name,last_name
+uuid,classification,address,city,state,zip,phone,email,is_abuse_free,is_violation_free,license_number,joined_at,first_name,last_name, community_domain_name, community_name
 09567ea32017f8bc17dbee42999994b9,Class 3,4539 SESAME ST NE,SALEM,OR,97305,(503) 362-8013,1abelzerihun@gmail.com,Yes,Yes,4126909514,,Abel,Legesse
 6e62b6e9b7792951d3656790ae90d2be,Class 2,2207 JULIET CT S,SALEM,OR,97302,(503) 409-8030,1baregian@gmail.com,Yes,Yes,9106371502,,David,Bartlett
 85147db9ae492e6503d808b0080bf40c,Class 2,14950 SW DAPHNE CT,BEAVERTON,OR,97007,(503) 747-2700,1nbcfc@gmail.com,Yes,Yes,3803389824,,New,LLC

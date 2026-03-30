@@ -2,10 +2,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion } from "framer-motion";
-import { ArrowRight, Heart } from "lucide-react";
-import { Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 const HeroSection = () => {
   return (
@@ -52,7 +51,7 @@ const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-lg text-primary-foreground/80 mb-7 max-w-lg leading-relaxed"
           >
-            My team and I help families in the Portland area and beyond navigate the journey to
+            My team and I help families in the greater Portland area navigate the journey to
             senior living with personalized guidance, compassion, and expertise — at no cost to you.
           </motion.p>
 

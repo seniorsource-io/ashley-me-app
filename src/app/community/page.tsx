@@ -16,8 +16,8 @@ export default function CommunityForm() {
     return (
         <div className="min-h-screen bg-background">
             <Navbar />
-            <CommunityJoinUs />
             <CommunityContact />
+            <CommunityJoinUs />
             <Footer />
         </div>
     );

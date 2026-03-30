@@ -61,10 +61,27 @@ export async function updateCommunity(_id: string, data: { sms_opt_in: boolean, 
       { upsert: true } // Inserts a new doc if the email isn't found
     );
 
+    /*const response = await fetch('https://hubapi.com', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.HUBSPOT_ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        properties: {
+          uud: name,
+          domain: domain,
+        },
+      }),
+    })*/
+  
+    //if (!response.ok) throw new Error('Failed to create company')
+    //return response.json()
+
     return { success: true };
   } catch (e) {
     console.error(e);
-    return { success: false, error: "Database update failed." };
+    return { success: false, error: "CRM update failed." };
   }
 }
 

@@ -75,6 +75,9 @@ body {
     --ring: 200 98% 39%;
 
     --radius: 0.5rem;
+    /* Used by ui/button and other components (Tailwind theme borderRadius.md/sm reference this pattern) */
+    --radius-md: calc(var(--radius) - 2px);
+    --radius-sm: calc(var(--radius) - 4px);
 
     --sage-light: 152 20% 95%;
     --sage: 152 32% 40%;

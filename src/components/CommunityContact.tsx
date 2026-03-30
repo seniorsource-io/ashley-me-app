@@ -1,11 +1,19 @@
 'use client'
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useLayoutEffect, useCallback } from "react";
+import { createPortal } from "react-dom";
 import { searchAddresses } from "@/app/actions";
 import { updateCommunity } from "@/app/actions";
 import type { Community } from "@/lib/definitions";
 import { motion, AnimatePresence } from 'framer-motion';
 import { Circle, Check, UserCheck, HeartHandshake, Loader2 } from 'lucide-react';
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    type CarouselApi,
+} from "@/components/ui/carousel";
+import { cn } from "@/lib/utils";
 
 const CommunityContact = () => {
     const [query, setQuery] = useState("");
@@ -13,8 +21,25 @@ const CommunityContact = () => {
     const [selectedItem, setSelectedItem] = useState<Community | null>(null);
     const [isSearching, setIsSearching] = useState(false);
 
-    // 1. Create a ref to track if we just selected something
     const isSelectingRef = useRef(false);
+    const lastAdvancedForSelectionRef = useRef<string | null>(null);
+    const searchAnchorRef = useRef<HTMLDivElement>(null);
+    const [resultsMenuPos, setResultsMenuPos] = useState<{
+        top: number;
+        left: number;
+        width: number;
+    } | null>(null);
+
+    const updateResultsMenuPosition = useCallback(() => {
+        const el = searchAnchorRef.current;
+        if (!el || results.length === 0) return;
+        const r = el.getBoundingClientRect();
+        setResultsMenuPos({
+            top: r.bottom + 8,
+            left: r.left,
+            width: r.width,
+        });
+    }, [results.length]);
 
     useEffect(() => {
         if (isSelectingRef.current) {
@@ -23,13 +48,13 @@ const CommunityContact = () => {
         }
 
         if (query.length > 2) {
-            setIsSearching(true); // Start spinner
+            setIsSearching(true);
             const fetchResults = async () => {
                 try {
                     const data = await searchAddresses(query);
                     setResults(data);
                 } finally {
-                    setIsSearching(false); // Stop spinner (regardless of success/fail)
+                    setIsSearching(false);
                 }
             };
             const timeoutId = setTimeout(fetchResults, 100);
@@ -40,55 +65,104 @@ const CommunityContact = () => {
         }
     }, [query]);
 
-    // 3. Update your click handler to use the ref
     const handleSelect = (item: Community) => {
         isSelectingRef.current = true;
         setQuery(item.address);
         setResults([]);
-        setSelectedItem(item); // Store the selection here
+        setSelectedItem(item);
     };
+
+    const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+    const [currentSlide, setCurrentSlide] = useState(0);
+
+    useEffect(() => {
+        if (!carouselApi) return;
+        const onSelect = () => setCurrentSlide(carouselApi.selectedScrollSnap());
+        onSelect();
+        carouselApi.on("select", onSelect);
+        return () => {
+            carouselApi.off("select", onSelect);
+        };
+    }, [carouselApi]);
+
+    useEffect(() => {
+        if (!carouselApi) return;
+        if (!selectedItem) {
+            lastAdvancedForSelectionRef.current = null;
+            return;
+        }
+        const id = selectedItem._id.toString();
+        if (lastAdvancedForSelectionRef.current === id) return;
+        lastAdvancedForSelectionRef.current = id;
+        carouselApi.scrollTo(1);
+    }, [selectedItem, carouselApi]);
+
+    useLayoutEffect(() => {
+        if (results.length === 0) {
+            setResultsMenuPos(null);
+            return;
+        }
+        updateResultsMenuPosition();
+        window.addEventListener("scroll", updateResultsMenuPosition, true);
+        window.addEventListener("resize", updateResultsMenuPosition);
+        const ro = new ResizeObserver(updateResultsMenuPosition);
+        const el = searchAnchorRef.current;
+        if (el) ro.observe(el);
+        return () => {
+            window.removeEventListener("scroll", updateResultsMenuPosition, true);
+            window.removeEventListener("resize", updateResultsMenuPosition);
+            ro.disconnect();
+        };
+    }, [results.length, updateResultsMenuPosition]);
+
+    useEffect(() => {
+        if (!carouselApi || results.length === 0) return;
+        const onMove = () => updateResultsMenuPosition();
+        carouselApi.on("scroll", onMove);
+        carouselApi.on("settle", onMove);
+        return () => {
+            carouselApi.off("scroll", onMove);
+            carouselApi.off("settle", onMove);
+        };
+    }, [carouselApi, results.length, updateResultsMenuPosition]);
 
     const [isChecked, setIsChecked] = useState(true);
 
     const handleApply = async (item: Community) => {
 
-        setIsSearching(true);  // Reuse searching state
+        setIsSearching(true);
 
-        // 1. Prepare the data payload including the checkbox state
         const payload = {
-            sms_opt_in: isChecked, // Pass the boolean state here
+            sms_opt_in: isChecked,
             joinedAt: new Date(),
             _id: item._id
         };
 
-        // 2. Call the server action
         const response = await updateCommunity(item._id, payload);
 
         setIsSearching(false);
 
         if (response.success) {
             alert("Preferences saved!");
-            // window.location.href = "/apply"; // Example redirect
         } else {
             alert("Error: " + response.error);
         }
     };
 
     return (
-        <section id="community-contact-form" className="pt-0 pb-16 bg-secondary-paper">
+        <section id="community-contact-form" className="pt-10 pb-4 pt-7 bg-secondary-paper">
             <div className="container mx-auto px-6">
                 <div className="max-w-xl mx-auto">
-
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="text-center mb-5">
+                        className="text-center mb-4">
 
                         <span className="flex flex-row items-center gap-3 text-lg font-semibold uppercase justify-center tracking-widest text-accent">
-                            <span className="text-accent-coralDeep">Sign Up Here</span>
-                            <UserCheck className="w-6 h-6 text-accent-coralDeep" />
+                            <span className="text-primary">Sign Up Here</span>
+                            <UserCheck className="w-6 h-6 text-primary" />
                         </span>
 
                     </motion.div>
@@ -96,235 +170,306 @@ const CommunityContact = () => {
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                        className="text-center mb-6">
+
+                        <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground py-0">
+                            Join Our Provider Community
+                        </h2>
+
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.15 }}
-                        className="bg-card-secondary rounded-2xl shadow-xl pt-4 pb-7 sm:pt-6 sm:pb-9 h-full overflow-hidden">
-                        <div className="flex flex-col items-center gap-1 w-full items-center px-6 ">
-
-                            {/* Top: Step 1 Container */}
-                            <div className="w-full sm:w-[420px] relative mb-8">
-
-                                {/* Step 1 ROW: Circle and Step Text aligned together */}
-                                <div className="flex flex-row items-center justify-left gap-2 mb-2">
-                                    {/* The Circle Container */}
-                                    <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
-                                        <Circle
-                                            size={60}
-                                            className="fill-accent-coralDeep stroke-white"
-                                            strokeWidth={1.5}
-                                        />
-                                        <span className="absolute text-white font-bold text-2xl select-none">
-                                            1
-                                        </span>
-                                    </div>
-
-                                    {/* The Step Text aligned to the right of the circle */}
-                                    <div className="text-accent-coralDeep text-xl font-semibold leading-tight">
-                                        Step 1:<br />Find your community address
-                                    </div>
-                                </div>
-                                <div className="flex flex-col items-center w-full">
-                                    {/* Search Box */}
-                                    <input
-                                        type="text"
-                                        placeholder="Search community address..."
-                                        value={query}
-                                        onChange={(e) => {
-                                            setQuery(e.target.value);
-                                            if (selectedItem) setSelectedItem(null);
-                                        }}
-                                        className="text-gray-900 w-full p-3 border border-gray-300 rounded-md shadow-md focus:ring-2 focus:ring-accent-coralDeep outline-none bg-white text-center font-medium placeholder:italic"
-                                    />
-                                    {/* Spinner: Positioned naturally below the input and centered */}
-                                    <div className="flex items-center justify-center mt-2">
-                                        {isSearching && (
-                                            <Loader2 className="animate-spin text-accent-coralDeep" size={25} />
-                                        )}
-                                    </div>
-                                </div>
-                                <AnimatePresence>
-                                    {results.length > 0 && (
-                                        <motion.ul
-                                            initial={{ opacity: 0, scale: 0.95, y: -5 }}
-                                            animate={{
-                                                opacity: 1,
-                                                scale: 1,
-                                                y: 0,
-                                                transition: {
-                                                    type: "spring",
-                                                    stiffness: 300,
-                                                    damping: 25,
-                                                    staggerChildren: 0.05 // Drops items in one-by-one
-                                                }
-                                            }}
-                                            exit={{ opacity: 0, scale: 0.95, y: -5, transition: { duration: 0.2 } }}
-                                            className="absolute w-full z-[100] bg-white border border-gray-100 rounded-xl shadow-2xl overflow-hidden backdrop-blur-sm"
-                                        >
-                                            {results.map((item) => (
-                                                <motion.li
-                                                    variants={{
-                                                        initial: { opacity: 0, x: -10 },
-                                                        animate: { opacity: 1, x: 0 }
-                                                    }}
-                                                    key={item._id.toString()}
-                                                    className="px-4 py-3 hover:bg-accent-coral/5 cursor-pointer text-sm text-gray-800 border-b border-gray-200 last:border-b-0 transition-colors flex items-center gap-2"
-                                                    onClick={() => handleSelect(item)}
+                        className="bg-card-secondary rounded-2xl shadow-xl pt-0 pb-7 sm:pt-6 sm:pb-9 h-full overflow-x-clip overflow-y-visible">
+                        <div className="w-full px-6 sm:px-10">
+                            <Carousel
+                                setApi={setCarouselApi}
+                                opts={{ align: "start", loop: false }}
+                                className="w-full max-w-[420px] mx-auto"
+                            >
+                                <CarouselContent className="-ml-3">
+                                    <CarouselItem className="pl-3 basis-full">
+                                        <div className="w-full pb-2">
+                                            <div className="flex flex-row items-center justify-left gap-2 mb-2">
+                                                <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
+                                                    <Circle
+                                                        size={60}
+                                                        className="fill-primary stroke-white"
+                                                        strokeWidth={1.5}
+                                                    />
+                                                    <span className="absolute text-white font-bold text-2xl select-none">
+                                                        1
+                                                    </span>
+                                                </div>
+                                                <div className="text-primary text-xl font-semibold leading-tight">
+                                                    Find your community by address
+                                                </div>
+                                            </div>
+                                            <div className="flex flex-col items-center w-full px-2">
+                                                <div ref={searchAnchorRef} className="relative w-full">
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Search community address..."
+                                                        value={query}
+                                                        onChange={(e) => {
+                                                            setQuery(e.target.value);
+                                                            if (selectedItem) setSelectedItem(null);
+                                                        }}
+                                                        className="text-gray-900 w-full p-3 border border-gray-300 rounded-md shadow-md focus:ring-2 focus:ring-primary outline-none bg-white text-center font-medium placeholder:italic"
+                                                    />
+                                                    {typeof document !== "undefined" &&
+                                                        createPortal(
+                                                            <AnimatePresence>
+                                                                {results.length > 0 && resultsMenuPos && (
+                                                                    <motion.ul
+                                                                        key="address-results-dropdown"
+                                                                        initial={{ opacity: 0, scale: 0.95, y: -5 }}
+                                                                        animate={{
+                                                                            opacity: 1,
+                                                                            scale: 1,
+                                                                            y: 0,
+                                                                            transition: {
+                                                                                type: "spring",
+                                                                                stiffness: 300,
+                                                                                damping: 25,
+                                                                                staggerChildren: 0.05,
+                                                                            },
+                                                                        }}
+                                                                        exit={{
+                                                                            opacity: 0,
+                                                                            scale: 0.95,
+                                                                            y: -5,
+                                                                            transition: { duration: 0.2 },
+                                                                        }}
+                                                                        style={{
+                                                                            position: "fixed",
+                                                                            top: resultsMenuPos.top,
+                                                                            left: resultsMenuPos.left,
+                                                                            width: resultsMenuPos.width,
+                                                                            zIndex: 100,
+                                                                        }}
+                                                                        className="max-h-52 overflow-y-auto overscroll-contain touch-pan-y bg-white border border-gray-100 rounded-xl shadow-2xl backdrop-blur-sm"
+                                                                        onWheel={(e) => e.stopPropagation()}
+                                                                    >
+                                                                        {results.map((item) => (
+                                                                            <motion.li
+                                                                                variants={{
+                                                                                    initial: { opacity: 0, x: -10 },
+                                                                                    animate: { opacity: 1, x: 0 },
+                                                                                }}
+                                                                                key={item._id.toString()}
+                                                                                className="px-4 py-3 hover:bg-primary/5 cursor-pointer text-sm text-gray-800 border-b border-gray-200 last:border-b-0 transition-colors flex items-center gap-2"
+                                                                                onClick={() => handleSelect(item)}
+                                                                            >
+                                                                                <div className="w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                                                                                {item.address}
+                                                                            </motion.li>
+                                                                        ))}
+                                                                    </motion.ul>
+                                                                )}
+                                                            </AnimatePresence>,
+                                                            document.body,
+                                                        )}
+                                                </div>
+                                                <div className="flex items-center justify-center mt-2 min-h-10">
+                                                    {isSearching && (
+                                                        <Loader2
+                                                            className="h-9 w-9 animate-spin text-primary [animation-duration:0.6s]"
+                                                            strokeWidth={2}
+                                                            role="status"
+                                                            aria-label="Searching"
+                                                        />
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </CarouselItem>
+                                    <CarouselItem className="pl-3 basis-full">
+                                        <div className="w-full pb-5">
+                                            <div className="flex flex-row items-center justify-start gap-2 mb-2">
+                                                <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
+                                                    <Circle
+                                                        size={60}
+                                                        className="fill-primary stroke-white"
+                                                        strokeWidth={1.5}
+                                                    />
+                                                    <span className="absolute text-white font-bold text-2xl select-none">
+                                                        2
+                                                    </span>
+                                                </div>
+                                                <div className="text-primary text-xl font-semibold leading-tight">
+                                                    Confirm your contact information
+                                                </div>
+                                            </div>
+                                            <div className="w-full min-h-[80px] mt-1 p-6 bg-white border border-gray-300 rounded-lg shadow-md">
+                                                <AnimatePresence mode="wait">
+                                                    {selectedItem ? (
+                                                        <motion.div
+                                                            key="details"
+                                                            initial={{ opacity: 0, y: 20 }}
+                                                            animate={{ opacity: 1, y: 0 }}
+                                                            exit={{ opacity: 0, y: -20 }}
+                                                            transition={{ duration: 0.4, ease: "easeOut" }}
+                                                            className="grid grid-cols-2 gap-4 text-md text-center"
+                                                        >
+                                                            <div>
+                                                                <p className="text-primary uppercase text-xs font-bold truncate">First Name</p>
+                                                                <p>{selectedItem.firstname}</p>
+                                                            </div>
+                                                            <div>
+                                                                <p className="text-primary uppercase text-xs font-bold truncate">Last Name</p>
+                                                                <p>{selectedItem.lastname}</p>
+                                                            </div>
+                                                            <div className="col-span-2 my-2 border-t border-gray-200" />
+                                                            <div>
+                                                                <p className="text-primary uppercase text-xs font-bold">Phone</p>
+                                                                <p>{selectedItem.phone || "N/A"}</p>
+                                                            </div>
+                                                            <div>
+                                                                <p className="text-primary uppercase text-xs font-bold">Email</p>
+                                                                <p className="truncate">{selectedItem.email || "N/A"}</p>
+                                                            </div>
+                                                        </motion.div>
+                                                    ) : (
+                                                        <motion.div
+                                                            key="placeholder"
+                                                            initial={{ opacity: 0 }}
+                                                            animate={{ opacity: 1 }}
+                                                            exit={{ opacity: 0 }}
+                                                            className="flex items-center justify-center min-h-[120px]"
+                                                        >
+                                                            <p className="text-gray-400 italic text-md text-center px-2">
+                                                                Select an address to confirm contact information.
+                                                            </p>
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
+                                            <div className="flex justify-between items-center gap-3 pt-4 pb-1 px-1">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => carouselApi?.scrollTo(0)}
+                                                    className="rounded-full px-5 py-2.5 text-sm font-semibold text-primary border-2 border-primary/40 hover:bg-primary/5 transition-colors"
                                                 >
-                                                    {/* Optional: Add a small icon to each result for better UI */}
-                                                    <div className="w-1.5 h-1.5 rounded-full bg-accent-coral/40" />
-                                                    {item.address}
-                                                </motion.li>
-                                            ))}
-                                        </motion.ul>
-                                    )}
-                                </AnimatePresence>
-
-                            </div>
-
-                            {/* Middle: Step 2 Container */}
-                            <div className="w-full sm:w-[420px] relative mb-8">
-
-                                <div className="flex flex-col gap-0 w-full sm:w-[420px]">
-                                    {/* Step 2 Header ROW */}
-                                    <div className="flex flex-row items-center justify-start gap-2 mb-2">
-                                        <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
-                                            <Circle
-                                                size={60} // Slightly smaller for a tighter vertical profile
-                                                className="fill-accent-coralDeep stroke-white"
-                                                strokeWidth={1.5}
-                                            />
-                                            <span className="absolute text-white font-bold text-2xl select-none">
-                                                2
-                                            </span>
+                                                    Back
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    disabled={!selectedItem}
+                                                    onClick={() => carouselApi?.scrollTo(2)}
+                                                    className={cn(
+                                                        "rounded-full px-6 py-2.5 text-sm font-semibold uppercase tracking-widest transition-all",
+                                                        selectedItem
+                                                            ? "bg-primary text-white shadow-md hover:ring-2 hover:ring-primary hover:ring-offset-2 hover:ring-offset-card-secondary cursor-pointer"
+                                                            : "bg-gray-200 text-gray-400 cursor-not-allowed",
+                                                    )}
+                                                >
+                                                    Continue
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div className="text-accent-coralDeep text-xl font-semibold leading-tight">
-                                            Step 2:<br />Confirm your contact information
+                                    </CarouselItem>
+                                    <CarouselItem className="pl-3 basis-full">
+                                        <div className="w-full pb-2">
+                                            <div className="flex flex-col items-start gap-1 w-full">
+                                                <div className="flex flex-row items-center justify-start gap-2 mb-0">
+                                                    <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
+                                                        <Circle
+                                                            size={60}
+                                                            className="fill-primary stroke-white"
+                                                            strokeWidth={1.5}
+                                                        />
+                                                        <span className="absolute text-white font-bold text-2xl select-none">
+                                                            3
+                                                        </span>
+                                                    </div>
+                                                    <div className="text-primary text-xl font-semibold leading-tight">
+                                                        Opt in and apply to join
+                                                    </div>
+                                                </div>
+                                                <label className="group flex items-center gap-3 cursor-pointer select-none w-full sm:w-fit py-2 px-1 sm:px-5 mb-1">
+                                                    <input
+                                                        type="checkbox"
+                                                        className="sr-only"
+                                                        checked={isChecked}
+                                                        onChange={() => setIsChecked(!isChecked)}
+                                                    />
+                                                    <div
+                                                        className={
+                                                            isChecked
+                                                                ? "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-primary border-primary shrink-0"
+                                                                : "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-white border-gray-300 group-hover:border-primary shrink-0"
+                                                        }
+                                                    >
+                                                        <Check
+                                                            size={18}
+                                                            className={isChecked ? "text-white opacity-100 transition-opacity" : "opacity-0"}
+                                                            strokeWidth={4}
+                                                        />
+                                                    </div>
+                                                    <span
+                                                        className={
+                                                            isChecked
+                                                                ? "text-base sm:text-lg tracking-wide font-medium text-primary"
+                                                                : "text-base sm:text-lg tracking-wide font-medium text-gray-600"
+                                                        }
+                                                    >
+                                                        Contact me by text messaging (sms)
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div className="w-full flex flex-wrap justify-center items-center gap-3 py-10">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => carouselApi?.scrollTo(1)}
+                                                    className="rounded-full px-5 py-2.5 text-sm font-semibold text-primary border-2 border-primary/40 hover:bg-primary/5 transition-colors"
+                                                >
+                                                    Back
+                                                </button>
+                                                {selectedItem ? (
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => selectedItem && handleApply(selectedItem)}
+                                                        className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 bg-primary hover:ring-2 hover:ring-primary hover:ring-offset-2 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg uppercase text-sm tracking-widest cursor-pointer"
+                                                    >
+                                                        <span>Apply Now to Join</span>
+                                                        <HeartHandshake
+                                                            size={20}
+                                                            className="transition-transform duration-300 group-hover:scale-120"
+                                                        />
+                                                    </button>
+                                                ) : (
+                                                    <button
+                                                        type="button"
+                                                        className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 text-gray-400 py-3 px-6 rounded-full transition-all duration-300 shadow-lg text-md italic outline-1 outline-gray-300"
+                                                    >
+                                                        <span>Select address to apply</span>
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-
-                                {/* Step 2: Display Items */}
-                                <div className="w-full sm:w-[420px] min-h-[80px] mt-1 p-6 bg-white border border-gray-300 rounded-lg shadow-md">
-                                    <AnimatePresence mode="wait">
-                                        {selectedItem ? (
-                                            <motion.div
-                                                key="details"
-                                                initial={{ opacity: 0, y: 20 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: -20 }}
-                                                transition={{ duration: 0.4, ease: "easeOut" }}
-                                                className="grid grid-cols-2 gap-4 text-md text-center">
-                                                <div>
-                                                    <p className="text-accent-coralDeep uppercase text-xs font-bold">First Name</p>
-                                                    <p>{selectedItem.firstname}</p>
-                                                </div>
-                                                <div>
-                                                    <p className="text-accent-coralDeep uppercase text-xs font-bold">Last Name</p>
-                                                    <p>{selectedItem.lastname}</p>
-                                                </div>
-                                                {/* ⚡️ LIGHT GRAY SEPARATOR ⚡️ */}
-                                                <div className="col-span-2 my-2 border-t border-gray-200" />
-                                                <div>
-                                                    <p className="text-accent-coralDeep uppercase text-xs font-bold">Phone</p>
-                                                    <p>{selectedItem.phone || "N/A"}</p>
-                                                </div>
-                                                <div>
-                                                    <p className="text-accent-coralDeep uppercase text-xs font-bold">Email</p>
-                                                    <p className="truncate">{selectedItem.email || "N/A"}</p>
-                                                </div>
-                                            </motion.div>
-                                        ) : (
-                                            <motion.div
-                                                key="placeholder"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                exit={{ opacity: 0 }}
-                                                className="flex items-center justify-center h-full"
-                                            >
-                                                <p className="text-gray-400 italic text-md text-center">
-                                                    Select address to confirm contact information...
-                                                </p>
-                                            </motion.div>
+                                    </CarouselItem>
+                                </CarouselContent>
+                            </Carousel>
+                            <div className="flex justify-center items-center gap-2 pt-4 pb-1">
+                                {[0, 1, 2].map((index) => (
+                                    <button
+                                        key={index}
+                                        type="button"
+                                        aria-label={`Go to step ${index + 1}`}
+                                        onClick={() => carouselApi?.scrollTo(index)}
+                                        className={cn(
+                                            "h-2.5 rounded-full transition-all duration-300",
+                                            currentSlide === index
+                                                ? "w-8 bg-primary"
+                                                : "w-2.5 bg-primary/30 hover:bg-primary/50",
                                         )}
-                                    </AnimatePresence>
-                                </div>
-                            </div>
-
-                            {/* Bottom: Step 3 Container */}
-                            <div className="w-full sm:w-[420px] relative mb-8">
-
-                                {/* Step 3 ROW: Circle and Step Text aligned together */}
-                                <div className="flex flex-col items-start gap-1 w-full sm:w-[420px]">
-                                    {/* Step 3 Header ROW */}
-                                    <div className="flex flex-row items-center justify-start gap-2 mb-0">
-                                        {/* Reduced container to h-12 to match the circle size more closely */}
-                                        <div className="relative flex items-center justify-center w-16 h-16 shrink-0">
-                                            <Circle
-                                                size={60} // Slightly smaller for a tighter vertical profile
-                                                className="fill-accent-coralDeep stroke-white"
-                                                strokeWidth={1.5}
-                                            />
-                                            <span className="absolute text-white font-bold text-2xl select-none">
-                                                3
-                                            </span>
-                                        </div>
-                                        <div className="text-accent-coralDeep text-xl font-semibold leading-tight">
-                                            Step 3:<br />Opt in and apply to join
-                                        </div>
-                                    </div>
-                                    <label className="group flex items-center gap-3 cursor-pointer select-none w-fit py-2 px-5 mb-1">
-                                        {/* Checkbox Input */}
-                                        <input
-                                            type="checkbox"
-                                            className="sr-only"
-                                            checked={isChecked}
-                                            onChange={() => setIsChecked(!isChecked)}
-                                        />
-                                        {/* Custom Checkbox Square */}
-                                        <div
-                                            className={
-                                                isChecked
-                                                    ? "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-accent-coralDeep border-accent-coralDeep"
-                                                    : "flex items-center justify-center w-7 h-7 rounded-md border-2 transition-all duration-300 bg-white border-gray-300 group-hover:border-accent-coralDeep"
-                                            }
-                                        >
-                                            <Check
-                                                size={18}
-                                                className={isChecked ? "text-white opacity-100 transition-opacity" : "opacity-0"}
-                                                strokeWidth={4}
-                                            />
-                                        </div>
-
-                                        {/* Checkbox Label Text */}
-                                        <span className={
-                                            isChecked
-                                                ? "text-lg tracking-wide font-medium text-accent-coralDeep"
-                                                : "text-lg tracking-wide font-medium text-gray-600"
-                                        }>
-                                            Contact me by text messaging (sms)
-                                        </span>
-                                    </label>
-
-                                </div>
-                                <div className="w-full flex justify-center py-2">
-                                    {selectedItem ? (
-                                        <button
-                                            type="button"
-                                            onClick={() => selectedItem && handleApply(selectedItem)}
-                                            className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 bg-accent-coralDeep hover:ring-2 hover:ring-accent-coral hover:ring-offset-2 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg uppercase text-sm tracking-widest cursor-pointer">
-                                            <span>Apply Now to Join</span>
-                                            <HeartHandshake
-                                                size={20}
-                                                className="transition-transform duration-300 group-hover:scale-120"
-                                            />
-                                        </button>
-                                    ) : (
-                                        <button
-                                            type="button"
-                                            className="group relative z-10 w-fit inline-flex items-center justify-center gap-2 text-gray-400 py-3 px-6 rounded-full transition-all duration-300 shadow-lg text-md italic outline-1 outline-gray-300">
-                                            <span>Select address to apply</span>
-                                        </button>
-                                    )}
-                                </div>
+                                    />
+                                ))}
                             </div>
                         </div>
                     </motion.div>
