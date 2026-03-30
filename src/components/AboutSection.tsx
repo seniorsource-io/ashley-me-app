@@ -21,7 +21,7 @@ export default function AboutSection() {
               alt="Ashley Krause"
               width={80}
               height={80}
-              className="w-24 h-24 rounded-lg object-cover shrink-0 border-1 border-accent"
+              className="w-24 h-24 rounded-lg object-cover object-top shrink-0 border-1 border-accent"
             />
             <div>
               <span className="text-sm font-semibold uppercase tracking-widest text-primary mb-3 block">
