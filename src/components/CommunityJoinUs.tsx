@@ -26,7 +26,7 @@ const services = [
     icon: Sprout,
     title: "Support for Your Business",
     description:
-      "Tools, technology, and resources to help support your business and growth."
+      "Tools, technology, and resources to help support your business and growth. Coming soon!"
   }];
 
 const JoinUsSection = () => {
