@@ -92,12 +92,21 @@ const CommunityContact = () => {
         updateResultsMenuPosition();
         window.addEventListener("scroll", updateResultsMenuPosition, true);
         window.addEventListener("resize", updateResultsMenuPosition);
+        const vv = window.visualViewport;
+        if (vv) {
+            vv.addEventListener("resize", updateResultsMenuPosition);
+            vv.addEventListener("scroll", updateResultsMenuPosition);
+        }
         const ro = new ResizeObserver(updateResultsMenuPosition);
         const el = searchAnchorRef.current;
         if (el) ro.observe(el);
         return () => {
             window.removeEventListener("scroll", updateResultsMenuPosition, true);
             window.removeEventListener("resize", updateResultsMenuPosition);
+            if (vv) {
+                vv.removeEventListener("resize", updateResultsMenuPosition);
+                vv.removeEventListener("scroll", updateResultsMenuPosition);
+            }
             ro.disconnect();
         };
     }, [results.length, updateResultsMenuPosition]);
@@ -171,7 +180,7 @@ const CommunityContact = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.15 }}
-                        className="bg-card-secondary rounded-2xl shadow-xl pt-2 pb-7 sm:pt-6 sm:pb-9 h-full overflow-x-clip overflow-y-visible">
+                        className="bg-card-secondary rounded-2xl shadow-xl pt-3 pb-7 sm:pt-6 sm:pb-9 h-full overflow-x-clip overflow-y-visible">
                         <div className="w-full px-6 sm:px-10">
                             <Carousel
                                 setApi={setCarouselApi}
