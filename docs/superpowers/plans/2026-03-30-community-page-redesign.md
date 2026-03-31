@@ -4,9 +4,9 @@
 
 **Goal:** Replace the 3-step search-and-claim community page with a clean contact form in a split layout that matches the landing page aesthetic.
 
-**Architecture:** New `community_inquiries` table for form submissions. Split layout page with value props on the left and a client-side form component on the right. Server action handles the insert.
+**Architecture:** New `community_inquiries` table for form submissions. Zod schema shared between client and server. Split layout page with value props on the left and a client-side form component (using shadcn Input/Label/Button) on the right. Server action validates with Zod and inserts.
 
-**Tech Stack:** Next.js, Drizzle ORM, Neon Postgres, Tailwind CSS, Framer Motion, Lucide icons
+**Tech Stack:** Next.js, Drizzle ORM, Neon Postgres, Zod, shadcn/ui, Tailwind CSS, Lucide icons
 
 **Spec:** `docs/superpowers/specs/2026-03-30-community-page-redesign.md`
 
@@ -18,18 +18,21 @@
 |------|--------|----------------|
 | `src/db/schema.ts` | Modify | Add `communityInquiries` table |
 | `src/lib/definitions.ts` | Modify | Add `CommunityInquiry` type |
-| `src/app/actions.ts` | Modify | Add `submitCommunityInquiry` server action |
-| `src/components/community-form.tsx` | Create | Client component — contact form with validation + submit |
+| `src/lib/schemas.ts` | Create | Zod validation schema for community inquiry form |
+| `src/app/actions.ts` | Modify | Add `submitCommunityInquiry` server action with Zod validation |
+| `src/components/community-form.tsx` | Create | Client component — contact form using shadcn components |
 | `src/app/(public)/community/page.tsx` | Rewrite | Split layout — left copy/value props, right form card |
 | `src/components/community-contact.tsx` | Delete | Replaced by `community-form.tsx` |
 | `src/components/community-join-us.tsx` | Delete | Value props move inline to page |
 
 ---
 
-### Task 1: Add `communityInquiries` table to schema
+### Task 1: Add `communityInquiries` table and Zod schema
 
 **Files:**
-- Modify: `src/db/schema.ts:93` (after `communities` table, before `customers` table)
+- Modify: `src/db/schema.ts` (after `communities` table, before `customers` table)
+- Modify: `src/lib/definitions.ts`
+- Create: `src/lib/schemas.ts`
 
 - [ ] **Step 1: Add the table definition**
 
@@ -53,7 +56,7 @@ export const communityInquiries = pgTable("community_inquiries", {
 
 - [ ] **Step 2: Add type export to definitions**
 
-Add to `src/lib/definitions.ts`:
+Replace `src/lib/definitions.ts` with:
 
 ```ts
 import { communities, customers, communityInquiries } from "@/db/schema";
@@ -61,9 +64,34 @@ import { communities, customers, communityInquiries } from "@/db/schema";
 export type Community = typeof communities.$inferSelect;
 export type Customer = typeof customers.$inferSelect;
 export type CommunityInquiry = typeof communityInquiries.$inferSelect;
+
+export type MailingAddress = {
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+};
 ```
 
-- [ ] **Step 3: Generate migration and push to database**
+- [ ] **Step 3: Create Zod validation schema**
+
+Create `src/lib/schemas.ts`:
+
+```ts
+import { z } from "zod";
+
+export const communityInquirySchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  careHomeName: z.string().min(1, "Care home name is required"),
+  address: z.string().min(1, "Address is required"),
+  phone: z.string().optional().default(""),
+  email: z.string().email("Please enter a valid email address"),
+});
+
+export type CommunityInquiryFormData = z.infer<typeof communityInquirySchema>;
+```
+
+- [ ] **Step 4: Generate migration and push to database**
 
 ```bash
 pnpm db:generate && pnpm db:push
@@ -71,20 +99,13 @@ pnpm db:generate && pnpm db:push
 
 Expected: New migration file in `drizzle/` and table created in Neon.
 
-- [ ] **Step 4: Verify build**
+- [ ] **Step 5: Verify build**
 
 ```bash
 pnpm build
 ```
 
 Expected: Build succeeds with no errors.
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add src/db/schema.ts src/lib/definitions.ts drizzle/
-git commit -m "feat: add community_inquiries table"
-```
 
 ---
 
@@ -95,12 +116,16 @@ git commit -m "feat: add community_inquiries table"
 
 - [ ] **Step 1: Add the server action**
 
-Add this to `src/app/actions.ts`. Keep the existing `searchAddresses` and `updateCommunity` actions — they're still used elsewhere. Add the new import for `communityInquiries` at the top.
-
-Update the import line:
+Update the import line at the top of `src/app/actions.ts`:
 
 ```ts
 import { communities, communityInquiries } from "@/db/schema";
+```
+
+Add this import near the top:
+
+```ts
+import { communityInquirySchema } from "@/lib/schemas";
 ```
 
 Add the new action at the bottom of the file:
@@ -110,26 +135,29 @@ export async function submitCommunityInquiry(data: {
   name: string;
   careHomeName: string;
   address: string;
-  phone: string;
+  phone?: string;
   email: string;
 }) {
-  if (!data.name || !data.careHomeName || !data.address || !data.email) {
-    return { success: false, error: "Please fill in all required fields." };
+  const parsed = communityInquirySchema.safeParse(data);
+
+  if (!parsed.success) {
+    const firstError = parsed.error.errors[0]?.message ?? "Invalid input.";
+    return { success: false as const, error: firstError };
   }
 
   try {
     await db.insert(communityInquiries).values({
-      name: data.name,
-      careHomeName: data.careHomeName,
-      address: data.address,
-      phone: data.phone || null,
-      email: data.email,
+      name: parsed.data.name,
+      careHomeName: parsed.data.careHomeName,
+      address: parsed.data.address,
+      phone: parsed.data.phone || null,
+      email: parsed.data.email,
     });
 
-    return { success: true };
+    return { success: true as const };
   } catch (e) {
     console.error(e);
-    return { success: false, error: "Something went wrong. Please try again." };
+    return { success: false as const, error: "Something went wrong. Please try again." };
   }
 }
 ```
@@ -142,13 +170,6 @@ pnpm build
 
 Expected: Build succeeds.
 
-- [ ] **Step 3: Commit**
-
-```bash
-git add src/app/actions.ts
-git commit -m "feat: add submitCommunityInquiry server action"
-```
-
 ---
 
 ### Task 3: Create the contact form component
@@ -158,51 +179,56 @@ git commit -m "feat: add submitCommunityInquiry server action"
 
 - [ ] **Step 1: Create the form component**
 
-Create `src/components/community-form.tsx`. This is a `"use client"` component that handles form state, validation, and submission via the `submitCommunityInquiry` server action. It renders inside the white form card on the right column of the page.
+Create `src/components/community-form.tsx`. Uses React Hook Form with `zodResolver`, shadcn `Field`/`FieldLabel`/`FieldError` for accessible field wrappers, `Input` for inputs, and `Button` for submit.
 
 ```tsx
 "use client";
 
 import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { communityInquirySchema, type CommunityInquiryFormData } from "@/lib/schemas";
 import { submitCommunityInquiry } from "@/app/actions";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Field, FieldLabel, FieldError } from "@/components/ui/field";
 
 export default function CommunityForm() {
-  const [form, setForm] = useState({
-    name: "",
-    careHomeName: "",
-    address: "",
-    phone: "",
-    email: "",
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [submitError, setSubmitError] = useState("");
+
+  const form = useForm<CommunityInquiryFormData>({
+    resolver: zodResolver(communityInquirySchema),
+    defaultValues: {
+      name: "",
+      careHomeName: "",
+      address: "",
+      phone: "",
+      email: "",
+    },
   });
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [error, setError] = useState("");
 
-  function update(field: string, value: string) {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  }
+  async function onSubmit(data: CommunityInquiryFormData) {
+    setSubmitStatus("loading");
+    setSubmitError("");
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setStatus("loading");
-    setError("");
-
-    const result = await submitCommunityInquiry(form);
+    const result = await submitCommunityInquiry(data);
 
     if (result.success) {
-      setStatus("success");
+      setSubmitStatus("success");
     } else {
-      setStatus("error");
-      setError(result.error ?? "Something went wrong.");
+      setSubmitStatus("error");
+      setSubmitError(result.error);
     }
   }
 
-  if (status === "success") {
+  if (submitStatus === "success") {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
         <h3 className="font-heading text-xl font-medium text-foreground mb-2">
           Thanks for reaching out!
         </h3>
-        <p className="text-sm text-[hsl(var(--muted))]">
+        <p className="text-sm text-muted-foreground">
           We&apos;ll be in touch soon.
         </p>
       </div>
@@ -210,93 +236,113 @@ export default function CommunityForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
-      <div>
-        <label htmlFor="name" className="block text-[11px] font-medium text-foreground mb-1.5">
-          Your name
-        </label>
-        <input
-          id="name"
-          type="text"
-          required
-          value={form.name}
-          onChange={(e) => update("name", e.target.value)}
-          placeholder="Jane Smith"
-          className="w-full rounded-lg border border-[hsl(var(--border))] bg-white px-3 py-2.5 text-[13px] text-foreground placeholder:text-[hsl(var(--dot))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-transparent transition-shadow"
-        />
-      </div>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-3.5">
+      <Controller
+        name="name"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={field.name} className="text-[11px]">Your name</FieldLabel>
+            <Input
+              {...field}
+              id={field.name}
+              aria-invalid={fieldState.invalid}
+              placeholder="Jane Smith"
+              className="h-10 text-[13px]"
+            />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
 
-      <div>
-        <label htmlFor="careHomeName" className="block text-[11px] font-medium text-foreground mb-1.5">
-          Care home name
-        </label>
-        <input
-          id="careHomeName"
-          type="text"
-          required
-          value={form.careHomeName}
-          onChange={(e) => update("careHomeName", e.target.value)}
-          placeholder="Sunrise Adult Care Home"
-          className="w-full rounded-lg border border-[hsl(var(--border))] bg-white px-3 py-2.5 text-[13px] text-foreground placeholder:text-[hsl(var(--dot))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-transparent transition-shadow"
-        />
-      </div>
+      <Controller
+        name="careHomeName"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={field.name} className="text-[11px]">Care home name</FieldLabel>
+            <Input
+              {...field}
+              id={field.name}
+              aria-invalid={fieldState.invalid}
+              placeholder="Sunrise Adult Care Home"
+              className="h-10 text-[13px]"
+            />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
 
-      <div>
-        <label htmlFor="address" className="block text-[11px] font-medium text-foreground mb-1.5">
-          Care home address
-        </label>
-        <input
-          id="address"
-          type="text"
-          required
-          value={form.address}
-          onChange={(e) => update("address", e.target.value)}
-          placeholder="1234 SE Hawthorne Blvd, Portland, OR 97214"
-          className="w-full rounded-lg border border-[hsl(var(--border))] bg-white px-3 py-2.5 text-[13px] text-foreground placeholder:text-[hsl(var(--dot))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-transparent transition-shadow"
-        />
-      </div>
+      <Controller
+        name="address"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid}>
+            <FieldLabel htmlFor={field.name} className="text-[11px]">Care home address</FieldLabel>
+            <Input
+              {...field}
+              id={field.name}
+              aria-invalid={fieldState.invalid}
+              placeholder="1234 SE Hawthorne Blvd, Portland, OR 97214"
+              className="h-10 text-[13px]"
+            />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
 
       <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label htmlFor="phone" className="block text-[11px] font-medium text-foreground mb-1.5">
-            Phone
-          </label>
-          <input
-            id="phone"
-            type="tel"
-            value={form.phone}
-            onChange={(e) => update("phone", e.target.value)}
-            placeholder="(503) 555-1234"
-            className="w-full rounded-lg border border-[hsl(var(--border))] bg-white px-3 py-2.5 text-[13px] text-foreground placeholder:text-[hsl(var(--dot))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-transparent transition-shadow"
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="block text-[11px] font-medium text-foreground mb-1.5">
-            Email
-          </label>
-          <input
-            id="email"
-            type="email"
-            required
-            value={form.email}
-            onChange={(e) => update("email", e.target.value)}
-            placeholder="jane@sunrise.com"
-            className="w-full rounded-lg border border-[hsl(var(--border))] bg-white px-3 py-2.5 text-[13px] text-foreground placeholder:text-[hsl(var(--dot))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))] focus:border-transparent transition-shadow"
-          />
-        </div>
+        <Controller
+          name="phone"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor={field.name} className="text-[11px]">Phone</FieldLabel>
+              <Input
+                {...field}
+                id={field.name}
+                type="tel"
+                aria-invalid={fieldState.invalid}
+                placeholder="(503) 555-1234"
+                className="h-10 text-[13px]"
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+
+        <Controller
+          name="email"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel htmlFor={field.name} className="text-[11px]">Email</FieldLabel>
+              <Input
+                {...field}
+                id={field.name}
+                type="email"
+                aria-invalid={fieldState.invalid}
+                placeholder="jane@sunrise.com"
+                className="h-10 text-[13px]"
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
       </div>
 
-      {status === "error" && (
-        <p className="text-sm text-red-600">{error}</p>
+      {submitStatus === "error" && (
+        <p className="text-sm text-destructive">{submitError}</p>
       )}
 
-      <button
+      <Button
         type="submit"
-        disabled={status === "loading"}
-        className="w-full bg-foreground text-[hsl(var(--background))] text-[13px] font-semibold py-3 rounded-lg hover:bg-foreground/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-1"
+        disabled={submitStatus === "loading"}
+        size="lg"
+        className="w-full mt-1"
       >
-        {status === "loading" ? "Submitting..." : "Submit"}
-      </button>
+        {submitStatus === "loading" ? "Submitting..." : "Submit"}
+      </Button>
     </form>
   );
 }
@@ -308,14 +354,7 @@ export default function CommunityForm() {
 pnpm build
 ```
 
-Expected: Build succeeds (component is not imported yet, but should compile).
-
-- [ ] **Step 3: Commit**
-
-```bash
-git add src/components/community-form.tsx
-git commit -m "feat: add community contact form component"
-```
+Expected: Build succeeds.
 
 ---
 
@@ -428,13 +467,6 @@ pnpm build
 
 Expected: Build succeeds. `/community` route compiles.
 
-- [ ] **Step 3: Commit**
-
-```bash
-git add src/app/\(public\)/community/page.tsx
-git commit -m "feat: redesign community page with split layout"
-```
-
 ---
 
 ### Task 5: Delete old components and clean up
@@ -449,15 +481,13 @@ git commit -m "feat: redesign community page with split layout"
 rm src/components/community-contact.tsx src/components/community-join-us.tsx
 ```
 
-These are no longer imported anywhere — the community page was fully rewritten in Task 4.
-
 - [ ] **Step 2: Verify no remaining imports**
 
 ```bash
 grep -r "community-contact\|community-join-us" src/
 ```
 
-Expected: No results. If any results appear, update those files to remove the dead imports.
+Expected: No results.
 
 - [ ] **Step 3: Verify build**
 
@@ -466,13 +496,6 @@ pnpm build
 ```
 
 Expected: Build succeeds with no errors.
-
-- [ ] **Step 4: Commit**
-
-```bash
-git add -u src/components/community-contact.tsx src/components/community-join-us.tsx
-git commit -m "chore: remove old community components"
-```
 
 ---
 
@@ -483,8 +506,8 @@ After all tasks are complete:
 - [ ] `pnpm build` succeeds
 - [ ] `/community` loads the new split layout with form on the right
 - [ ] Form submits successfully and creates a row in `community_inquiries` table
-- [ ] Required field validation works (empty name/careHomeName/address/email rejected by browser)
-- [ ] Server-side validation returns error if required fields are empty
+- [ ] Zod validation catches invalid email client-side before hitting the server
+- [ ] Server-side Zod validation returns error if required fields are empty
 - [ ] Success state shows "Thanks for reaching out!" message
 - [ ] `/` landing page still works
 - [ ] `/customer` page still works

@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { SignOutButton } from "./sign-out-button";
+import SidebarNav from "./components/sidebar-nav";
 
 export default async function DashboardLayout({
   children,
@@ -39,19 +40,8 @@ export default async function DashboardLayout({
       </header>
 
       <div className="flex">
-        {/* Placeholder sidebar */}
         <aside className="hidden md:block w-56 shrink-0 border-r border-[hsl(var(--border))] bg-white min-h-[calc(100vh-53px)]">
-          <nav className="p-4">
-            <p className="text-xs font-medium text-[hsl(var(--faint))] uppercase tracking-wider mb-3">
-              Menu
-            </p>
-            <Link
-              href="/dashboard"
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-foreground bg-[hsl(var(--background))]"
-            >
-              Dashboard
-            </Link>
-          </nav>
+          <SidebarNav userRole={(session.user as { role?: string }).role} />
         </aside>
 
         {/* Main content */}

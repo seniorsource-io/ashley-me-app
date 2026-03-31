@@ -1,5 +1,3 @@
-@config "../../tailwind.config.ts";
-
 @import "tailwindcss";
 
 @import "tw-animate-css";
@@ -75,6 +73,7 @@ body {
 
 @theme inline {
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-heading), Georgia, serif;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -82,8 +81,8 @@ body {
   --color-primary-foreground: hsl(var(--primary-foreground));
   --color-secondary: hsl(var(--secondary));
   --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-muted: hsl(var(--secondary));
+  --color-muted-foreground: hsl(var(--muted));
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
   --color-card: hsl(var(--card));
@@ -92,6 +91,14 @@ body {
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
 
+  /* Accent — shadcn dropdown/select focus states */
+  --color-accent: hsl(var(--secondary));
+  --color-accent-foreground: hsl(var(--foreground));
+
+  /* Popover — shadcn dialog, dropdown, select */
+  --color-popover: hsl(var(--card));
+  --color-popover-foreground: hsl(var(--card-foreground));
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -99,6 +106,10 @@ body {
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Shadows */
+  --shadow-card: var(--shadow-card);
+  --shadow-soft: var(--shadow-soft);
 }
 
 @layer base {

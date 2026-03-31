@@ -15,6 +15,13 @@
       "when": 1774937627975,
       "tag": "0001_tired_galactus",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1774999736603,
+      "tag": "0002_curved_marrow",
+      "breakpoints": true
     }
   ]
 }
