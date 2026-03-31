@@ -1,7 +1,8 @@
 "use server";
 
 import { db } from "@/db";
-import { communities } from "@/db/schema";
+import { communities, communityInquiries } from "@/db/schema";
+import { communityInquirySchema } from "@/lib/schemas";
 import { ilike, eq } from "drizzle-orm";
 import type { Community } from "@/lib/definitions";
 
@@ -35,5 +36,38 @@ export async function updateCommunity(
   } catch (e) {
     console.error(e);
     return { success: false, error: "Database update failed." };
+  }
+}
+
+export async function submitCommunityInquiry(data: {
+  name: string;
+  careHomeName: string;
+  address: string;
+  phone?: string;
+  email: string;
+}) {
+  const parsed = communityInquirySchema.safeParse(data);
+
+  if (!parsed.success) {
+    const firstError = parsed.error.issues[0]?.message ?? "Invalid input.";
+    return { success: false as const, error: firstError };
+  }
+
+  try {
+    await db.insert(communityInquiries).values({
+      name: parsed.data.name,
+      careHomeName: parsed.data.careHomeName,
+      address: parsed.data.address,
+      phone: parsed.data.phone || null,
+      email: parsed.data.email,
+    });
+
+    return { success: true as const };
+  } catch (e) {
+    console.error(e);
+    return {
+      success: false as const,
+      error: "Something went wrong. Please try again.",
+    };
   }
 }

@@ -1,4 +1,12 @@
-import { pgTable, uuid, text, boolean, integer, timestamp, jsonb } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  uuid,
+  text,
+  boolean,
+  integer,
+  timestamp,
+  jsonb,
+} from "drizzle-orm/pg-core";
 
 // ── Better Auth tables ──────────────────────────────────────────────────────
 
@@ -57,7 +65,9 @@ export const verification = pgTable("verification", {
 export const communities = pgTable("communities", {
   id: uuid("id").defaultRandom().primaryKey(),
   classification: text("classification"),
-  status: text("status", { enum: ["open", "closed"] }).default("open").notNull(),
+  status: text("status", { enum: ["open", "closed"] })
+    .default("open")
+    .notNull(),
   address: text("address").notNull(),
   city: text("city").notNull(),
   state: text("state").notNull(),
@@ -69,7 +79,9 @@ export const communities = pgTable("communities", {
   licenseNumber: text("license_number"),
   firstname: text("firstname"),
   lastname: text("lastname"),
-  genderRestriction: text("gender_restriction", { enum: ["male", "female", "both"] }),
+  genderRestriction: text("gender_restriction", {
+    enum: ["male", "female", "both"],
+  }),
   hasMedicaidContract: boolean("has_medicaid_contract"),
   medicaidSpendDown: text("medicaid_spend_down"),
   monthlyBasePrice: integer("monthly_base_price"),
@@ -92,6 +104,22 @@ export const communities = pgTable("communities", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const communityInquiries = pgTable("community_inquiries", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  careHomeName: text("care_home_name").notNull(),
+  address: text("address").notNull(),
+  phone: text("phone"),
+  email: text("email").notNull(),
+  status: text("status", {
+    enum: ["new", "contacted", "joined", "closed"],
+  })
+    .default("new")
+    .notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 export const customers = pgTable("customers", {
   id: uuid("id").defaultRandom().primaryKey(),
   firstName: text("first_name").notNull(),
@@ -99,10 +127,27 @@ export const customers = pgTable("customers", {
   email: text("email").notNull(),
   mobilePhone: text("mobile_phone"),
   status: text("status", {
-    enum: ["new", "qualified", "searching", "placed", "moved", "invoiced", "closed"],
-  }).default("new").notNull(),
+    enum: [
+      "new",
+      "qualified",
+      "searching",
+      "placed",
+      "moved",
+      "invoiced",
+      "closed",
+    ],
+  })
+    .default("new")
+    .notNull(),
   closedReason: text("closed_reason", {
-    enum: ["paid", "deceased", "terminated", "duplicate", "financial_inability", "other"],
+    enum: [
+      "paid",
+      "deceased",
+      "terminated",
+      "duplicate",
+      "financial_inability",
+      "other",
+    ],
   }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
