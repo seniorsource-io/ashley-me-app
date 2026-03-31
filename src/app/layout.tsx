@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { EB_Garamond, Inter, Geist } from "next/font/google";
+import { EB_Garamond, Inter } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const garamond = EB_Garamond({
   subsets: ["latin"],
@@ -29,7 +26,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={cn(garamond.variable, inter.variable, "font-sans", geist.variable)}>
+    <html lang="en" className={`${garamond.variable} ${inter.variable}`}>
       <body>{children}</body>
     </html>
   );
