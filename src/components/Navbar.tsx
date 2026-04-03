@@ -36,10 +36,10 @@ const Navbar = () => {
             <div className="flex flex-col justify-center">
               <span className="font-heading text-2xl font-bold text-foreground tracking-tight leading-tight">
                 <span className="text-nowrap">Ashley Krause</span>
-                <span className="text-foreground/20 font-light px-2 max-[480px]:hidden">|</span>
-                <span className="text-primary max-[480px]:hidden inline-block whitespace-nowrap">Senior One Source</span>
+                <span className="text-foreground/20 font-light px-2 max-[1280px]:hidden">|</span>
+                <span className="text-primary max-[1280px]:hidden inline-block whitespace-nowrap">Senior One Source</span>
               </span>
-              <span className="text-md text-secondary-foreground tracking-wider mt-1">
+              <span className="text-sm text-secondary-foreground tracking-wider mt-1">
                 Your Trusted Senior Living Advisor
               </span>
             </div>
@@ -47,7 +47,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="flex-1 hidden min-[1300px]:flex items-center justify-end gap-8 text-secondary-foreground">
+        <div className="flex-1 hidden min-[1130px]:flex items-center justify-end gap-8 text-secondary-foreground">
           {navLinks.map((link) => (
             <a
               key={link.label}
@@ -74,7 +74,7 @@ const Navbar = () => {
 
         {/* Mobile Toggle */}
         <button
-          className="min-[1160px]:hidden text-foreground ml-4"
+          className="min-[1130px]:hidden text-foreground ml-4"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="Toggle menu"
         >
@@ -86,7 +86,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {
         isOpen && (
-          <div className="min-[1160px]:hidden bg-background border-b border-border px-6 pb-6">
+          <div className="min-[1130px]:hidden bg-background border-b border-border px-6 pb-6">
             {navLinks.map((link) => (
               <a
                 key={link.label}
