@@ -63,11 +63,11 @@ const Navbar = () => {
             className="gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer p-3" 
           >
             <a
-              href="tel:5033831442"
-              aria-label="Call Ashley Krause at 503-383-1442"
+              href="tel:9719838363"
+              aria-label="Call Ashley Krause at 971-983-8363"
             >
               <Phone className="w-4 h-4" />
-              (503) 383-1442
+              (971) 983-8363
             </a>
           </Button>
         </div>
@@ -103,11 +103,11 @@ const Navbar = () => {
               className="mt-3 gap-2 shrink-0 relative z-50 hover:bg-primary/80 cursor-pointer p-2"
             >
               <a
-                href="tel:5033831442"
-                aria-label="Call Ashley Krause at 503-383-1442"
+                href="tel:9719838363"
+                aria-label="Call Ashley Krause at 971-983-8363"
               >
                 <Phone className="w-4 h-4" />
-                (503) 383-1442
+                (971) 983-8363
               </a>
             </Button>
           </div>

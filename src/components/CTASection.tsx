@@ -68,10 +68,10 @@ const CTASection = () => {
                 </div>
               </a>
               <a
-                href="tel:5033831442"
+                href="tel:9719838363"
                 /* 1. Added 'group' to the parent */
                 className="group cursor-pointer block"
-                aria-label="Call Ashley Krause at 503-383-1442"
+                aria-label="Call Ashley Krause at 971-983-8363"
               >
                 <div className="flex flex-col items-center text-center gap-3">
                   {/* 2. Icon circle grows slightly and gets darker on hover */}
@@ -84,7 +84,7 @@ const CTASection = () => {
                     </p>
                     {/* 3. Phone number turns darker/primary on hover */}
                     <p className="text-secondary-foreground text-sm transition-colors group-hover:text-primary">
-                      (503) 383-1442
+                      (971) 983-8363
                     </p>
                   </div>
                 </div>
