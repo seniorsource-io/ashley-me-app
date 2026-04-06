@@ -1,0 +1,10 @@
+var R=require("../../../../chunks/[turbopack]_runtime.js")("server/app/api/auth/[...all]/route.js")
+R.c("server/chunks/[root-of-the-server]__70af9658._.js")
+R.c("server/chunks/92212_kysely_dist_esm_e137c630._.js")
+R.c("server/chunks/node_modules__pnpm_9aed9bda._.js")
+R.c("server/chunks/92212_kysely_dist_esm_8299c9f2._.js")
+R.c("server/chunks/[root-of-the-server]__07a1a20d._.js")
+R.c("server/chunks/5a824_@better-auth_kysely-adapter_dist_index_mjs_35a6d7e3._.js")
+R.c("server/chunks/apps_crm__next-internal_server_app_api_auth_[___all]_route_actions_c35a4955.js")
+R.m(3224)
+module.exports=R.m(3224).exports

@@ -1,0 +1,20 @@
+{
+  "node": {
+    "409d425d9925d936a8337558fd8975a0aab83bd4b9": {
+      "workers": {
+        "app/community/page": {
+          "moduleId": 63596,
+          "async": false,
+          "exportedName": "submitCommunityInquiry",
+          "filename": "apps/web/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/community/page": "action-browser"
+      },
+      "exportedName": "submitCommunityInquiry",
+      "filename": "apps/web/src/app/actions.ts"
+    }
+  },
+  "edge": {}
+}

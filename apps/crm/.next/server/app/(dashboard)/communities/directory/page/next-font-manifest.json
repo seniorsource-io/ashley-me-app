@@ -1,0 +1,12 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/apps/crm/src/app/(dashboard)/communities/directory/page": [
+      "static/media/4ee71d90e0f663bd-s.p.476c4761.woff2",
+      "static/media/e4505858a30c79c2-s.p.0f58a291.woff2",
+      "static/media/83afe278b6a6bb3c-s.p.3a6ba036.woff2"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}

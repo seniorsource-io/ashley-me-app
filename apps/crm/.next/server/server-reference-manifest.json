@@ -1,0 +1,81 @@
+{
+  "node": {
+    "70a0ddb028e769eb3de1e7661a21384398e1480a48": {
+      "workers": {
+        "app/(dashboard)/clients/[id]/page": {
+          "moduleId": 87247,
+          "async": false,
+          "exportedName": "updateClientStatus",
+          "filename": "apps/crm/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/(dashboard)/clients/[id]/page": "action-browser"
+      },
+      "filename": "apps/crm/src/app/actions.ts",
+      "exportedName": "updateClientStatus"
+    },
+    "603727befca943080776d87aea65a2ce13490eee48": {
+      "workers": {
+        "app/(dashboard)/communities/inquiries/[id]/page": {
+          "moduleId": 89795,
+          "async": false,
+          "exportedName": "updateInquiryStatus",
+          "filename": "apps/crm/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/(dashboard)/communities/inquiries/[id]/page": "action-browser"
+      },
+      "filename": "apps/crm/src/app/actions.ts",
+      "exportedName": "updateInquiryStatus"
+    },
+    "403a3929af2922b1be6f94b61d9afae034c03328bd": {
+      "workers": {
+        "app/(dashboard)/team/page": {
+          "moduleId": 66782,
+          "async": false,
+          "exportedName": "createTeamMember",
+          "filename": "apps/crm/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/(dashboard)/team/page": "action-browser"
+      },
+      "filename": "apps/crm/src/app/actions.ts",
+      "exportedName": "createTeamMember"
+    },
+    "6048fcadb2f700b58141496b7d46851e32be0b985e": {
+      "workers": {
+        "app/(dashboard)/team/page": {
+          "moduleId": 66782,
+          "async": false,
+          "exportedName": "updateTeamMemberRole",
+          "filename": "apps/crm/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/(dashboard)/team/page": "action-browser"
+      },
+      "filename": "apps/crm/src/app/actions.ts",
+      "exportedName": "updateTeamMemberRole"
+    },
+    "40d8eaa587750f9d81d134cab54122db9745c57c0c": {
+      "workers": {
+        "app/(dashboard)/team/page": {
+          "moduleId": 66782,
+          "async": false,
+          "exportedName": "removeTeamMember",
+          "filename": "apps/crm/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/(dashboard)/team/page": "action-browser"
+      },
+      "filename": "apps/crm/src/app/actions.ts",
+      "exportedName": "removeTeamMember"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "zFpXn2pf7JLkPoeQhON4ozMOkuwnf0nLlC05X+LRg/w="
+}

@@ -1,0 +1,3 @@
+{
+  "/(dashboard)/communities/directory/[id]/page": "app/(dashboard)/communities/directory/[id]/page.js"
+}

@@ -16,7 +16,7 @@ import {
   inspections,
   violations,
   regulatoryActions,
-} from "../src/db/schema";
+} from "@repo/db/schema";
 
 const db = drizzle(neon(process.env.DATABASE_URL!));
 

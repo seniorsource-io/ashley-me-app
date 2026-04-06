@@ -1,0 +1,20 @@
+{
+  "node": {
+    "40ba6132f0acb33bb49f1351335e3bb52cafabf906": {
+      "workers": {
+        "app/customer/page": {
+          "moduleId": 38339,
+          "async": false,
+          "exportedName": "submitCustomerIntake",
+          "filename": "apps/web/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/customer/page": "action-browser"
+      },
+      "exportedName": "submitCustomerIntake",
+      "filename": "apps/web/src/app/actions.ts"
+    }
+  },
+  "edge": {}
+}

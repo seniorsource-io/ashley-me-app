@@ -1,0 +1,15 @@
+{
+  "/(auth)/login/page": "app/(auth)/login/page.js",
+  "/(auth)/signup/page": "app/(auth)/signup/page.js",
+  "/(dashboard)/clients/[id]/page": "app/(dashboard)/clients/[id]/page.js",
+  "/(dashboard)/clients/page": "app/(dashboard)/clients/page.js",
+  "/(dashboard)/communities/directory/[id]/page": "app/(dashboard)/communities/directory/[id]/page.js",
+  "/(dashboard)/communities/directory/page": "app/(dashboard)/communities/directory/page.js",
+  "/(dashboard)/communities/inquiries/[id]/page": "app/(dashboard)/communities/inquiries/[id]/page.js",
+  "/(dashboard)/communities/inquiries/page": "app/(dashboard)/communities/inquiries/page.js",
+  "/(dashboard)/page": "app/(dashboard)/page.js",
+  "/(dashboard)/team/page": "app/(dashboard)/team/page.js",
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/api/auth/[...all]/route": "app/api/auth/[...all]/route.js"
+}

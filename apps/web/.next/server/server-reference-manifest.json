@@ -1,0 +1,36 @@
+{
+  "node": {
+    "409d425d9925d936a8337558fd8975a0aab83bd4b9": {
+      "workers": {
+        "app/community/page": {
+          "moduleId": 63596,
+          "async": false,
+          "exportedName": "submitCommunityInquiry",
+          "filename": "apps/web/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/community/page": "action-browser"
+      },
+      "filename": "apps/web/src/app/actions.ts",
+      "exportedName": "submitCommunityInquiry"
+    },
+    "40ba6132f0acb33bb49f1351335e3bb52cafabf906": {
+      "workers": {
+        "app/customer/page": {
+          "moduleId": 38339,
+          "async": false,
+          "exportedName": "submitCustomerIntake",
+          "filename": "apps/web/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/customer/page": "action-browser"
+      },
+      "filename": "apps/web/src/app/actions.ts",
+      "exportedName": "submitCustomerIntake"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "CPXjxqJccZqL3Tb9izRJB5VavYkdtsf5+JmUzurKArI="
+}

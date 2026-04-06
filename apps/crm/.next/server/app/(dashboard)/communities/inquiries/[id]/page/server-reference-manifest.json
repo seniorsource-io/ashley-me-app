@@ -1,0 +1,20 @@
+{
+  "node": {
+    "603727befca943080776d87aea65a2ce13490eee48": {
+      "workers": {
+        "app/(dashboard)/communities/inquiries/[id]/page": {
+          "moduleId": 89795,
+          "async": false,
+          "exportedName": "updateInquiryStatus",
+          "filename": "apps/crm/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/(dashboard)/communities/inquiries/[id]/page": "action-browser"
+      },
+      "exportedName": "updateInquiryStatus",
+      "filename": "apps/crm/src/app/actions.ts"
+    }
+  },
+  "edge": {}
+}

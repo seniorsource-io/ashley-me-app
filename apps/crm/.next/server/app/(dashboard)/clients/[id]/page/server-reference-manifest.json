@@ -1,0 +1,20 @@
+{
+  "node": {
+    "70a0ddb028e769eb3de1e7661a21384398e1480a48": {
+      "workers": {
+        "app/(dashboard)/clients/[id]/page": {
+          "moduleId": 87247,
+          "async": false,
+          "exportedName": "updateClientStatus",
+          "filename": "apps/crm/src/app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/(dashboard)/clients/[id]/page": "action-browser"
+      },
+      "exportedName": "updateClientStatus",
+      "filename": "apps/crm/src/app/actions.ts"
+    }
+  },
+  "edge": {}
+}

@@ -1,0 +1,15 @@
+{
+  "/(auth)/login/page": "/login",
+  "/(auth)/signup/page": "/signup",
+  "/(dashboard)/clients/[id]/page": "/clients/[id]",
+  "/(dashboard)/clients/page": "/clients",
+  "/(dashboard)/communities/directory/[id]/page": "/communities/directory/[id]",
+  "/(dashboard)/communities/directory/page": "/communities/directory",
+  "/(dashboard)/communities/inquiries/[id]/page": "/communities/inquiries/[id]",
+  "/(dashboard)/communities/inquiries/page": "/communities/inquiries",
+  "/(dashboard)/page": "/",
+  "/(dashboard)/team/page": "/team",
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/api/auth/[...all]/route": "/api/auth/[...all]"
+}
