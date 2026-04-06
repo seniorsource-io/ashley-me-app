@@ -70,6 +70,7 @@ export const verification = pgTable("verification", {
 export const communities = pgTable("communities", {
   id: uuid("id").defaultRandom().primaryKey(),
   classification: text("classification"),
+  type: text("type"),
   status: text("status", { enum: ["open", "closed"] })
     .default("open")
     .notNull(),
@@ -77,6 +78,7 @@ export const communities = pgTable("communities", {
   city: text("city").notNull(),
   state: text("state").notNull(),
   zip: text("zip").notNull(),
+  county: text("county"),
   phone: text("phone"),
   email: text("email"),
   isAbuseFree: boolean("is_abuse_free"),
@@ -89,6 +91,8 @@ export const communities = pgTable("communities", {
   }),
   hasMedicaidContract: boolean("has_medicaid_contract"),
   medicaidSpendDown: text("medicaid_spend_down"),
+  licensedBeds: integer("licensed_beds"),
+  memoryCare: boolean("memory_care"),
   monthlyBasePrice: integer("monthly_base_price"),
   monthlyHighPrice: integer("monthly_high_price"),
   careServices: jsonb("care_services").$type<string[]>(),
@@ -156,4 +160,30 @@ export const customers = pgTable("customers", {
   }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+// ── Scraping tables ────────────────────────────────────────────────────────
+
+export const inspections = pgTable("inspections", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  providerIdNumber: text("provider_id_number").notNull(),
+  data: jsonb("data").$type<Record<string, string>>(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const violations = pgTable("violations", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  providerIdNumber: text("provider_id_number").notNull(),
+  violationType: text("violation_type", {
+    enum: ["abuse", "licensing"],
+  }).notNull(),
+  data: jsonb("data").$type<Record<string, string>>(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const regulatoryActions = pgTable("regulatory_actions", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  providerIdNumber: text("provider_id_number").notNull(),
+  data: jsonb("data").$type<Record<string, string>>(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });

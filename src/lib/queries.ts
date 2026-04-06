@@ -3,6 +3,9 @@ import {
   customers,
   communityInquiries,
   communities,
+  inspections,
+  violations,
+  regulatoryActions,
   user,
 } from "@/db/schema";
 import { desc, eq, count, sql, ilike, or } from "drizzle-orm";
@@ -132,6 +135,32 @@ export async function getCommunityById(id: string) {
     .from(communities)
     .where(eq(communities.id, id));
   return community ?? null;
+}
+
+// ── Inspections, violations, regulatory actions ──
+
+export async function getInspectionsByProvider(licenseNumber: string) {
+  return db
+    .select()
+    .from(inspections)
+    .where(eq(inspections.providerIdNumber, licenseNumber))
+    .orderBy(desc(inspections.createdAt));
+}
+
+export async function getViolationsByProvider(licenseNumber: string) {
+  return db
+    .select()
+    .from(violations)
+    .where(eq(violations.providerIdNumber, licenseNumber))
+    .orderBy(desc(violations.createdAt));
+}
+
+export async function getRegulatoryActionsByProvider(licenseNumber: string) {
+  return db
+    .select()
+    .from(regulatoryActions)
+    .where(eq(regulatoryActions.providerIdNumber, licenseNumber))
+    .orderBy(desc(regulatoryActions.createdAt));
 }
 
 // ── Team ──

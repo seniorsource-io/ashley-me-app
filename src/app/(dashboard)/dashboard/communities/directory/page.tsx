@@ -36,9 +36,9 @@ export default async function DirectoryPage({
             <TableRow>
               <TableHead>Name / Address</TableHead>
               <TableHead>City</TableHead>
-              <TableHead>Price Range</TableHead>
+              <TableHead>Beds</TableHead>
               <TableHead>Status</TableHead>
-              <TableHead>Compliance</TableHead>
+              <TableHead>Tags</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -46,7 +46,7 @@ export default async function DirectoryPage({
               <TableRow>
                 <TableCell
                   colSpan={5}
-                  className="text-center py-8 text-[hsl(var(--muted))]"
+                  className="py-8 text-center text-[hsl(var(--muted))]"
                 >
                   No communities found.
                 </TableCell>
@@ -71,11 +71,7 @@ export default async function DirectoryPage({
                     {c.city}
                   </TableCell>
                   <TableCell className="text-sm text-[hsl(var(--muted))]">
-                    {c.monthlyBasePrice && c.monthlyHighPrice
-                      ? `$${c.monthlyBasePrice.toLocaleString()} – $${c.monthlyHighPrice.toLocaleString()}`
-                      : c.monthlyBasePrice
-                        ? `From $${c.monthlyBasePrice.toLocaleString()}`
-                        : "—"}
+                    {c.licensedBeds ?? "—"}
                   </TableCell>
                   <TableCell>
                     <Badge
@@ -85,14 +81,24 @@ export default async function DirectoryPage({
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <div className="flex gap-1">
+                    <div className="flex gap-1 flex-wrap">
+                      {c.memoryCare && (
+                        <Badge className="border-0 bg-purple-100 text-[10px] text-purple-700">
+                          Memory Care
+                        </Badge>
+                      )}
+                      {c.hasMedicaidContract && (
+                        <Badge className="border-0 bg-blue-100 text-[10px] text-blue-700">
+                          Medicaid
+                        </Badge>
+                      )}
                       {c.isAbuseFree && (
-                        <Badge className="bg-green-100 text-green-700 border-0 text-[10px]">
+                        <Badge className="border-0 bg-green-100 text-[10px] text-green-700">
                           Abuse-free
                         </Badge>
                       )}
                       {c.isViolationFree && (
-                        <Badge className="bg-green-100 text-green-700 border-0 text-[10px]">
+                        <Badge className="border-0 bg-green-100 text-[10px] text-green-700">
                           Violation-free
                         </Badge>
                       )}
