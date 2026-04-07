@@ -60,8 +60,8 @@ export default function AboutSection() {
                   <MapPin className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-foreground text-sm">Based in Portland Metro area</p>
-                  <p className="text-secondary-foreground text-sm">Serving families beyond</p>
+                  <p className="font-heading font-semibold text-foreground text-sm">Based in Portland Metro</p>
+                  <p className="text-secondary-foreground text-sm">Serving families across the Pacific Northwest</p>
                 </div>
               </div>  
               <div className="flex items-start gap-3">
