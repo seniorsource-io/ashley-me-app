@@ -60,17 +60,17 @@ export default function AboutSection() {
                   <MapPin className="w-5 h-5 text-primary" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-foreground text-sm">Based in Lake Oswego</p>
-                  <p className="text-secondary-foreground text-sm">Portland metro area</p>
+                  <p className="font-heading font-semibold text-foreground text-sm">Based in Portland Metro area</p>
+                  <p className="text-secondary-foreground text-sm">Serving families beyond</p>
                 </div>
-              </div>
+              </div>  
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
                   <Heart className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <p className="font-heading font-semibold text-foreground text-sm">Community Experience</p>
-                  <p className="text-secondary-foreground text-sm">Onsite associate turned senior living advisor</p>
+                  <p className="text-secondary-foreground text-sm">Former community director turned senior living advisor</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -88,7 +88,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <p className="font-heading font-semibold text-foreground text-sm">Former Educator</p>
-                  <p className="text-secondary-foreground text-sm">Elementary school teacher</p>
+                  <p className="text-secondary-foreground text-sm">Special education teacher</p>
                 </div>
               </div>
             </div>
