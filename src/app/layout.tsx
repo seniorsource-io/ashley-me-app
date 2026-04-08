@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     url: "https://ashleykrause.me",
     siteName: "ashleykrause.me",
     images: [
-      {url: "https://ashleykrause.me/og-image.png", width: 996, height: 280, alt: "Ashley Krause"},
+      {url: "https://ashleykrause.me/og-image.png", width: 1200, height: 337, alt: "Ashley Krause"},
     ],
     locale: "en_US",
     type: "website",
