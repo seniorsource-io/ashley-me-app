@@ -8,6 +8,17 @@ const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 export const metadata: Metadata = {
   title: "Ashley Krause",
   description: "Ashley Krause, Senior Living Advisor",
+  openGraph: {
+    title: "Ashley Krause",
+    description: "Your Trusted Senior Living Advisor",
+    url: "https://ashleykrause.me",
+    siteName: "ashleykrause.me",
+    images: [
+      {url: "https://ashleykrause.me/og-image.png", width: 1340, height: 488, alt: "Ashley Krause"},
+    ],
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
