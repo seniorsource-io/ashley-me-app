@@ -23,6 +23,17 @@ export default function AboutSection() {
               height={80}
               className="w-24 h-24 rounded-lg object-cover object-top shrink-0 border-1 border-accent"
             />
+            <div className="flex flex-col justify-center">
+              <span className="font-heading text-2xl font-bold text-foreground tracking-tight leading-tight">
+                <span className="text-nowrap">Ashley Krause</span>
+                <span className="text-foreground/20 font-light px-2 max-[1280px]:hidden">|</span>
+                <span className="text-primary max-[1280px]:hidden inline-block whitespace-nowrap">Senior One Source</span>
+              </span>
+              <span className="text-sm text-secondary-foreground tracking-wider mt-1">
+                Your Trusted Senior Living Advisor
+              </span>
+            </div>
+            {/*
             <div>
               <span className="text-sm font-semibold uppercase tracking-widest text-primary mb-3 block">
                 About Me
@@ -31,6 +42,7 @@ export default function AboutSection() {
                 Meet Ashley
               </span>
             </div>
+            */}
           </motion.div>
 
           <motion.div
